@@ -1,0 +1,2211 @@
+[
+ {
+  "id": "skull",
+  "term": "Skull",
+  "section": "Skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cranium",
+  "term": "Cranium",
+  "section": "Skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "calvaria",
+  "term": "Calvaria",
+  "section": "Skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "parietal-bone",
+  "term": "Parietal bone",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "frontal-bone",
+  "term": "Frontal bone",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "external-sagittal-crest",
+  "term": "External sagittal crest",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "external-occipital-protuberance",
+  "term": "External occipital protuberance",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "nuchal-crest",
+  "term": "Nuchal crest",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "temporal-fossa",
+  "term": "Temporal fossa",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "temporal-bone",
+  "term": "Temporal bone",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "squamous-part-of-temporal-bone",
+  "term": "Squamous part of temporal bone",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "petrosal-part-of-the-temporal-bone",
+  "term": "Petrosal part of the temporal bone",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "zygomatic-process-of-temporal-bone",
+  "term": "Zygomatic process of temporal bone",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "basisphenoid-bone",
+  "term": "Basisphenoid bone",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "presphenoid-bone",
+  "term": "Presphenoid bone",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "nasal-bone",
+  "term": "Nasal bone",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "maxilla",
+  "term": "Maxilla",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "incisive-bone",
+  "term": "Incisive bone",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "nasal-aperture",
+  "term": "Nasal aperture",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "orbit",
+  "term": "Orbit",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface",
+  "sameAs": [
+   "orbit-2"
+  ]
+ },
+ {
+  "id": "orbital-ligament",
+  "term": "Orbital ligament",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "zygomatic-arch",
+  "term": "Zygomatic arch",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "pterygopalatine-fossa",
+  "term": "Pterygopalatine fossa",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "optic-canal",
+  "term": "Optic canal",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "orbital-fissure",
+  "term": "Orbital fissure",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "rostral-alar-foramen",
+  "term": "Rostral alar foramen",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "maxillary-foramen",
+  "term": "Maxillary foramen",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "fossa-for-lacrimal-sac",
+  "term": "Fossa for lacrimal sac",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "infraorbital-foramen",
+  "term": "Infraorbital foramen",
+  "section": "Dorsal and lateral surfaces of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "paracondylar-process",
+  "term": "Paracondylar process",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "occipital-bone",
+  "term": "Occipital bone",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "tympanic-part-of-temporal-bone",
+  "term": "Tympanic part of temporal bone",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "tympanic-bulla",
+  "term": "Tympanic bulla",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "external-acoustic-meatus-osseus",
+  "term": "External acoustic meatus (osseus)",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "promontory-of-petrous-part-of-the-tempor",
+  "term": "Promontory of petrous part of the temporal bone",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "mastoid-process-of-temporal-bone",
+  "term": "Mastoid process of temporal bone",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "alar-canal",
+  "term": "Alar canal",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "caudal-alar-foramen",
+  "term": "Caudal alar foramen",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "round-foramen",
+  "term": "Round foramen",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "oval-foramen",
+  "term": "Oval foramen",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "tympano-occipital-fissure",
+  "term": "Tympano-occipital fissure",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "hypoglossal-canal",
+  "term": "Hypoglossal canal",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "mandibular-fossa-of-zygomatic-process-of",
+  "term": "Mandibular fossa of zygomatic process of the temporal bone",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "retroarticular-process",
+  "term": "Retroarticular process",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "stylomastoid-foramen",
+  "term": "Stylomastoid foramen",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "hard-palate",
+  "term": "Hard palate",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "palatine-fissure",
+  "term": "Palatine fissure",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "choanae",
+  "term": "choanae",
+  "section": "Ventral surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "foramen-magnum",
+  "term": "Foramen magnum",
+  "section": "Caudal surface of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "mandible-group",
+  "term": "Mandible",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface",
+  "heading": true
+ },
+ {
+  "id": "mandibles",
+  "term": "Mandibles",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "body",
+  "term": "Body",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "ramus",
+  "term": "Ramus",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "masseteric-fossa",
+  "term": "Masseteric fossa",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "coronoid-process",
+  "term": "Coronoid process",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "mandibular-foramen",
+  "term": "Mandibular foramen",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "mandibular-canal",
+  "term": "Mandibular canal",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "mental-foramina",
+  "term": "Mental foramina",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "condylar-process",
+  "term": "Condylar process",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "temporomandibular-joint",
+  "term": "Temporomandibular joint",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "angular-process",
+  "term": "Angular process",
+  "section": "Mandible",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "hyoid-bones-group",
+  "term": "Hyoid bones",
+  "section": "Hyoid bones",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface",
+  "heading": true
+ },
+ {
+  "id": "hyoid-apparatus",
+  "term": "Hyoid apparatus",
+  "section": "Hyoid bones",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "basihyoid",
+  "term": "Basihyoid",
+  "section": "Hyoid bones",
+  "layer": "bone",
+  "parent": "hyoid-apparatus",
+  "view": "bisected"
+ },
+ {
+  "id": "teeth-group",
+  "term": "Teeth",
+  "section": "Teeth",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface",
+  "heading": true
+ },
+ {
+  "id": "incisor",
+  "term": "Incisor",
+  "section": "Teeth",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "canine",
+  "term": "Canine",
+  "section": "Teeth",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "premolar",
+  "term": "Premolar",
+  "section": "Teeth",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "molar",
+  "term": "Molar",
+  "section": "Teeth",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "superior-shearing-carnassial-tooth-4th-p",
+  "term": "Superior shearing (carnassial) tooth (4th premolar)",
+  "section": "Teeth",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "all-tooth-surfaces",
+  "term": "All tooth surfaces",
+  "section": "Teeth",
+  "layer": "bone",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cribriform-plate",
+  "term": "Cribriform plate",
+  "section": "Cavities of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "rostral-cranial-fossa",
+  "term": "Rostral cranial fossa",
+  "section": "Cavities of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "middle-cranial-fossa",
+  "term": "Middle cranial fossa",
+  "section": "Cavities of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "sella-turcica",
+  "term": "Sella turcica",
+  "section": "Cavities of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "caudal-cranial-fossa",
+  "term": "Caudal cranial fossa",
+  "section": "Cavities of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "canal-for-trigeminal-nerve",
+  "term": "Canal for trigeminal nerve",
+  "section": "Cavities of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "internal-acoustic-meatus",
+  "term": "Internal acoustic meatus",
+  "section": "Cavities of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "jugular-foramen",
+  "term": "Jugular foramen",
+  "section": "Cavities of the skull",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "nasal-cavity-group",
+  "term": "Nasal cavity",
+  "section": "Nasal cavity",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected",
+  "heading": true
+ },
+ {
+  "id": "nasal-septum",
+  "term": "Nasal septum",
+  "section": "Nasal cavity",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "dorsal-nasal-concha",
+  "term": "Dorsal nasal concha",
+  "section": "Nasal cavity",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "ventral-nasal-concha",
+  "term": "Ventral nasal concha",
+  "section": "Nasal cavity",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "ethmoidal-labyrinth",
+  "term": "Ethmoidal labyrinth",
+  "section": "Nasal cavity",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "ethmoid-bone",
+  "term": "Ethmoid bone",
+  "section": "Nasal cavity",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "dorsal-nasal-meatus",
+  "term": "Dorsal nasal meatus",
+  "section": "Nasal cavity",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "middle-nasal-meatus",
+  "term": "Middle nasal meatus",
+  "section": "Nasal cavity",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "ventral-nasal-meatus",
+  "term": "Ventral nasal meatus",
+  "section": "Nasal cavity",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "lateral-frontal-sinus",
+  "term": "Lateral frontal sinus",
+  "section": "Nasal cavity",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "maxillary-recess",
+  "term": "Maxillary recess",
+  "section": "Nasal cavity",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "intermandibular-articulation-mandibular-",
+  "term": "Intermandibular articulation (mandibular symphysis)",
+  "section": "Joints of the head",
+  "layer": "bone",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "philtrum",
+  "term": "Philtrum",
+  "section": "Structures of the head",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "superior-upper-lip",
+  "term": "Superior (upper) lip",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "inferior-lower-lip",
+  "term": "Inferior (lower) lip",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cheek-buccae",
+  "term": "Cheek (buccae)",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "nose",
+  "term": "Nose",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "platysma-m",
+  "term": "Platysma m.",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "orbicularis-oris-m",
+  "term": "Orbicularis oris m.",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "buccinator-m",
+  "term": "Buccinator m.",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "levator-nasolabialis-m",
+  "term": "Levator nasolabialis m.",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "naris",
+  "term": "Naris",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "nasal-vestibule-with-nasal-opening-of-na",
+  "term": "Nasal vestibule (with nasal opening of nasolacrimal duct – described later in your guide)",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "palpebrae",
+  "term": "Palpebrae",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "superior-palpebrae",
+  "term": "Superior palpebrae",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": "palpebrae",
+  "view": "surface"
+ },
+ {
+  "id": "inferior-palpebrae",
+  "term": "Inferior palpebrae",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": "palpebrae",
+  "view": "surface"
+ },
+ {
+  "id": "palpebral-fissure",
+  "term": "Palpebral fissure",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": "palpebrae",
+  "view": "surface"
+ },
+ {
+  "id": "medial-palpebral-commissure",
+  "term": "Medial palpebral commissure",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": "palpebrae",
+  "view": "surface"
+ },
+ {
+  "id": "lateral-palpebral-commissure",
+  "term": "Lateral palpebral commissure",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": "palpebrae",
+  "view": "surface"
+ },
+ {
+  "id": "lacrimal-gland",
+  "term": "Lacrimal gland",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface",
+  "sameAs": [
+   "lacrimal-gland-2"
+  ]
+ },
+ {
+  "id": "plica-semilunaris-third-eyelid",
+  "term": "Plica semilunaris (third eyelid)",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "orbicularis-oculi-m",
+  "term": "Orbicularis oculi m.",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "levator-palpebrae-superioris-m",
+  "term": "Levator palpebrae superioris m.",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface",
+  "sameAs": [
+   "levator-palpebrae-superioris-m-2"
+  ]
+ },
+ {
+  "id": "rostral-auricular-mm-know-them-as-a-grou",
+  "term": "Rostral auricular mm. (know them as a group)",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "scutiform-cartilage",
+  "term": "Scutiform cartilage",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "caudal-auricular-mm-know-them-as-a-group",
+  "term": "Caudal auricular mm. (know them as a group)",
+  "section": "Muscles of the face (and other facial structures)",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "oral-cavity-group",
+  "term": "Oral cavity",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface",
+  "heading": true,
+  "sameAs": [
+   "oral-cavity"
+  ]
+ },
+ {
+  "id": "oral-cavity",
+  "term": "Oral cavity",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface",
+  "sameAs": [
+   "oral-cavity-group"
+  ]
+ },
+ {
+  "id": "vestibule-of-the-oral-cavity",
+  "term": "Vestibule (of the oral cavity)",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "oral-cavity-proper",
+  "term": "Oral cavity proper",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "palatoglossal-arch",
+  "term": "Palatoglossal arch",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "tongue-root-body-apex",
+  "term": "Tongue (root, body, apex)",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "filiform-and-conical-papillae",
+  "term": "Filiform and conical papillae",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "vallate-papillae",
+  "term": "Vallate papillae",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "lingual-frenulum",
+  "term": "Lingual frenulum",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "lyssa",
+  "term": "Lyssa",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "sublingual-caruncle",
+  "term": "Sublingual caruncle",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "sublingual-fold",
+  "term": "Sublingual fold",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "mandibular-salivary-duct-don-t-need-to-d",
+  "term": "Mandibular salivary duct (don’t need to distinguish from major sublingual salivary duct)",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "major-sublingual-salivary-duct-don-t-nee",
+  "term": "Major sublingual salivary duct (don’t need to distinguish from mandibular salivary duct)",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "mandibular-salivary-gland",
+  "term": "Mandibular salivary gland",
+  "section": "Oral cavity",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "sublingual-salivary-gland-monostomatic-g",
+  "term": "Sublingual salivary gland (monostomatic gland)",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "parotid-salivary-gland",
+  "term": "Parotid salivary gland",
+  "section": "Oral cavity",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "parotid-duct",
+  "term": "Parotid duct",
+  "section": "Oral cavity",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "zygomatic-salivary-gland",
+  "term": "Zygomatic salivary gland",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "incisive-papilla",
+  "term": "Incisive papilla",
+  "section": "Oral cavity",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "pharynx-group",
+  "term": "Pharynx",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected",
+  "heading": true
+ },
+ {
+  "id": "soft-palate-not-a-bold-term-here",
+  "term": "Soft palate (not a bold term here)",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "oropharynx",
+  "term": "Oropharynx",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "palatine-tonsil",
+  "term": "Palatine tonsil",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "semilunar-fold",
+  "term": "Semilunar fold",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "nasal-opening-of-nasolacrimal-duct",
+  "term": "nasal opening of nasolacrimal duct",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "nasopharynx",
+  "term": "nasopharynx",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "laryngopharynx",
+  "term": "laryngopharynx",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "pharyngoesophageal-limen",
+  "term": "pharyngoesophageal limen",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "cricopharyngeus-m",
+  "term": "cricopharyngeus m.",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "thyropharyngeus-m",
+  "term": "thyropharyngeus m.",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "hyopharyngeus-m",
+  "term": "hyopharyngeus m.",
+  "section": "Pharynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "larynx-group",
+  "term": "Larynx",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected",
+  "heading": true
+ },
+ {
+  "id": "epiglottic-cartilage",
+  "term": "Epiglottic cartilage",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "aryepiglottic-fold",
+  "term": "Aryepiglottic fold",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "thyroid-cartilage",
+  "term": "Thyroid cartilage",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cricoid-cartilage",
+  "term": "Cricoid cartilage",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "arytenoid-cartilage",
+  "term": "Arytenoid cartilage",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "vocal-process-of-arytenoid-cartilage",
+  "term": "Vocal process of arytenoid cartilage",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "vocal-fold",
+  "term": "Vocal fold",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "corniculate-process-of-arytenoid-cartila",
+  "term": "Corniculate process of arytenoid cartilage",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cuneiform-process-of-arytenoid-cartilage",
+  "term": "Cuneiform process of arytenoid cartilage",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "vestibular-fold",
+  "term": "Vestibular fold",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "laryngeal-ventricle",
+  "term": "Laryngeal ventricle",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "glottis",
+  "term": "Glottis",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "rima-glottidis",
+  "term": "Rima glottidis",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "cricothyroid-m",
+  "term": "Cricothyroid m.",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cricoarytenoideus-dorsalis-m",
+  "term": "Cricoarytenoideus dorsalis m.",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "vocalis-m-know-as-a-concept-see-on-prose",
+  "term": "Vocalis m. (know as a concept, see on prosections)",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "vocal-ligament-know-as-a-concept",
+  "term": "Vocal ligament (know as a concept)",
+  "section": "Larynx",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "external-ear-group",
+  "term": "External ear",
+  "section": "External ear",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface",
+  "heading": true
+ },
+ {
+  "id": "auricular-cartilage",
+  "term": "Auricular cartilage",
+  "section": "External ear",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "anthelix",
+  "term": "Anthelix",
+  "section": "External ear",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "tragus",
+  "term": "Tragus",
+  "section": "External ear",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "intertragic-incisure",
+  "term": "Intertragic incisure",
+  "section": "External ear",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "marginal-cutaneous-sac",
+  "term": "Marginal cutaneous sac",
+  "section": "External ear",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "temporalis-m",
+  "term": "Temporalis m.",
+  "section": "Muscles of mastication",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "masseter-m",
+  "term": "Masseter m.",
+  "section": "Muscles of mastication",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "medial-pterygoid-m",
+  "term": "Medial pterygoid m.",
+  "section": "Muscles of mastication",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "digastricus-m",
+  "term": "Digastricus m.",
+  "section": "Muscles of mastication",
+  "layer": "ms_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "styloglossus-m",
+  "term": "Styloglossus m.",
+  "section": "Muscles of mastication",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "hyoglossus-m",
+  "term": "Hyoglossus m.",
+  "section": "Muscles of mastication",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "genioglossus-m",
+  "term": "Genioglossus m.",
+  "section": "Muscles of mastication",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "thyrohyoideus-m",
+  "term": "Thyrohyoideus m.",
+  "section": "Muscles of mastication",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "mylohyoideus-m",
+  "term": "Mylohyoideus m.",
+  "section": "Muscles of mastication",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "geniohyoideus-m",
+  "term": "Geniohyoideus m.",
+  "section": "Muscles of mastication",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "orbit-2",
+  "term": "Orbit",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface",
+  "sameAs": [
+   "orbit"
+  ]
+ },
+ {
+  "id": "periorbita",
+  "term": "Periorbita",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "lacrimal-gland-2",
+  "term": "Lacrimal gland",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface",
+  "sameAs": [
+   "lacrimal-gland"
+  ]
+ },
+ {
+  "id": "levator-palpebrae-superioris-m-2",
+  "term": "Levator palpebrae superioris m.",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface",
+  "sameAs": [
+   "levator-palpebrae-superioris-m"
+  ]
+ },
+ {
+  "id": "dorsal-rectus-m",
+  "term": "Dorsal rectus m.",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "medial-rectus-m",
+  "term": "Medial rectus m.",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "ventral-rectus-m",
+  "term": "Ventral rectus m.",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "lateral-rectus-m",
+  "term": "Lateral rectus m.",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "retractor-bulbi-m",
+  "term": "Retractor bulbi m.",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "dorsal-oblique-m",
+  "term": "Dorsal oblique m.",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "trochlea-of-eye",
+  "term": "Trochlea (of eye)",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "ventral-oblique-m",
+  "term": "Ventral oblique m.",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "external-fibrous-coat-tunic",
+  "term": "External fibrous coat (tunic",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cornea",
+  "term": "Cornea",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": "external-fibrous-coat-tunic",
+  "view": "surface"
+ },
+ {
+  "id": "sclera",
+  "term": "Sclera",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": "external-fibrous-coat-tunic",
+  "view": "surface"
+ },
+ {
+  "id": "limbus-corneoscleral-junction",
+  "term": "Limbus (corneoscleral junction)",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": "external-fibrous-coat-tunic",
+  "view": "surface"
+ },
+ {
+  "id": "middle-vascular-coat-tunic-aka-uvea",
+  "term": "Middle vascular coat (tunic) (aka: uvea)",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "iris",
+  "term": "Iris",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": "middle-vascular-coat-tunic-aka-uvea",
+  "view": "surface"
+ },
+ {
+  "id": "pupil",
+  "term": "Pupil",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": "middle-vascular-coat-tunic-aka-uvea",
+  "view": "surface"
+ },
+ {
+  "id": "choroid",
+  "term": "Choroid",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": "middle-vascular-coat-tunic-aka-uvea",
+  "view": "surface"
+ },
+ {
+  "id": "fundus",
+  "term": "Fundus",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": "middle-vascular-coat-tunic-aka-uvea",
+  "view": "surface"
+ },
+ {
+  "id": "tapetum-lucidum",
+  "term": "Tapetum lucidum",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": "middle-vascular-coat-tunic-aka-uvea",
+  "view": "surface"
+ },
+ {
+  "id": "ciliary-body",
+  "term": "Ciliary body",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": "middle-vascular-coat-tunic-aka-uvea",
+  "view": "surface"
+ },
+ {
+  "id": "lens",
+  "term": "Lens",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "vitreous-body",
+  "term": "Vitreous body",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "vitreous-chamber",
+  "term": "Vitreous chamber",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "aqueous-humor",
+  "term": "Aqueous humor",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "anterior-chamber",
+  "term": "Anterior chamber",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "posterior-chamber",
+  "term": "Posterior chamber",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "internal-coat-nervous-coat-nervous-tunic",
+  "term": "Internal coat (nervous coat, nervous tunic)",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "retina",
+  "term": "Retina",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": "internal-coat-nervous-coat-nervous-tunic",
+  "view": "surface"
+ },
+ {
+  "id": "pars-optica-retinae-photosensitive-or-vi",
+  "term": "Pars optica retinae (photosensitive or visual retina)",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": "internal-coat-nervous-coat-nervous-tunic",
+  "view": "surface"
+ },
+ {
+  "id": "optic-disc-or-disk",
+  "term": "Optic disc (or disk)",
+  "section": "Eye and related structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "external-jugular-v",
+  "term": "External jugular v.",
+  "section": "Superficial veins of the head",
+  "layer": "nv_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "lingual-v",
+  "term": "Lingual v.",
+  "section": "Superficial veins of the head",
+  "layer": "nv_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "linguofacial-v",
+  "term": "Linguofacial v.",
+  "section": "Superficial veins of the head",
+  "layer": "nv_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "facial-v",
+  "term": "Facial v.",
+  "section": "Superficial veins of the head",
+  "layer": "nv_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "maxillary-v",
+  "term": "Maxillary v.",
+  "section": "Superficial veins of the head",
+  "layer": "nv_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "facial-nerve-group",
+  "term": "Facial nerve",
+  "section": "Facial nerve",
+  "layer": "nv_sup",
+  "parent": null,
+  "view": "surface",
+  "heading": true
+ },
+ {
+  "id": "facial-n-cranial-nerve-vii",
+  "term": "Facial n. (Cranial nerve VII)",
+  "section": "Facial nerve",
+  "layer": "nv_sup",
+  "parent": null,
+  "view": "surface",
+  "sameAs": [
+   "facial-n-cranial-nerve-vii-2"
+  ]
+ },
+ {
+  "id": "auriculopalpebral-n",
+  "term": "Auriculopalpebral n.",
+  "section": "Facial nerve",
+  "layer": "nv_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "rostral-auricular-branches",
+  "term": "Rostral auricular branches",
+  "section": "Facial nerve",
+  "layer": "nv_sup",
+  "parent": "auriculopalpebral-n",
+  "view": "surface"
+ },
+ {
+  "id": "palpebral-branches",
+  "term": "Palpebral branches",
+  "section": "Facial nerve",
+  "layer": "nv_sup",
+  "parent": "auriculopalpebral-n",
+  "view": "surface"
+ },
+ {
+  "id": "ventral-buccal-branch-of-facial-n",
+  "term": "Ventral buccal branch of facial n.",
+  "section": "Facial nerve",
+  "layer": "nv_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "dorsal-buccal-branch-of-facial-n",
+  "term": "Dorsal buccal branch of facial n.",
+  "section": "Facial nerve",
+  "layer": "nv_sup",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "thyroid-gland",
+  "term": "Thyroid gland",
+  "section": "Cervical Structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "parathyroid-glands-know-them-conceptuall",
+  "term": "Parathyroid glands (know them conceptually, but it will be hard to ID them on your cadaver)",
+  "section": "Cervical Structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cervical-portion-of-the-esophagus",
+  "term": "Cervical portion of the esophagus",
+  "section": "Cervical Structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "trachea",
+  "term": "Trachea",
+  "section": "Cervical Structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "bisected"
+ },
+ {
+  "id": "tracheal-cartilages",
+  "term": "Tracheal cartilages",
+  "section": "Cervical Structures",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "common-carotid-a",
+  "term": "Common carotid a.",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cranial-thyroid-a",
+  "term": "Cranial thyroid a.",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "medial-retropharyngeal-ln",
+  "term": "Medial retropharyngeal ln.",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "ms_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "internal-carotid-a",
+  "term": "Internal carotid a.",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "carotid-sinus",
+  "term": "Carotid sinus",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "external-carotid-a",
+  "term": "External carotid a.",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "superficial-temporal-a",
+  "term": "Superficial temporal a.",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "maxillary-a",
+  "term": "Maxillary a.",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cranial-laryngeal-a",
+  "term": "Cranial laryngeal a.",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "lingual-a",
+  "term": "Lingual a.",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "facial-a",
+  "term": "Facial a.",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "caudal-auricular-a",
+  "term": "Caudal auricular a.",
+  "section": "Common carotid artery (and some ancillary structures encountered during dissection)",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "mandibular-nerve-group",
+  "term": "Mandibular nerve",
+  "section": "Mandibular nerve",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface",
+  "heading": true
+ },
+ {
+  "id": "trigeminal-n-cranial-nerve-v",
+  "term": "Trigeminal n. (cranial nerve V)",
+  "section": "Mandibular nerve",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "mandibular-n-not-bolded-here-in-the-book",
+  "term": "Mandibular n. (not bolded here in the book, but you need to know that the next four nerves are branches of the mandibular n.)",
+  "section": "Mandibular nerve",
+  "layer": "nv_deep",
+  "parent": "trigeminal-n-cranial-nerve-v",
+  "view": "surface"
+ },
+ {
+  "id": "buccal-n",
+  "term": "Buccal n.",
+  "section": "Mandibular nerve",
+  "layer": "nv_deep",
+  "parent": "mandibular-n-not-bolded-here-in-the-book",
+  "view": "surface"
+ },
+ {
+  "id": "lingual-n",
+  "term": "Lingual n.",
+  "section": "Mandibular nerve",
+  "layer": "nv_deep",
+  "parent": "mandibular-n-not-bolded-here-in-the-book",
+  "view": "surface"
+ },
+ {
+  "id": "inferior-alveolar-n",
+  "term": "Inferior alveolar n.",
+  "section": "Mandibular nerve",
+  "layer": "nv_deep",
+  "parent": "mandibular-n-not-bolded-here-in-the-book",
+  "view": "surface"
+ },
+ {
+  "id": "mylohyoid",
+  "term": "Mylohyoid .",
+  "section": "Mandibular nerve",
+  "layer": "nv_deep",
+  "parent": "mandibular-n-not-bolded-here-in-the-book",
+  "view": "surface"
+ },
+ {
+  "id": "auriculotemporal-n-seen-previously-when-",
+  "term": "Auriculotemporal n. (seen previously when dissecting the facial nerve)",
+  "section": "Mandibular nerve",
+  "layer": "nv_sup",
+  "parent": "trigeminal-n-cranial-nerve-v",
+  "view": "surface"
+ },
+ {
+  "id": "maxillary-artery-group",
+  "term": "Maxillary artery",
+  "section": "Maxillary artery",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface",
+  "heading": true
+ },
+ {
+  "id": "inferior-alveolar-a",
+  "term": "Inferior alveolar a.",
+  "section": "Maxillary artery",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "external-ophthalmic-a",
+  "term": "External ophthalmic a.",
+  "section": "Maxillary artery",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "infraorbital-a",
+  "term": "Infraorbital a.",
+  "section": "Maxillary artery",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "olfactory-n-cranial-nerve-i-not-describe",
+  "term": "Olfactory n. (cranial nerve I) – not described in your book and not dissectable, but know it is the first cranial nerve",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "optic-n-cranial-nerve-ii-prechiasmatic-o",
+  "term": "Optic n. (cranial nerve II, prechiasmatic optic tract)",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "trigeminal-nerve-cranial-nerve-v",
+  "term": "Trigeminal nerve (cranial nerve V)",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "ophthalmic-n-branch-of-trigeminal-n-cran",
+  "term": "Ophthalmic n. (branch of trigeminal n., cranial n. V)",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "maxillary-n-branch-of-trigeminal-n-crani",
+  "term": "Maxillary n. (branch of trigeminal n., cranial n. V)",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "pterygopalatine-ganglion-from-cn-vii",
+  "term": "Pterygopalatine ganglion (from CN VII)",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "infraorbital-n",
+  "term": "Infraorbital n.",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "facial-n-cranial-nerve-vii-2",
+  "term": "Facial n. (cranial nerve VII)",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface",
+  "sameAs": [
+   "facial-n-cranial-nerve-vii"
+  ]
+ },
+ {
+  "id": "distal-ganglion-of-vagus-n-cn-x",
+  "term": "Distal ganglion of vagus n. (CN X)",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cranial-cervical-ganglion",
+  "term": "Cranial cervical ganglion",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "glossopharyngeal-n-cranial-nerve-ix",
+  "term": "Glossopharyngeal n. (cranial nerve IX)",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "vagus-n-cranial-nerve-x",
+  "term": "Vagus n. (cranial nerve X)",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cranial-laryngeal-n",
+  "term": "Cranial laryngeal n.",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "cervical-sympathetic-trunk",
+  "term": "Cervical sympathetic trunk",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "accessory-n-cranial-n-xi",
+  "term": "Accessory n. (cranial n. XI)",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ },
+ {
+  "id": "hypoglossal-n-cranial-n-xii",
+  "term": "Hypoglossal n. (cranial n. XII)",
+  "section": "Cranial nerves (and associated structures) – these are not listed in numerical order, but in the order they are described in the Guide",
+  "layer": "nv_deep",
+  "parent": null,
+  "view": "surface"
+ }
+]

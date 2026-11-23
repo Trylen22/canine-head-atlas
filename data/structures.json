@@ -1,0 +1,4961 @@
+[
+{
+"type": "model",
+"kind": "eye",
+"id": "m-eye",
+"layer": "ms_deep",
+"position": [
+0.08,
+0.16,
+-0.225
+],
+"rotation": [
+-3.0068,
+0.4667,
+3.0807
+],
+"scale": 0.105,
+"mirror": true,
+"parts": {
+"cornea": "cornea",
+"sclera": "sclera",
+"limbus": "limbus-corneoscleral-junction",
+"iris": "iris",
+"pupil": "pupil",
+"choroid": "choroid",
+"fundus": "fundus",
+"tapetum": "tapetum-lucidum",
+"ciliaryBody": "ciliary-body",
+"lens": "lens",
+"vitreousBody": "vitreous-body",
+"vitreousChamber": "vitreous-chamber",
+"aqueous": "aqueous-humor",
+"anteriorChamber": "anterior-chamber",
+"posteriorChamber": "posterior-chamber",
+"retina": "retina",
+"parsOptica": "pars-optica-retinae-photosensitive-or-vi",
+"opticDisc": "optic-disc-or-disk",
+"fibrousTunic": "external-fibrous-coat-tunic",
+"vascularTunic": "middle-vascular-coat-tunic-aka-uvea",
+"nervousTunic": "internal-coat-nervous-coat-nervous-tunic"
+},
+"note": "model units: globe radius = 1; +Z toward the cornea, +Y dorsal. Section the globe on its own vertical plane through the visual axis in the bisected view."
+},
+{
+"type": "muscle",
+"id": "s-dorsal-rectus-m",
+"term": "dorsal-rectus-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.1,
+0.06,
+-0.13
+],
+[
+-0.0275,
+0.1662,
+-0.1432
+],
+[
+0.0451,
+0.2723,
+-0.1563
+],
+[
+0.0902,
+0.2626,
+-0.2451
+]
+],
+"width": [
+0.012,
+0.022,
+0.03,
+0.026
+],
+"thick": [
+0.008,
+0.012,
+0.012,
+0.006
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-ventral-rectus-m",
+"term": "ventral-rectus-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.1,
+0.06,
+-0.13
+],
+[
+-0.0209,
+0.0463,
+-0.1561
+],
+[
+0.0582,
+0.0326,
+-0.1822
+],
+[
+0.101,
+0.0658,
+-0.2663
+]
+],
+"width": [
+0.012,
+0.022,
+0.03,
+0.026
+],
+"thick": [
+0.008,
+0.012,
+0.012,
+0.006
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-medial-rectus-m",
+"term": "medial-rectus-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.1,
+0.06,
+-0.13
+],
+[
+0.0296,
+0.1062,
+-0.1223
+],
+[
+0.1593,
+0.1524,
+-0.1145
+],
+[
+0.1839,
+0.1642,
+-0.2108
+]
+],
+"width": [
+0.012,
+0.022,
+0.03,
+0.026
+],
+"thick": [
+0.008,
+0.012,
+0.012,
+0.006
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-lateral-rectus-m",
+"term": "lateral-rectus-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.1,
+0.06,
+-0.13
+],
+[
+-0.078,
+0.1062,
+-0.177
+],
+[
+-0.056,
+0.1524,
+-0.224
+],
+[
+0.0073,
+0.1642,
+-0.3006
+]
+],
+"width": [
+0.012,
+0.022,
+0.03,
+0.026
+],
+"thick": [
+0.008,
+0.012,
+0.012,
+0.006
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-retractor-bulbi-0",
+"term": "retractor-bulbi-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.091,
+0.0624,
+-0.1477
+],
+[
+-0.0481,
+0.1438,
+-0.1804
+],
+[
+0.0038,
+0.2275,
+-0.2308
+]
+],
+"width": [
+0.008,
+0.014,
+0.016
+],
+"thick": [
+0.006,
+0.008,
+0.006
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-retractor-bulbi-1",
+"term": "retractor-bulbi-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.091,
+0.0624,
+-0.1477
+],
+[
+0.0148,
+0.1438,
+-0.1485
+],
+[
+0.1296,
+0.2275,
+-0.1669
+]
+],
+"width": [
+0.008,
+0.014,
+0.016
+],
+"thick": [
+0.006,
+0.008,
+0.006
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-retractor-bulbi-2",
+"term": "retractor-bulbi-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.091,
+0.0624,
+-0.1477
+],
+[
+-0.0442,
+0.0737,
+-0.188
+],
+[
+0.0115,
+0.0875,
+-0.2459
+]
+],
+"width": [
+0.008,
+0.014,
+0.016
+],
+"thick": [
+0.006,
+0.008,
+0.006
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-retractor-bulbi-3",
+"term": "retractor-bulbi-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.091,
+0.0624,
+-0.1477
+],
+[
+0.0186,
+0.0737,
+-0.156
+],
+[
+0.1373,
+0.0875,
+-0.182
+]
+],
+"width": [
+0.008,
+0.014,
+0.016
+],
+"thick": [
+0.006,
+0.008,
+0.006
+],
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-trochlea-of-eye",
+"term": "trochlea-of-eye",
+"layer": "ms_deep",
+"kind": "cartilage",
+"center": [
+0.1737,
+0.2972,
+-0.224
+],
+"radii": [
+0.012,
+0.008,
+0.008
+],
+"rot": [
+0,
+0,
+0
+],
+"lobulated": false,
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-dorsal-oblique-m",
+"term": "dorsal-oblique-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.0838,
+0.0898,
+-0.1177
+],
+[
+0.1377,
+0.2876,
+-0.1532
+],
+[
+0.1737,
+0.2972,
+-0.224
+],
+[
+0.0941,
+0.2858,
+-0.2412
+],
+[
+0.0166,
+0.2347,
+-0.2628
+]
+],
+"width": [
+0.008,
+0.01,
+0.006,
+0.012,
+0.016
+],
+"thick": [
+0.006,
+0.007,
+0.005,
+0.005,
+0.004
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-ventral-oblique-m",
+"term": "ventral-oblique-m",
+"layer": "ms_deep",
+"path": [
+[
+0.1814,
+0.0218,
+-0.2159
+],
+[
+0.0916,
+0.0362,
+-0.2478
+],
+[
+0.0121,
+0.0985,
+-0.2763
+]
+],
+"width": [
+0.012,
+0.018,
+0.016
+],
+"thick": [
+0.006,
+0.008,
+0.005
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-levator-palpebrae-superioris-m",
+"term": "levator-palpebrae-superioris-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.1022,
+0.0997,
+-0.1257
+],
+[
+0.0628,
+0.2982,
+-0.1913
+],
+[
+0.1177,
+0.3023,
+-0.2992
+]
+],
+"width": [
+0.01,
+0.02,
+0.026
+],
+"thick": [
+0.005,
+0.006,
+0.004
+],
+"mirror": true
+},
+{
+"type": "sheet",
+"id": "s-periorbita",
+"term": "periorbita",
+"layer": "ms_deep",
+"outline": [
+[
+-0.1,
+0.06,
+-0.13
+],
+[
+0.0956,
+0.3122,
+-0.2557
+],
+[
+-0.0368,
+0.165,
+-0.3312
+],
+[
+0.1116,
+0.0204,
+-0.2872
+],
+[
+0.2253,
+0.1663,
+-0.2096
+]
+],
+"thick": 0.003,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-lacrimal-gland",
+"term": "lacrimal-gland",
+"layer": "ms_deep",
+"kind": "gland",
+"center": [
+0.0339,
+0.2799,
+-0.2618
+],
+"radii": [
+0.045,
+0.012,
+0.03
+],
+"rot": [
+0,
+0,
+0
+],
+"lobulated": true,
+"mirror": true
+},
+{
+"type": "model",
+"kind": "eyelids",
+"id": "m-eyelids",
+"layer": "ms_sup",
+"position": [
+0.131,
+0.1736,
+-0.3254
+],
+"rotation": [
+-3.0068,
+0.4667,
+3.0807
+],
+"scale": 0.105,
+"mirror": true,
+"parts": {
+"upper": "palpebrae",
+"superior": "superior-palpebrae",
+"inferior": "inferior-palpebrae",
+"fissure": "palpebral-fissure",
+"medialCommissure": "medial-palpebral-commissure",
+"lateralCommissure": "lateral-palpebral-commissure",
+"thirdEyelid": "plica-semilunaris-third-eyelid"
+},
+"note": "model units: globe radius = 1; +Z outward along the visual axis; medial commissure toward -X of model (nasal side)"
+},
+{
+"type": "tube",
+"id": "s-orbicularis-oculi",
+"term": "orbicularis-oculi-m",
+"layer": "ms_sup",
+"kind": "muscle",
+"points": [
+[
+0.0135,
+0.1724,
+-0.374
+],
+[
+0.0202,
+0.208,
+-0.3658
+],
+[
+0.043,
+0.2382,
+-0.3501
+],
+[
+0.0786,
+0.2584,
+-0.3292
+],
+[
+0.1214,
+0.2654,
+-0.3065
+],
+[
+0.1651,
+0.2584,
+-0.2853
+],
+[
+0.2028,
+0.2382,
+-0.2688
+],
+[
+0.229,
+0.208,
+-0.2596
+],
+[
+0.2395,
+0.1724,
+-0.259
+],
+[
+0.2329,
+0.1368,
+-0.2672
+],
+[
+0.21,
+0.1066,
+-0.283
+],
+[
+0.1745,
+0.0865,
+-0.3038
+],
+[
+0.1316,
+0.0794,
+-0.3265
+],
+[
+0.088,
+0.0865,
+-0.3478
+],
+[
+0.0502,
+0.1066,
+-0.3642
+],
+[
+0.0241,
+0.1368,
+-0.3734
+],
+[
+0.0135,
+0.1724,
+-0.374
+]
+],
+"r": 0.022,
+"closed": true,
+"mirror": true
+},
+{
+"type": "sheet",
+"id": "s-temporalis-m",
+"term": "temporalis-m",
+"layer": "ms_sup",
+"kind": "muscle",
+"grid": [
+[
+[
+-0.86,
+0.44,
+-0.1205
+],
+[
+-0.78,
+0.4307,
+-0.1205
+],
+[
+-0.7172,
+0.446,
+-0.1205
+],
+[
+-0.6319,
+0.4473,
+-0.1886
+],
+[
+-0.5442,
+0.4448,
+-0.2331
+],
+[
+-0.4579,
+0.439,
+-0.2463
+],
+[
+-0.3853,
+0.4405,
+-0.242
+],
+[
+-0.3116,
+0.4442,
+-0.223
+],
+[
+-0.2129,
+0.4493,
+-0.2005
+],
+[
+-0.1346,
+0.447,
+-0.1744
+],
+[
+-0.0546,
+0.4597,
+-0.1664
+]
+],
+[
+[
+-0.8011,
+0.4062,
+-0.0724
+],
+[
+-0.7349,
+0.4093,
+-0.1543
+],
+[
+-0.6592,
+0.4072,
+-0.2527
+],
+[
+-0.5807,
+0.4052,
+-0.2959
+],
+[
+-0.5018,
+0.4015,
+-0.3161
+],
+[
+-0.4138,
+0.3655,
+-0.3247
+],
+[
+-0.3649,
+0.3969,
+-0.305
+],
+[
+-0.2808,
+0.3979,
+-0.299
+],
+[
+-0.202,
+0.3995,
+-0.2651
+],
+[
+-0.1283,
+0.3994,
+-0.2086
+],
+[
+-0.0857,
+0.3976,
+-0.2081
+]
+],
+[
+[
+-0.7374,
+0.3617,
+-0.2219
+],
+[
+-0.6702,
+0.3588,
+-0.297
+],
+[
+-0.601,
+0.3593,
+-0.3437
+],
+[
+-0.5266,
+0.3549,
+-0.3695
+],
+[
+-0.4614,
+0.3522,
+-0.3735
+],
+[
+-0.3912,
+0.3462,
+-0.3652
+],
+[
+-0.3326,
+0.3332,
+-0.3559
+],
+[
+-0.2916,
+0.3246,
+-0.3459
+],
+[
+-0.1929,
+0.3469,
+-0.3109
+],
+[
+-0.1227,
+0.3441,
+-0.2486
+],
+[
+-0.0907,
+0.3347,
+-0.2123
+]
+],
+[
+[
+-0.6559,
+0.3075,
+-0.329
+],
+[
+-0.5981,
+0.3025,
+-0.3673
+],
+[
+-0.5368,
+0.2908,
+-0.3958
+],
+[
+-0.475,
+0.2804,
+-0.4042
+],
+[
+-0.4115,
+0.2795,
+-0.4019
+],
+[
+-0.3495,
+0.2773,
+-0.3906
+],
+[
+-0.3045,
+0.2792,
+-0.3769
+],
+[
+-0.2459,
+0.2867,
+-0.3573
+],
+[
+-0.195,
+0.277,
+-0.3361
+],
+[
+-0.1205,
+0.2782,
+-0.2648
+],
+[
+-0.0938,
+0.2826,
+-0.2054
+]
+],
+[
+[
+-0.5705,
+0.2513,
+-0.3785
+],
+[
+-0.5268,
+0.2416,
+-0.3945
+],
+[
+-0.4705,
+0.2322,
+-0.4081
+],
+[
+-0.4214,
+0.2318,
+-0.4101
+],
+[
+-0.3649,
+0.2139,
+-0.4028
+],
+[
+-0.3031,
+0.1993,
+-0.3862
+],
+[
+-0.274,
+0.2111,
+-0.3796
+],
+[
+-0.2451,
+0.1927,
+-0.3619
+],
+[
+-0.1699,
+0.2095,
+-0.324
+],
+[
+-0.124,
+0.2171,
+-0.2553
+],
+[
+-0.0931,
+0.2226,
+-0.1804
+]
+],
+[
+[
+-0.4936,
+0.1951,
+-0.3835
+],
+[
+-0.4493,
+0.1817,
+-0.3897
+],
+[
+-0.3995,
+0.1625,
+-0.3925
+],
+[
+-0.3601,
+0.1564,
+-0.3879
+],
+[
+-0.3282,
+0.1338,
+-0.3764
+],
+[
+-0.2954,
+0.1411,
+-0.3716
+],
+[
+-0.2567,
+0.1479,
+-0.3618
+],
+[
+-0.2187,
+0.1409,
+-0.3395
+],
+[
+-0.1565,
+0.1573,
+-0.2923
+],
+[
+-0.1245,
+0.1601,
+-0.1994
+],
+[
+-0.1048,
+0.1728,
+-0.1603
+]
+],
+[
+[
+-0.4186,
+0.1367,
+-0.3617
+],
+[
+-0.3697,
+0.1236,
+-0.3491
+],
+[
+-0.3415,
+0.1032,
+-0.3415
+],
+[
+-0.3256,
+0.0932,
+-0.3421
+],
+[
+-0.2909,
+0.076,
+-0.3308
+],
+[
+-0.2628,
+0.0805,
+-0.3248
+],
+[
+-0.2396,
+0.0708,
+-0.3098
+],
+[
+-0.2052,
+0.0914,
+-0.2991
+],
+[
+-0.1501,
+0.1032,
+-0.2327
+],
+[
+-0.1472,
+0.1059,
+-0.1845
+],
+[
+-0.1256,
+0.1233,
+-0.1473
+]
+],
+[
+[
+-0.3341,
+0.0894,
+-0.2989
+],
+[
+-0.3137,
+0.0807,
+-0.2939
+],
+[
+-0.3016,
+0.0468,
+-0.4668
+],
+[
+-0.2979,
+0.1004,
+-0.5557
+],
+[
+-0.2817,
+0.0982,
+-0.5634
+],
+[
+-0.2529,
+0.0908,
+-0.569
+],
+[
+-0.2409,
+0.0676,
+-0.5751
+],
+[
+-0.2176,
+0.0839,
+-0.5648
+],
+[
+-0.1963,
+0.0933,
+-0.5488
+],
+[
+-0.1746,
+0.0991,
+-0.5306
+],
+[
+-0.1562,
+0.1077,
+-0.509
+]
+],
+[
+[
+-0.2801,
+0.0459,
+-0.5531
+],
+[
+-0.2693,
+0.0375,
+-0.5592
+],
+[
+-0.2575,
+0.0286,
+-0.5663
+],
+[
+-0.2522,
+0.0256,
+-0.5681
+],
+[
+-0.2382,
+0.0232,
+-0.5717
+],
+[
+-0.2207,
+0.0199,
+-0.5701
+],
+[
+-0.2108,
+0.0212,
+-0.5666
+],
+[
+-0.2,
+0.0176,
+-0.5628
+],
+[
+-0.1878,
+0.0226,
+-0.5553
+],
+[
+-0.1798,
+0.031,
+-0.546
+],
+[
+-0.1712,
+0.0439,
+-0.5373
+]
+]
+],
+"thick": 0.03,
+"drape": false,
+"fiber": [
+0.35,
+-1.0,
+0.0
+],
+"mirror": true
+},
+{
+"type": "sheet",
+"id": "s-masseter-m",
+"term": "masseter-m",
+"layer": "ms_sup",
+"kind": "muscle",
+"grid": [
+[
+[
+-0.4558,
+-0.0297,
+-0.5079
+],
+[
+-0.4051,
+-0.0393,
+-0.54
+],
+[
+-0.3472,
+-0.0279,
+-0.5683
+],
+[
+-0.2777,
+-0.0548,
+-0.5625
+],
+[
+-0.2351,
+-0.0389,
+-0.3917
+],
+[
+-0.1792,
+-0.0437,
+-0.3821
+],
+[
+-0.14,
+-0.03,
+-0.4086
+],
+[
+-0.0925,
+-0.0572,
+-0.4352
+],
+[
+-0.0236,
+-0.0319,
+-0.448
+]
+],
+[
+[
+-0.4518,
+-0.0874,
+-0.5075
+],
+[
+-0.3939,
+-0.0966,
+-0.5346
+],
+[
+-0.3412,
+-0.0775,
+-0.4663
+],
+[
+-0.2882,
+-0.0918,
+-0.398
+],
+[
+-0.234,
+-0.1025,
+-0.3844
+],
+[
+-0.1752,
+-0.0817,
+-0.3801
+],
+[
+-0.1145,
+-0.0833,
+-0.3532
+],
+[
+-0.1006,
+-0.0775,
+-0.3532
+],
+[
+-0.0525,
+-0.0775,
+-0.3532
+]
+],
+[
+[
+-0.4301,
+-0.1007,
+-0.4409
+],
+[
+-0.3887,
+-0.125,
+-0.4174
+],
+[
+-0.3398,
+-0.1264,
+-0.394
+],
+[
+-0.2798,
+-0.1513,
+-0.385
+],
+[
+-0.2291,
+-0.1597,
+-0.3662
+],
+[
+-0.2075,
+-0.1643,
+-0.3615
+],
+[
+-0.1528,
+-0.134,
+-0.3742
+],
+[
+-0.1113,
+-0.125,
+-0.3742
+],
+[
+-0.065,
+-0.125,
+-0.3742
+]
+],
+[
+[
+-0.4358,
+-0.1935,
+-0.4551
+],
+[
+-0.3768,
+-0.204,
+-0.3591
+],
+[
+-0.3388,
+-0.198,
+-0.3768
+],
+[
+-0.2994,
+-0.1725,
+-0.3768
+],
+[
+-0.255,
+-0.1725,
+-0.3768
+],
+[
+-0.2106,
+-0.1725,
+-0.3768
+],
+[
+-0.1663,
+-0.1725,
+-0.3768
+],
+[
+-0.1219,
+-0.1725,
+-0.3768
+],
+[
+-0.0775,
+-0.1725,
+-0.3768
+]
+],
+[
+[
+-0.4531,
+-0.2452,
+-0.3817
+],
+[
+-0.3658,
+-0.2229,
+-0.3544
+],
+[
+-0.345,
+-0.22,
+-0.3544
+],
+[
+-0.3025,
+-0.22,
+-0.3544
+],
+[
+-0.26,
+-0.22,
+-0.3544
+],
+[
+-0.2175,
+-0.22,
+-0.3544
+],
+[
+-0.175,
+-0.22,
+-0.3544
+],
+[
+-0.1325,
+-0.22,
+-0.3544
+],
+[
+-0.09,
+-0.22,
+-0.3544
+]
+],
+[
+[
+-0.4275,
+-0.2675,
+-0.3816
+],
+[
+-0.3626,
+-0.2718,
+-0.3816
+],
+[
+-0.2958,
+-0.2265,
+-0.3291
+],
+[
+-0.3056,
+-0.2675,
+-0.3291
+],
+[
+-0.265,
+-0.2675,
+-0.3291
+],
+[
+-0.2244,
+-0.2675,
+-0.3291
+],
+[
+-0.1838,
+-0.2675,
+-0.3291
+],
+[
+-0.1431,
+-0.2675,
+-0.3291
+],
+[
+-0.1025,
+-0.2675,
+-0.3291
+]
+],
+[
+[
+-0.425,
+-0.315,
+-0.3741
+],
+[
+-0.3676,
+-0.3088,
+-0.3741
+],
+[
+-0.3049,
+-0.3167,
+-0.3612
+],
+[
+-0.2872,
+-0.3059,
+-0.3674
+],
+[
+-0.27,
+-0.315,
+-0.3674
+],
+[
+-0.2313,
+-0.315,
+-0.3674
+],
+[
+-0.1925,
+-0.315,
+-0.3674
+],
+[
+-0.1538,
+-0.315,
+-0.3674
+],
+[
+-0.115,
+-0.315,
+-0.3674
+]
+],
+[
+[
+-0.4212,
+-0.3691,
+-0.3615
+],
+[
+-0.377,
+-0.3958,
+-0.3478
+],
+[
+-0.3488,
+-0.3625,
+-0.3478
+],
+[
+-0.3119,
+-0.3625,
+-0.3478
+],
+[
+-0.275,
+-0.3625,
+-0.3478
+],
+[
+-0.2381,
+-0.3625,
+-0.3478
+],
+[
+-0.2012,
+-0.3625,
+-0.3478
+],
+[
+-0.1644,
+-0.3625,
+-0.3478
+],
+[
+-0.1275,
+-0.3625,
+-0.3478
+]
+],
+[
+[
+-0.4212,
+-0.3691,
+-0.3615
+],
+[
+-0.377,
+-0.3958,
+-0.3478
+],
+[
+-0.3488,
+-0.3625,
+-0.3478
+],
+[
+-0.3119,
+-0.3625,
+-0.3478
+],
+[
+-0.275,
+-0.3625,
+-0.3478
+],
+[
+-0.2381,
+-0.3625,
+-0.3478
+],
+[
+-0.2012,
+-0.3625,
+-0.3478
+],
+[
+-0.1644,
+-0.3625,
+-0.3478
+],
+[
+-0.1275,
+-0.3625,
+-0.3478
+]
+]
+],
+"thick": 0.035,
+"drape": false,
+"fiber": [
+0.25,
+-1.0,
+0.0
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-medial-pterygoid-m",
+"term": "medial-pterygoid-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.26,
+-0.08,
+-0.12
+],
+[
+-0.34,
+-0.2,
+-0.18
+],
+[
+-0.44,
+-0.32,
+-0.25
+]
+],
+"width": [
+0.1,
+0.14,
+0.12
+],
+"thick": [
+0.05,
+0.07,
+0.05
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-digastricus-m",
+"term": "digastricus-m",
+"layer": "ms_sup",
+"path": [
+[
+-0.755,
+-0.24,
+-0.27
+],
+[
+-0.64,
+-0.4,
+-0.32
+],
+[
+-0.4,
+-0.5,
+-0.28
+],
+[
+-0.12,
+-0.5,
+-0.22
+],
+[
+0.08,
+-0.48,
+-0.18
+]
+],
+"width": [
+0.05,
+0.08,
+0.09,
+0.07,
+0.05
+],
+"thick": [
+0.05,
+0.07,
+0.07,
+0.05,
+0.03
+],
+"mirror": true
+},
+{
+"type": "sheet",
+"id": "s-mylohyoideus-m",
+"term": "mylohyoideus-m",
+"layer": "ms_deep",
+"outline": [
+[
+0.78,
+-0.43,
+-0.04
+],
+[
+0.4,
+-0.47,
+-0.13
+],
+[
+0.0,
+-0.49,
+-0.2
+],
+[
+-0.35,
+-0.52,
+-0.22
+],
+[
+-0.5,
+-0.565,
+-0.06
+],
+[
+-0.5,
+-0.575,
+0.0
+],
+[
+0.78,
+-0.45,
+0.0
+]
+],
+"thick": 0.012,
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-geniohyoideus-m",
+"term": "geniohyoideus-m",
+"layer": "ms_deep",
+"path": [
+[
+0.86,
+-0.42,
+-0.015
+],
+[
+0.4,
+-0.47,
+-0.02
+],
+[
+0.0,
+-0.51,
+-0.02
+],
+[
+-0.52,
+-0.561,
+-0.02
+]
+],
+"width": [
+0.025,
+0.035,
+0.035,
+0.03
+],
+"thick": [
+0.018,
+0.02,
+0.02,
+0.018
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-genioglossus-m",
+"term": "genioglossus-m",
+"layer": "ms_deep",
+"path": [
+[
+0.86,
+-0.39,
+-0.012
+],
+[
+0.55,
+-0.4,
+-0.015
+],
+[
+0.25,
+-0.36,
+-0.015
+],
+[
+0.0,
+-0.3,
+-0.015
+]
+],
+"width": [
+0.03,
+0.08,
+0.12,
+0.14
+],
+"thick": [
+0.012,
+0.014,
+0.016,
+0.016
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-hyoglossus-m",
+"term": "hyoglossus-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.52,
+-0.531,
+-0.07
+],
+[
+-0.3,
+-0.5,
+-0.1
+],
+[
+-0.05,
+-0.42,
+-0.11
+],
+[
+0.25,
+-0.35,
+-0.1
+]
+],
+"width": [
+0.05,
+0.07,
+0.07,
+0.05
+],
+"thick": [
+0.015,
+0.02,
+0.02,
+0.015
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-styloglossus-m",
+"term": "styloglossus-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.64,
+-0.3,
+-0.22
+],
+[
+-0.48,
+-0.36,
+-0.19
+],
+[
+-0.2,
+-0.36,
+-0.14
+],
+[
+0.2,
+-0.32,
+-0.11
+],
+[
+0.55,
+-0.31,
+-0.08
+]
+],
+"width": [
+0.025,
+0.035,
+0.035,
+0.03,
+0.02
+],
+"thick": [
+0.015,
+0.018,
+0.018,
+0.015,
+0.01
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-thyrohyoideus-m",
+"term": "thyrohyoideus-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.84,
+-0.55,
+-0.1
+],
+[
+-0.72,
+-0.55,
+-0.11
+],
+[
+-0.6,
+-0.54,
+-0.11
+]
+],
+"width": [
+0.05,
+0.05,
+0.04
+],
+"thick": [
+0.012,
+0.012,
+0.01
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-hyopharyngeus-m",
+"term": "hyopharyngeus-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.6,
+-0.51,
+-0.13
+],
+[
+-0.68,
+-0.4133,
+-0.17
+],
+[
+-0.74,
+-0.32,
+-0.12
+],
+[
+-0.77,
+-0.24,
+-0.02
+]
+],
+"width": [
+0.05,
+0.08,
+0.09,
+0.08
+],
+"thick": [
+0.01,
+0.012,
+0.012,
+0.01
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-thyropharyngeus-m",
+"term": "thyropharyngeus-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.84,
+-0.53,
+-0.13
+],
+[
+-0.85,
+-0.4117,
+-0.16
+],
+[
+-0.86,
+-0.34,
+-0.11
+],
+[
+-0.87,
+-0.27,
+-0.02
+]
+],
+"width": [
+0.05,
+0.08,
+0.08,
+0.07
+],
+"thick": [
+0.01,
+0.012,
+0.012,
+0.01
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-cricopharyngeus-m",
+"term": "cricopharyngeus-m",
+"layer": "ms_deep",
+"path": [
+[
+-0.97,
+-0.53,
+-0.11
+],
+[
+-0.97,
+-0.42,
+-0.13
+],
+[
+-0.97,
+-0.38,
+-0.09
+],
+[
+-0.97,
+-0.32,
+-0.02
+]
+],
+"width": [
+0.035,
+0.05,
+0.05,
+0.045
+],
+"thick": [
+0.008,
+0.01,
+0.01,
+0.008
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-platysma-m",
+"term": "platysma-m",
+"layer": "ms_sup",
+"path": [
+[
+-1.2,
+0.3,
+-0.12
+],
+[
+-0.95,
+0.1,
+-0.5
+],
+[
+-0.65,
+-0.16,
+-0.66
+],
+[
+-0.3,
+-0.3,
+-0.66
+],
+[
+0.05,
+-0.36,
+-0.52
+],
+[
+0.28,
+-0.35,
+-0.34
+]
+],
+"width": [
+0.2,
+0.2,
+0.17,
+0.13,
+0.08,
+0.04
+],
+"thick": [
+0.005,
+0.005,
+0.005,
+0.005,
+0.004,
+0.004
+],
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-orbicularis-oris",
+"term": "orbicularis-oris-m",
+"layer": "ms_sup",
+"kind": "muscle",
+"points": [
+[
+1.2,
+-0.15,
+-0.02
+],
+[
+1.08,
+-0.2,
+-0.12
+],
+[
+0.85,
+-0.28,
+-0.2
+],
+[
+0.55,
+-0.33,
+-0.27
+],
+[
+0.33,
+-0.34,
+-0.3
+],
+[
+0.33,
+-0.36,
+-0.29
+],
+[
+0.55,
+-0.4,
+-0.22
+],
+[
+0.85,
+-0.42,
+-0.15
+],
+[
+1.08,
+-0.4,
+-0.08
+],
+[
+1.17,
+-0.37,
+-0.01
+]
+],
+"r": 0.008,
+"mirror": true
+},
+{
+"type": "sheet",
+"id": "s-buccinator-m",
+"term": "buccinator-m",
+"layer": "ms_deep",
+"outline": [
+[
+0.35,
+-0.24,
+-0.29
+],
+[
+0.05,
+-0.22,
+-0.33
+],
+[
+-0.18,
+-0.2,
+-0.36
+],
+[
+-0.18,
+-0.38,
+-0.33
+],
+[
+0.05,
+-0.4,
+-0.3
+],
+[
+0.35,
+-0.38,
+-0.28
+]
+],
+"thick": 0.012,
+"mirror": true
+},
+{
+"type": "sheet",
+"id": "s-levator-nasolabialis-m",
+"term": "levator-nasolabialis-m",
+"layer": "ms_sup",
+"kind": "muscle",
+"grid": [
+[
+[
+0.3,
+0.27,
+-0.0662
+],
+[
+0.3266,
+0.2275,
+-0.0662
+],
+[
+0.3482,
+0.1768,
+-0.0992
+],
+[
+0.3672,
+0.1235,
+-0.1311
+],
+[
+0.3857,
+0.0684,
+-0.1501
+],
+[
+0.4062,
+0.015,
+-0.1594
+]
+],
+[
+[
+0.4167,
+0.215,
+-0.0383
+],
+[
+0.4441,
+0.1737,
+-0.0383
+],
+[
+0.4626,
+0.12,
+-0.0745
+],
+[
+0.4847,
+0.0671,
+-0.0949
+],
+[
+0.5038,
+0.0102,
+-0.1079
+],
+[
+0.5192,
+-0.0471,
+-0.1046
+]
+],
+[
+[
+0.5333,
+0.16,
+-0.0414
+],
+[
+0.5565,
+0.1153,
+-0.0414
+],
+[
+0.5764,
+0.0643,
+-0.0661
+],
+[
+0.5964,
+0.006,
+-0.088
+],
+[
+0.6142,
+-0.0453,
+-0.0884
+],
+[
+0.634,
+-0.0983,
+-0.0952
+]
+],
+[
+[
+0.65,
+0.105,
+-0.0485
+],
+[
+0.6714,
+0.0608,
+-0.0485
+],
+[
+0.6917,
+0.0058,
+-0.0778
+],
+[
+0.7088,
+-0.0523,
+-0.0834
+],
+[
+0.7319,
+-0.1001,
+-0.0814
+],
+[
+0.7485,
+-0.1489,
+-0.0974
+]
+],
+[
+[
+0.7667,
+0.05,
+-0.0588
+],
+[
+0.7901,
+0.0099,
+-0.0588
+],
+[
+0.8098,
+-0.0394,
+-0.0828
+],
+[
+0.8251,
+-0.0896,
+-0.0925
+],
+[
+0.8447,
+-0.1408,
+-0.1015
+],
+[
+0.8667,
+-0.1902,
+-0.1031
+]
+],
+[
+[
+0.8847,
+0.0004,
+-0.0397
+],
+[
+0.9051,
+-0.0375,
+-0.0572
+],
+[
+0.927,
+-0.0794,
+-0.065
+],
+[
+0.948,
+-0.1057,
+-0.0712
+],
+[
+0.9632,
+-0.1542,
+-0.0778
+],
+[
+0.9758,
+-0.1922,
+-0.091
+]
+],
+[
+[
+1.0,
+-0.06,
+-0.0387
+],
+[
+1.02,
+-0.086,
+-0.0387
+],
+[
+1.0461,
+-0.1101,
+-0.0387
+],
+[
+1.0644,
+-0.1327,
+-0.0382
+],
+[
+1.0888,
+-0.1614,
+-0.0407
+],
+[
+1.1025,
+-0.1835,
+-0.0426
+]
+]
+],
+"thick": 0.012,
+"drape": false,
+"fiber": [
+1.0,
+-0.55,
+0.0
+],
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-rostral-auricular-mm-know-them-as-a-grou",
+"term": "rostral-auricular-mm-know-them-as-a-grou",
+"layer": "ms_sup",
+"path": [
+[
+-0.18,
+0.38,
+-0.2
+],
+[
+-0.32,
+0.36,
+-0.36
+],
+[
+-0.45,
+0.28,
+-0.46
+]
+],
+"width": [
+0.12,
+0.1,
+0.07
+],
+"thick": [
+0.008,
+0.01,
+0.01
+],
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-scutiform-cartilage",
+"term": "scutiform-cartilage",
+"layer": "ms_sup",
+"kind": "cartilage",
+"center": [
+-0.38,
+0.4,
+-0.36
+],
+"radii": [
+0.07,
+0.012,
+0.05
+],
+"rot": [
+0.4,
+0.3,
+0
+],
+"lobulated": false,
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-caudal-auricular-mm-know-them-as-a-group",
+"term": "caudal-auricular-mm-know-them-as-a-group",
+"layer": "ms_sup",
+"path": [
+[
+-0.95,
+0.4,
+-0.04
+],
+[
+-0.82,
+0.34,
+-0.26
+],
+[
+-0.66,
+0.24,
+-0.42
+]
+],
+"width": [
+0.14,
+0.12,
+0.08
+],
+"thick": [
+0.008,
+0.012,
+0.012
+],
+"mirror": true
+},
+{
+"type": "model",
+"kind": "auricle",
+"id": "m-auricle",
+"layer": "ms_sup",
+"position": [
+-0.57,
+0.12,
+-0.52
+],
+"rotation": [
+0.25,
+0.0,
+-0.35
+],
+"scale": 1.0,
+"mirror": true,
+"parts": {
+"cartilage": "auricular-cartilage",
+"anthelix": "anthelix",
+"tragus": "tragus",
+"intertragic": "intertragic-incisure",
+"cutaneousSac": "marginal-cutaneous-sac",
+"group": "external-ear-group"
+},
+"length": 0.72,
+"note": "base (ear canal opening) at position; the pinna hangs ventrally and slightly rostrally (Labrador drop ear); lateral face toward -Z",
+"canalTo": [
+-0.575,
+-0.13,
+-0.33
+]
+},
+{
+"type": "model",
+"kind": "nasal-planum",
+"id": "m-nose",
+"layer": "ms_sup",
+"position": [
+1.19,
+-0.11,
+0.0
+],
+"rotation": [
+0,
+0,
+0
+],
+"scale": 0.6,
+"mirror": false,
+"parts": {
+"nose": "nose",
+"naris": "naris",
+"philtrum": "philtrum",
+"vestibule": "nasal-vestibule-with-nasal-opening-of-na"
+},
+"note": "nasal planum at the rostral tip, philtrum on the median plane running ventrally to the upper lip"
+},
+{
+"type": "model",
+"kind": "lips",
+"id": "m-lips",
+"layer": "ms_sup",
+"position": [
+0.75,
+-0.33,
+0.0
+],
+"rotation": [
+0,
+0,
+0
+],
+"scale": 1.0,
+"mirror": true,
+"parts": {
+"upper": "superior-upper-lip",
+"lower": "inferior-lower-lip",
+"cheek": "cheek-buccae"
+},
+"upperLip": [
+[
+1.2,
+-0.15,
+-0.02
+],
+[
+1.08,
+-0.2,
+-0.12
+],
+[
+0.85,
+-0.28,
+-0.2
+],
+[
+0.55,
+-0.33,
+-0.27
+],
+[
+0.33,
+-0.34,
+-0.3
+]
+],
+"lowerLip": [
+[
+0.33,
+-0.36,
+-0.29
+],
+[
+0.55,
+-0.4,
+-0.22
+],
+[
+0.85,
+-0.42,
+-0.15
+],
+[
+1.08,
+-0.4,
+-0.08
+],
+[
+1.17,
+-0.37,
+-0.01
+]
+],
+"commissure": [
+0.3,
+-0.35,
+-0.3
+],
+"cheek": [
+[
+0.33,
+-0.22,
+-0.32
+],
+[
+-0.2,
+-0.2,
+-0.4
+],
+[
+-0.2,
+-0.4,
+-0.36
+],
+[
+0.33,
+-0.42,
+-0.3
+]
+],
+"upperHeight": 0.075,
+"lowerHeight": 0.045,
+"note": "lip surfaces follow upperLip / lowerLip polylines (left side, mirror for right); cheek fills the outline"
+},
+{
+"type": "model",
+"kind": "tongue",
+"id": "m-tongue",
+"layer": "ms_deep",
+"position": [
+0.25,
+-0.34,
+0.0
+],
+"rotation": [
+0,
+0,
+-0.1
+],
+"scale": 1.0,
+"mirror": false,
+"parts": {
+"tongue": "tongue-root-body-apex",
+"filiform": "filiform-and-conical-papillae",
+"vallate": "vallate-papillae",
+"frenulum": "lingual-frenulum",
+"lyssa": "lyssa"
+},
+"apex": [
+1.0,
+-0.33,
+0.0
+],
+"root": [
+-0.48,
+-0.42,
+0.0
+],
+"halfWidth": 0.15,
+"thickness": 0.16,
+"note": "tongue fills the oral cavity proper between the mandibles; dorsum ~y=-0.27; lyssa is a median rod in the ventral apex; vallate papillae in a V at the body/root junction"
+},
+{
+"type": "blob",
+"id": "s-sublingual-caruncle",
+"term": "sublingual-caruncle",
+"layer": "ms_deep",
+"kind": "papilla",
+"center": [
+0.8,
+-0.385,
+-0.03
+],
+"radii": [
+0.012,
+0.008,
+0.01
+],
+"rot": [
+0,
+0,
+0
+],
+"lobulated": false,
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-sublingual-fold",
+"term": "sublingual-fold",
+"layer": "ms_deep",
+"path": [
+[
+0.78,
+-0.39,
+-0.04
+],
+[
+0.45,
+-0.41,
+-0.08
+],
+[
+0.1,
+-0.43,
+-0.11
+]
+],
+"width": [
+0.015,
+0.015,
+0.012
+],
+"thick": [
+0.008,
+0.008,
+0.006
+],
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-incisive-papilla",
+"term": "incisive-papilla",
+"layer": "ms_deep",
+"kind": "papilla",
+"center": [
+1.02,
+-0.225,
+0.0
+],
+"radii": [
+0.02,
+0.008,
+0.015
+],
+"rot": [
+0,
+0,
+0
+],
+"lobulated": false,
+"mirror": false
+},
+{
+"type": "sheet",
+"id": "s-soft-palate-not-a-bold-term-here",
+"term": "soft-palate-not-a-bold-term-here",
+"layer": "ms_deep",
+"outline": [
+[
+-0.12,
+-0.19,
+-0.1
+],
+[
+-0.4,
+-0.25,
+-0.1
+],
+[
+-0.62,
+-0.33,
+-0.08
+],
+[
+-0.62,
+-0.33,
+0.0
+],
+[
+-0.12,
+-0.19,
+0.0
+]
+],
+"thick": 0.035,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-palatine-tonsil",
+"term": "palatine-tonsil",
+"layer": "ms_deep",
+"kind": "tonsil",
+"center": [
+-0.52,
+-0.36,
+-0.075
+],
+"radii": [
+0.06,
+0.016,
+0.02
+],
+"rot": [
+0,
+0,
+-0.3
+],
+"lobulated": true,
+"mirror": true
+},
+{
+"type": "muscle",
+"id": "s-cervical-portion-of-the-esophagus",
+"term": "cervical-portion-of-the-esophagus",
+"layer": "ms_deep",
+"path": [
+[
+-0.95,
+-0.36,
+-0.02
+],
+[
+-1.25,
+-0.38,
+-0.05
+],
+[
+-1.6,
+-0.4,
+-0.06
+],
+[
+-2.0,
+-0.42,
+-0.06
+]
+],
+"width": [
+0.1,
+0.1,
+0.1,
+0.1
+],
+"thick": [
+0.06,
+0.06,
+0.06,
+0.06
+],
+"mirror": false,
+"kind": "esophagus"
+},
+{
+"type": "tube",
+"id": "s-trachea",
+"term": "trachea",
+"layer": "ms_deep",
+"kind": "trachea",
+"points": [
+[
+-0.98,
+-0.51,
+0.0
+],
+[
+-1.3,
+-0.5,
+0.0
+],
+[
+-1.65,
+-0.48,
+0.0
+],
+[
+-2.0,
+-0.46,
+0.0
+]
+],
+"r": 0.085,
+"mirror": false,
+"rings": {
+"term": "tracheal-cartilages",
+"spacing": 0.045,
+"open": "dorsal"
+}
+},
+{
+"type": "blob",
+"id": "s-thyroid-gland",
+"term": "thyroid-gland",
+"layer": "ms_deep",
+"kind": "gland",
+"center": [
+-1.14,
+-0.48,
+-0.1
+],
+"radii": [
+0.12,
+0.035,
+0.03
+],
+"rot": [
+0,
+0,
+0
+],
+"lobulated": false,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-parathyroid-glands-know-them-conceptuall",
+"term": "parathyroid-glands-know-them-conceptuall",
+"layer": "ms_deep",
+"kind": "gland",
+"center": [
+-1.04,
+-0.46,
+-0.125
+],
+"radii": [
+0.012,
+0.01,
+0.008
+],
+"rot": [
+0,
+0,
+0
+],
+"lobulated": false,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-medial-retropharyngeal-ln",
+"term": "medial-retropharyngeal-ln",
+"layer": "ms_deep",
+"kind": "node",
+"center": [
+-0.8,
+-0.3,
+-0.18
+],
+"radii": [
+0.09,
+0.04,
+0.035
+],
+"rot": [
+0,
+0,
+0.3
+],
+"lobulated": false,
+"mirror": true
+},
+{
+"type": "model",
+"kind": "larynx",
+"id": "m-larynx",
+"layer": "ms_deep",
+"position": [
+-0.82,
+-0.49,
+0.0
+],
+"rotation": [
+0,
+0,
+0.12
+],
+"scale": 0.42,
+"mirror": false,
+"parts": {
+"group": "larynx-group",
+"epiglottic": "epiglottic-cartilage",
+"aryepiglotticFold": "aryepiglottic-fold",
+"thyroid": "thyroid-cartilage",
+"cricoid": "cricoid-cartilage",
+"arytenoid": "arytenoid-cartilage",
+"vocalProcess": "vocal-process-of-arytenoid-cartilage",
+"vocalFold": "vocal-fold",
+"corniculate": "corniculate-process-of-arytenoid-cartila",
+"cuneiform": "cuneiform-process-of-arytenoid-cartilage",
+"vestibularFold": "vestibular-fold",
+"ventricle": "laryngeal-ventricle",
+"glottis": "glottis",
+"rimaGlottidis": "rima-glottidis",
+"cricothyroid": "cricothyroid-m",
+"cad": "cricoarytenoideus-dorsalis-m",
+"vocalis": "vocalis-m-know-as-a-concept-see-on-prose",
+"vocalLigament": "vocal-ligament-know-as-a-concept"
+},
+"note": "model length 1 = rostral tip of epiglottis to caudal border of cricoid; +X rostral, +Y dorsal. Larynx is ventral to the atlas, caudal to the basihyoid; trachea continues from its caudal end."
+},
+{
+"type": "tube",
+"id": "s-hyoid-chain",
+"term": "hyoid-apparatus",
+"layer": "bone",
+"kind": "bone",
+"points": [
+[
+-0.7,
+-0.22,
+-0.24
+],
+[
+-0.66,
+-0.34,
+-0.26
+],
+[
+-0.6,
+-0.4133,
+-0.22
+],
+[
+-0.55,
+-0.49,
+-0.13
+],
+[
+-0.53,
+-0.554,
+-0.04
+]
+],
+"r": 0.012,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-basihyoid",
+"term": "basihyoid",
+"layer": "bone",
+"kind": "bone",
+"points": [
+[
+-0.53,
+-0.554,
+-0.05
+],
+[
+-0.53,
+-0.569,
+0.0
+],
+[
+-0.53,
+-0.554,
+0.05
+]
+],
+"r": 0.016,
+"mirror": false
+},
+{
+"type": "tube",
+"id": "s-thyrohyoid",
+"term": "hyoid-apparatus",
+"layer": "bone",
+"kind": "bone",
+"points": [
+[
+-0.53,
+-0.554,
+-0.04
+],
+[
+-0.65,
+-0.53,
+-0.09
+],
+[
+-0.74,
+-0.51,
+-0.1
+]
+],
+"r": 0.01,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-parotid-salivary-gland",
+"term": "parotid-salivary-gland",
+"layer": "ms_sup",
+"kind": "gland",
+"center": [
+-0.63,
+-0.16,
+-0.5
+],
+"radii": [
+0.1,
+0.17,
+0.05
+],
+"rot": [
+0,
+0.2,
+0.15
+],
+"lobulated": true,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-parotid-duct",
+"term": "parotid-duct",
+"layer": "ms_sup",
+"kind": "duct",
+"points": [
+[
+-0.53,
+-0.14,
+-0.56
+],
+[
+-0.32,
+-0.12,
+-0.62
+],
+[
+-0.08,
+-0.14,
+-0.55
+],
+[
+0.14,
+-0.18,
+-0.4
+],
+[
+0.22,
+-0.21,
+-0.31
+]
+],
+"r": 0.008,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-mandibular-salivary-gland",
+"term": "mandibular-salivary-gland",
+"layer": "ms_sup",
+"kind": "gland",
+"center": [
+-0.68,
+-0.4167,
+-0.38
+],
+"radii": [
+0.1,
+0.08,
+0.06
+],
+"rot": [
+0,
+0,
+-0.2
+],
+"lobulated": true,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-sublingual-salivary-gland-monostomatic-g",
+"term": "sublingual-salivary-gland-monostomatic-g",
+"layer": "ms_deep",
+"kind": "gland",
+"center": [
+-0.56,
+-0.4183,
+-0.33
+],
+"radii": [
+0.07,
+0.035,
+0.035
+],
+"rot": [
+0,
+0.3,
+-0.1
+],
+"lobulated": true,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-mandibular-salivary-duct-don-t-need-to-d",
+"term": "mandibular-salivary-duct-don-t-need-to-d",
+"layer": "ms_deep",
+"kind": "duct",
+"points": [
+[
+-0.6,
+-0.4183,
+-0.3
+],
+[
+-0.4,
+-0.46,
+-0.18
+],
+[
+-0.05,
+-0.44,
+-0.1
+],
+[
+0.4,
+-0.41,
+-0.06
+],
+[
+0.79,
+-0.385,
+-0.035
+]
+],
+"r": 0.006,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-major-sublingual-salivary-duct-don-t-nee",
+"term": "major-sublingual-salivary-duct-don-t-nee",
+"layer": "ms_deep",
+"kind": "duct",
+"points": [
+[
+-0.6,
+-0.4167,
+-0.312
+],
+[
+-0.48,
+-0.4363,
+-0.25
+],
+[
+-0.4,
+-0.47,
+-0.192
+],
+[
+-0.05,
+-0.45,
+-0.112
+],
+[
+0.4,
+-0.42,
+-0.072
+],
+[
+0.79,
+-0.395,
+-0.047
+]
+],
+"r": 0.005,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-zygomatic-salivary-gland",
+"term": "zygomatic-salivary-gland",
+"layer": "ms_deep",
+"kind": "gland",
+"center": [
+0.0,
+-0.02,
+-0.31
+],
+"radii": [
+0.07,
+0.04,
+0.035
+],
+"rot": [
+0,
+0.3,
+0
+],
+"lobulated": true,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-external-jugular-v",
+"term": "external-jugular-v",
+"layer": "nv_sup",
+"kind": "vein",
+"points": [
+[
+-0.78,
+-0.4133,
+-0.42
+],
+[
+-1.05,
+-0.42,
+-0.38
+],
+[
+-1.45,
+-0.46,
+-0.32
+],
+[
+-1.95,
+-0.49,
+-0.27
+]
+],
+"r": 0.032,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-maxillary-v",
+"term": "maxillary-v",
+"layer": "nv_sup",
+"kind": "vein",
+"points": [
+[
+-0.5,
+-0.14,
+-0.47
+],
+[
+-0.62,
+-0.28,
+-0.49
+],
+[
+-0.72,
+-0.4,
+-0.46
+],
+[
+-0.78,
+-0.4133,
+-0.42
+]
+],
+"r": 0.024,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-linguofacial-v",
+"term": "linguofacial-v",
+"layer": "nv_sup",
+"kind": "vein",
+"points": [
+[
+-0.52,
+-0.471,
+-0.33
+],
+[
+-0.64,
+-0.44,
+-0.38
+],
+[
+-0.78,
+-0.4133,
+-0.42
+]
+],
+"r": 0.026,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-facial-v",
+"term": "facial-v",
+"layer": "nv_sup",
+"kind": "vein",
+"points": [
+[
+0.24,
+0.13,
+-0.27
+],
+[
+0.3,
+-0.04,
+-0.32
+],
+[
+0.16,
+-0.26,
+-0.37
+],
+[
+-0.06,
+-0.44,
+-0.33
+],
+[
+-0.3,
+-0.52,
+-0.31
+],
+[
+-0.52,
+-0.471,
+-0.33
+]
+],
+"r": 0.018,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-lingual-v",
+"term": "lingual-v",
+"layer": "nv_sup",
+"kind": "vein",
+"points": [
+[
+0.2,
+-0.45,
+-0.12
+],
+[
+-0.2,
+-0.51,
+-0.19
+],
+[
+-0.52,
+-0.471,
+-0.33
+]
+],
+"r": 0.016,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-facial-n-cranial-nerve-vii",
+"term": "facial-n-cranial-nerve-vii",
+"layer": "nv_sup",
+"kind": "nerve",
+"points": [
+[
+-0.6,
+-0.13,
+-0.33
+],
+[
+-0.61,
+-0.135,
+-0.41
+],
+[
+-0.6,
+-0.14,
+-0.48
+]
+],
+"r": 0.012,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-auriculopalpebral-n",
+"term": "auriculopalpebral-n",
+"layer": "nv_sup",
+"kind": "nerve",
+"points": [
+[
+-0.6,
+-0.14,
+-0.48
+],
+[
+-0.56,
+-0.02,
+-0.53
+],
+[
+-0.49,
+0.09,
+-0.51
+]
+],
+"r": 0.008,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-rostral-auricular-branches",
+"term": "rostral-auricular-branches",
+"layer": "nv_sup",
+"kind": "nerve",
+"points": [
+[
+-0.49,
+0.09,
+-0.51
+],
+[
+-0.48,
+0.17,
+-0.48
+],
+[
+-0.47,
+0.25,
+-0.44
+]
+],
+"r": 0.005,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-palpebral-branches",
+"term": "palpebral-branches",
+"layer": "nv_sup",
+"kind": "nerve",
+"points": [
+[
+-0.49,
+0.09,
+-0.51
+],
+[
+-0.28,
+0.12,
+-0.52
+],
+[
+-0.06,
+0.16,
+-0.43
+],
+[
+0.08,
+0.2,
+-0.36
+]
+],
+"r": 0.005,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-dorsal-buccal-branch-of-facial-n",
+"term": "dorsal-buccal-branch-of-facial-n",
+"layer": "nv_sup",
+"kind": "nerve",
+"points": [
+[
+-0.59,
+-0.14,
+-0.5
+],
+[
+-0.36,
+-0.1,
+-0.64
+],
+[
+-0.06,
+-0.12,
+-0.55
+],
+[
+0.24,
+-0.12,
+-0.36
+],
+[
+0.55,
+-0.1,
+-0.26
+],
+[
+0.86,
+-0.08,
+-0.18
+]
+],
+"r": 0.007,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-ventral-buccal-branch-of-facial-n",
+"term": "ventral-buccal-branch-of-facial-n",
+"layer": "nv_sup",
+"kind": "nerve",
+"points": [
+[
+-0.59,
+-0.17,
+-0.5
+],
+[
+-0.36,
+-0.3,
+-0.62
+],
+[
+-0.06,
+-0.37,
+-0.5
+],
+[
+0.24,
+-0.35,
+-0.32
+],
+[
+0.6,
+-0.34,
+-0.2
+]
+],
+"r": 0.007,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-auriculotemporal-n-seen-previously-when-",
+"term": "auriculotemporal-n-seen-previously-when-",
+"layer": "nv_sup",
+"kind": "nerve",
+"points": [
+[
+-0.47,
+-0.16,
+-0.28
+],
+[
+-0.55,
+-0.11,
+-0.42
+],
+[
+-0.55,
+0.04,
+-0.5
+],
+[
+-0.51,
+0.18,
+-0.46
+]
+],
+"r": 0.006,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-common-carotid-a",
+"term": "common-carotid-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-1.95,
+-0.41,
+-0.13
+],
+[
+-1.45,
+-0.4133,
+-0.13
+],
+[
+-1.05,
+-0.42,
+-0.145
+],
+[
+-0.82,
+-0.35,
+-0.15
+]
+],
+"r": 0.024,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-internal-carotid-a",
+"term": "internal-carotid-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-0.82,
+-0.35,
+-0.15
+],
+[
+-0.78,
+-0.27,
+-0.145
+],
+[
+-0.74,
+-0.18,
+-0.14
+]
+],
+"r": 0.012,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-carotid-sinus",
+"term": "carotid-sinus",
+"layer": "nv_deep",
+"kind": "sinus",
+"center": [
+-0.805,
+-0.32,
+-0.15
+],
+"radii": [
+0.018,
+0.014,
+0.014
+],
+"rot": [
+0,
+0,
+0
+],
+"lobulated": false,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-external-carotid-a",
+"term": "external-carotid-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-0.82,
+-0.35,
+-0.15
+],
+[
+-0.74,
+-0.31,
+-0.2
+],
+[
+-0.64,
+-0.23,
+-0.29
+],
+[
+-0.55,
+-0.16,
+-0.36
+]
+],
+"r": 0.018,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-cranial-thyroid-a",
+"term": "cranial-thyroid-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-1.02,
+-0.42,
+-0.145
+],
+[
+-1.06,
+-0.41,
+-0.13
+],
+[
+-1.1,
+-0.46,
+-0.115
+]
+],
+"r": 0.008,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-cranial-laryngeal-a",
+"term": "cranial-laryngeal-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-0.86,
+-0.38,
+-0.15
+],
+[
+-0.84,
+-0.4117,
+-0.14
+],
+[
+-0.8,
+-0.48,
+-0.1
+]
+],
+"r": 0.006,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-lingual-a",
+"term": "lingual-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-0.75,
+-0.31,
+-0.19
+],
+[
+-0.6,
+-0.415,
+-0.16
+],
+[
+-0.3,
+-0.47,
+-0.11
+],
+[
+0.2,
+-0.37,
+-0.07
+],
+[
+0.6,
+-0.34,
+-0.05
+]
+],
+"r": 0.009,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-facial-a",
+"term": "facial-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-0.71,
+-0.3,
+-0.21
+],
+[
+-0.56,
+-0.4133,
+-0.27
+],
+[
+-0.3,
+-0.53,
+-0.29
+],
+[
+-0.04,
+-0.47,
+-0.33
+],
+[
+0.15,
+-0.26,
+-0.36
+],
+[
+0.3,
+-0.06,
+-0.31
+]
+],
+"r": 0.009,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-caudal-auricular-a",
+"term": "caudal-auricular-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-0.67,
+-0.26,
+-0.25
+],
+[
+-0.69,
+-0.06,
+-0.38
+],
+[
+-0.63,
+0.12,
+-0.46
+]
+],
+"r": 0.008,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-superficial-temporal-a",
+"term": "superficial-temporal-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-0.55,
+-0.16,
+-0.36
+],
+[
+-0.53,
+-0.01,
+-0.47
+],
+[
+-0.46,
+0.18,
+-0.43
+]
+],
+"r": 0.008,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-maxillary-a",
+"term": "maxillary-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-0.55,
+-0.16,
+-0.36
+],
+[
+-0.47,
+-0.17,
+-0.26
+],
+[
+-0.4,
+-0.12,
+-0.18
+],
+[
+-0.3,
+-0.07,
+-0.155
+],
+[
+-0.2,
+-0.04,
+-0.16
+],
+[
+-0.02,
+-0.05,
+-0.2
+],
+[
+0.1,
+-0.05,
+-0.2
+]
+],
+"r": 0.012,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-inferior-alveolar-a",
+"term": "inferior-alveolar-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-0.45,
+-0.17,
+-0.25
+],
+[
+-0.36,
+-0.27,
+-0.23
+],
+[
+-0.32,
+-0.3,
+-0.22
+],
+[
+0.0,
+-0.355,
+-0.19
+],
+[
+0.4,
+-0.36,
+-0.13
+],
+[
+0.65,
+-0.36,
+-0.11
+]
+],
+"r": 0.006,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-external-ophthalmic-a",
+"term": "external-ophthalmic-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+-0.16,
+-0.04,
+-0.16
+],
+[
+-0.06,
+0.06,
+-0.17
+],
+[
+0.02,
+0.13,
+-0.19
+]
+],
+"r": 0.007,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-infraorbital-a",
+"term": "infraorbital-a",
+"layer": "nv_deep",
+"kind": "artery",
+"points": [
+[
+0.1,
+-0.05,
+-0.2
+],
+[
+0.18,
+-0.02,
+-0.17
+],
+[
+0.32,
+-0.04,
+-0.15
+],
+[
+0.444,
+-0.04,
+-0.13
+],
+[
+0.62,
+-0.05,
+-0.18
+]
+],
+"r": 0.008,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-olfactory-n-cranial-nerve-i-not-describe",
+"term": "olfactory-n-cranial-nerve-i-not-describe",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.03,
+0.12,
+-0.02
+],
+[
+0.03,
+0.13,
+-0.025
+],
+[
+0.15,
+0.12,
+-0.035
+]
+],
+"r": 0.01,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-optic-n-cranial-nerve-ii-prechiasmatic-o",
+"term": "optic-n-cranial-nerve-ii-prechiasmatic-o",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+0.0337,
+0.1477,
+-0.1339
+],
+[
+-0.0436,
+0.1137,
+-0.116
+],
+[
+-0.12,
+0.06,
+-0.1
+],
+[
+-0.2,
+0.03,
+-0.03
+],
+[
+-0.23,
+0.02,
+0.0
+]
+],
+"r": 0.014,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-trigeminal-n-cranial-nerve-v",
+"term": "trigeminal-n-cranial-nerve-v",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.58,
+-0.03,
+-0.03
+],
+[
+-0.54,
+-0.045,
+-0.07
+],
+[
+-0.5,
+-0.05,
+-0.1
+]
+],
+"r": 0.024,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-trigeminal-ganglion",
+"term": "trigeminal-nerve-cranial-nerve-v",
+"layer": "nv_deep",
+"kind": "ganglion",
+"center": [
+-0.5,
+-0.05,
+-0.1
+],
+"radii": [
+0.03,
+0.016,
+0.02
+],
+"rot": [
+0,
+0,
+0
+],
+"lobulated": false,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-ophthalmic-n-branch-of-trigeminal-n-cran",
+"term": "ophthalmic-n-branch-of-trigeminal-n-cran",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.5,
+-0.05,
+-0.1
+],
+[
+-0.32,
+-0.01,
+-0.105
+],
+[
+-0.17,
+0.0,
+-0.12
+],
+[
+0.0,
+0.1,
+-0.18
+],
+[
+0.08,
+0.21,
+-0.2
+]
+],
+"r": 0.01,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-maxillary-n-branch-of-trigeminal-n-crani",
+"term": "maxillary-n-branch-of-trigeminal-n-crani",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.5,
+-0.05,
+-0.1
+],
+[
+-0.31,
+-0.05,
+-0.12
+],
+[
+-0.26,
+-0.045,
+-0.13
+],
+[
+-0.22,
+-0.04,
+-0.14
+],
+[
+0.0,
+-0.05,
+-0.19
+],
+[
+0.18,
+-0.02,
+-0.17
+]
+],
+"r": 0.014,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-pterygopalatine-ganglion-from-cn-vii",
+"term": "pterygopalatine-ganglion-from-cn-vii",
+"layer": "nv_deep",
+"kind": "ganglion",
+"center": [
+-0.02,
+-0.07,
+-0.17
+],
+"radii": [
+0.014,
+0.01,
+0.01
+],
+"rot": [
+0,
+0,
+0
+],
+"lobulated": false,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-infraorbital-n",
+"term": "infraorbital-n",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+0.18,
+-0.02,
+-0.17
+],
+[
+0.32,
+-0.035,
+-0.15
+],
+[
+0.444,
+-0.04,
+-0.13
+],
+[
+0.56,
+-0.04,
+-0.17
+],
+[
+0.82,
+-0.02,
+-0.15
+]
+],
+"r": 0.013,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-mandibular-n-not-bolded-here-in-the-book",
+"term": "mandibular-n-not-bolded-here-in-the-book",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.5,
+-0.05,
+-0.1
+],
+[
+-0.49,
+-0.11,
+-0.13
+],
+[
+-0.466,
+-0.154,
+-0.16
+],
+[
+-0.42,
+-0.21,
+-0.22
+]
+],
+"r": 0.016,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-buccal-n",
+"term": "buccal-n",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.42,
+-0.21,
+-0.22
+],
+[
+-0.26,
+-0.18,
+-0.29
+],
+[
+0.0,
+-0.19,
+-0.33
+],
+[
+0.2,
+-0.21,
+-0.33
+]
+],
+"r": 0.007,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-lingual-n",
+"term": "lingual-n",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.42,
+-0.21,
+-0.22
+],
+[
+-0.35,
+-0.31,
+-0.18
+],
+[
+-0.15,
+-0.39,
+-0.12
+],
+[
+0.2,
+-0.355,
+-0.08
+],
+[
+0.5,
+-0.32,
+-0.05
+]
+],
+"r": 0.009,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-inferior-alveolar-n",
+"term": "inferior-alveolar-n",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.42,
+-0.21,
+-0.22
+],
+[
+-0.35,
+-0.28,
+-0.22
+],
+[
+-0.32,
+-0.3,
+-0.22
+],
+[
+0.0,
+-0.35,
+-0.185
+],
+[
+0.4,
+-0.355,
+-0.125
+],
+[
+0.65,
+-0.36,
+-0.11
+]
+],
+"r": 0.011,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-mylohyoid",
+"term": "mylohyoid",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.36,
+-0.27,
+-0.22
+],
+[
+-0.25,
+-0.41,
+-0.21
+],
+[
+0.0,
+-0.47,
+-0.16
+],
+[
+0.3,
+-0.46,
+-0.09
+]
+],
+"r": 0.006,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-trigeminal-root",
+"term": "trigeminal-n-cranial-nerve-v",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.58,
+-0.03,
+-0.03
+],
+[
+-0.54,
+-0.045,
+-0.07
+],
+[
+-0.5,
+-0.05,
+-0.1
+]
+],
+"r": 0.024,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-facial-intracranial",
+"term": "facial-n-cranial-nerve-vii-2",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.62,
+0.0,
+-0.06
+],
+[
+-0.6,
+-0.01,
+-0.17
+],
+[
+-0.6,
+-0.08,
+-0.27
+],
+[
+-0.6,
+-0.13,
+-0.33
+]
+],
+"r": 0.01,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-glossopharyngeal-n-cranial-nerve-ix",
+"term": "glossopharyngeal-n-cranial-nerve-ix",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.73,
+-0.15,
+-0.15
+],
+[
+-0.7,
+-0.27,
+-0.18
+],
+[
+-0.62,
+-0.4,
+-0.15
+],
+[
+-0.52,
+-0.4255,
+-0.1
+]
+],
+"r": 0.008,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-vagus-n-cranial-nerve-x",
+"term": "vagus-n-cranial-nerve-x",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.73,
+-0.15,
+-0.15
+],
+[
+-0.77,
+-0.25,
+-0.16
+],
+[
+-0.84,
+-0.33,
+-0.17
+],
+[
+-1.05,
+-0.385,
+-0.16
+],
+[
+-1.45,
+-0.4192,
+-0.155
+],
+[
+-1.95,
+-0.4142,
+-0.15
+]
+],
+"r": 0.011,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-distal-ganglion-of-vagus-n-cn-x",
+"term": "distal-ganglion-of-vagus-n-cn-x",
+"layer": "nv_deep",
+"kind": "ganglion",
+"center": [
+-0.77,
+-0.25,
+-0.16
+],
+"radii": [
+0.028,
+0.013,
+0.013
+],
+"rot": [
+0,
+0,
+0.9
+],
+"lobulated": false,
+"mirror": true
+},
+{
+"type": "blob",
+"id": "s-cranial-cervical-ganglion",
+"term": "cranial-cervical-ganglion",
+"layer": "nv_deep",
+"kind": "ganglion",
+"center": [
+-0.78,
+-0.21,
+-0.13
+],
+"radii": [
+0.035,
+0.014,
+0.012
+],
+"rot": [
+0,
+0,
+0.8
+],
+"lobulated": false,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-cervical-sympathetic-trunk",
+"term": "cervical-sympathetic-trunk",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.79,
+-0.23,
+-0.13
+],
+[
+-0.85,
+-0.315,
+-0.15
+],
+[
+-1.05,
+-0.37,
+-0.15
+],
+[
+-1.45,
+-0.41,
+-0.145
+],
+[
+-1.95,
+-0.4167,
+-0.14
+]
+],
+"r": 0.006,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-cranial-laryngeal-n",
+"term": "cranial-laryngeal-n",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.77,
+-0.25,
+-0.16
+],
+[
+-0.8,
+-0.38,
+-0.17
+],
+[
+-0.82,
+-0.4117,
+-0.15
+],
+[
+-0.8,
+-0.46,
+-0.11
+]
+],
+"r": 0.006,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-accessory-n-cranial-n-xi",
+"term": "accessory-n-cranial-n-xi",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.73,
+-0.15,
+-0.15
+],
+[
+-0.8,
+-0.17,
+-0.27
+],
+[
+-0.98,
+-0.14,
+-0.37
+],
+[
+-1.3,
+-0.1,
+-0.4
+]
+],
+"r": 0.008,
+"mirror": true
+},
+{
+"type": "tube",
+"id": "s-hypoglossal-n-cranial-n-xii",
+"term": "hypoglossal-n-cranial-n-xii",
+"layer": "nv_deep",
+"kind": "nerve",
+"points": [
+[
+-0.744,
+-0.17,
+-0.12
+],
+[
+-0.76,
+-0.28,
+-0.18
+],
+[
+-0.68,
+-0.4183,
+-0.2
+],
+[
+-0.45,
+-0.49,
+-0.14
+],
+[
+-0.1,
+-0.43,
+-0.1
+],
+[
+0.3,
+-0.36,
+-0.07
+]
+],
+"r": 0.009,
+"mirror": true
+}
+]

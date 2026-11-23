@@ -1,0 +1,123 @@
+<title>Canine Head Atlas</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&display=swap">
+<link rel="stylesheet" href="css/atlas.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+  "three-mesh-bvh": "https://cdn.jsdelivr.net/npm/three-mesh-bvh@0.7.0/build/index.module.js"
+} }
+</script>
+
+<div class="app" id="app" data-sheet="">
+  <!-- Terms index -->
+  <aside class="side side-terms" id="panel-terms" aria-label="Terms index">
+    <header class="brand">
+      <h1>Canine Head Atlas</h1>
+      <p>Labrador retriever &middot; terms as written in the list</p>
+    </header>
+    <div class="search">
+      <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12.8 12.8 17 17" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input id="search" type="search" placeholder="Search 271 terms" autocomplete="off" spellcheck="false" aria-label="Search terms">
+      <span class="count" id="search-count"></span>
+    </div>
+    <nav class="index" id="index" aria-label="Terms by section"></nav>
+  </aside>
+
+  <!-- Viewport -->
+  <main class="stage" id="stage">
+    <div class="backdrop" aria-hidden="true"></div>
+    <div class="gl" id="gl"></div>
+    <canvas class="leaders" id="leaders" aria-hidden="true"></canvas>
+    <div class="labels" id="labels"></div>
+    <div class="tip" id="tip"></div>
+
+    <div class="topbar">
+      <div class="seg" role="group" aria-label="Head" id="seg-split">
+        <button data-split="whole" aria-pressed="true">Whole</button>
+        <button data-split="apart" aria-pressed="false">Bisected</button>
+        <button data-split="tray" aria-pressed="false" title="Both halves laid flat, cut faces up">Tray</button>
+      </div>
+      <div class="seg seg-halves" role="group" aria-label="Halves shown" id="seg-halves" hidden>
+        <button data-halves="both" aria-pressed="true">Both</button>
+        <button data-halves="left" aria-pressed="false">Left</button>
+        <button data-halves="right" aria-pressed="false">Right</button>
+      </div>
+      <div class="seg seg-layers" role="group" aria-label="Layers" id="full-layers">
+        <button data-layer="bone" aria-pressed="true" title="1. Bone">1</button>
+        <button data-layer="nv_sup" aria-pressed="true" title="2a. Nerves &amp; blood vessels, superficial">2a</button>
+        <button data-layer="nv_deep" aria-pressed="true" title="2b. Nerves &amp; blood vessels, deep">2b</button>
+        <button data-layer="ms_sup" aria-pressed="true" title="3a. Muscles &amp; other structures, superficial">3a</button>
+        <button data-layer="ms_deep" aria-pressed="true" title="3b. Muscles &amp; other structures, deep">3b</button>
+      </div>
+      <span class="spacer"></span>
+      <button class="btn" id="btn-quiz" aria-pressed="false">Quiz</button>
+      <button class="btn icon" id="btn-full" aria-pressed="false" title="Fullscreen (F)" aria-label="Fullscreen">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M3.5 7.5v-4h4M12.5 3.5h4v4M16.5 12.5v4h-4M7.5 16.5h-4v-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="btn icon" id="btn-studio" title="Switch backdrop" aria-label="Switch backdrop">
+        <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M10 3.5a6.5 6.5 0 0 1 0 13z" fill="currentColor"/></svg>
+      </button>
+    </div>
+
+    <div class="viewbar" id="viewbar" role="group" aria-label="Preset views">
+      <button data-view="left">Left lateral</button>
+      <button data-view="right">Right lateral</button>
+      <button data-view="dorsal">Dorsal</button>
+      <button data-view="ventral">Ventral</button>
+      <button data-view="rostral">Rostral</button>
+      <button data-view="caudal">Caudal</button>
+      <button data-view="medial">Medial</button>
+      <button data-view="reset" class="reset" title="Reset view">Reset</button>
+    </div>
+
+    <div class="status" id="status" role="status">Loading skull&hellip;</div>
+    <div class="compass" id="compass" aria-hidden="true"></div>
+  </main>
+
+  <!-- Layers, labels, selection, quiz -->
+  <aside class="side side-tools" id="panel-tools" aria-label="Layers and selection">
+    <section class="card" id="card-layers">
+      <h2>Layers</h2>
+      <div class="layers" id="layers"></div>
+      <div class="quick" id="layer-quick"><button class="btn plain" data-set="bone,nv_sup,nv_deep,ms_sup,ms_deep">All on</button><button class="btn plain" data-set="bone">Bone only</button><button class="btn plain" data-set="bone,nv_sup,nv_deep">Bone + nerves &amp; vessels</button></div>
+      <label class="check" id="eyecut-row"><input type="checkbox" id="eyecut"><span>Section the eye <small>(globe turned, cut face out)</small></span></label>
+    </section>
+
+    <section class="card" id="card-labels">
+      <h2>Labels</h2>
+      <div class="seg full" role="group" aria-label="Label density" id="seg-density">
+        <button data-density="focus" aria-pressed="true">Focus</button>
+        <button data-density="all" aria-pressed="false">All</button>
+        <button data-density="group" aria-pressed="false">Section</button>
+        <button data-density="none" aria-pressed="false">None</button>
+      </div>
+      <p class="hint" id="density-hint"></p>
+    </section>
+
+    <section class="card" id="card-selection">
+      <h2>Selection</h2>
+      <div id="selection" class="selection"><p class="muted">Hover a structure to see its term. Click to select it.</p></div>
+    </section>
+
+    <section class="card" id="card-quiz" hidden>
+      <h2>Quiz</h2>
+      <div class="quiz" id="quiz"></div>
+    </section>
+  </aside>
+
+  <!-- Phone / narrow tab bar -->
+  <nav class="tabbar" id="tabbar" aria-label="Panels">
+    <button data-sheet="terms">Terms</button>
+    <button data-sheet="tools">Layers</button>
+    <button data-sheet="views">Views</button>
+    <button data-sheet="" class="close">Close</button>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+</div>
+
+<div class="fatal" id="fatal" hidden></div>
+<script type="module" src="js/main.js"></script>

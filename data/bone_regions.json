@@ -1,0 +1,19 @@
+{
+ "regions": {
+  "bone:basisphenoid-bone": 6519,
+  "bone:ethmoid-bone": 299,
+  "bone:frontal-bone": 23883,
+  "bone:incisive-bone": 6496,
+  "bone:maxilla": 16235,
+  "bone:nasal-bone": 3066,
+  "bone:occipital-bone": 15542,
+  "bone:palatine": 8650,
+  "bone:parietal-bone": 24561,
+  "bone:presphenoid-bone": 4358,
+  "bone:pterygoid": 943,
+  "bone:temporal-bone": 17399,
+  "bone:vomer": 1033,
+  "bone:zygomatic": 4614
+ },
+ "source": "Cornell CUHL 9 segmentation (MorphoMuseuM M3#1858/1859) fitted to NIH 3DPX-000282"
+}
