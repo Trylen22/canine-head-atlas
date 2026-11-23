@@ -6,7 +6,7 @@ import { MeshBVH } from 'three-mesh-bvh';
 import { Line2 } from 'three/addons/lines/Line2.js';
 import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
 import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
-import { makeMaterial, makeCapMaterial, capRank, pull } from './materials.js';
+import { makeMaterial, makeCapMaterial, capRank } from './materials.js';
 
 export const LAYERS = ['bone', 'nv_sup', 'nv_deep', 'ms_sup', 'ms_deep'];
 const EPS_SIDE = 0.004;          // 0.4 mm over the median plane still counts as one-sided
@@ -134,12 +134,11 @@ export class Stage {
     const layer = LAYERS.includes(spec.layer) ? spec.layer : 'ms_deep';
     const mat = makeMaterial(spec.kind, spec.opts);
     mat.vertexColors = !!g.attributes.color;
-    if (spec.tweak) spec.tweak(mat);
     const part = {
       id: this.parts.length, name: spec.name || spec.termId || spec.kind, termId: spec.termId || null, layer, kind: spec.kind,
       geometry: g, matrix, inv: matrix.clone().invert(), side, mats: [mat], meshes: {}, stencils: [], noPick: !!spec.noPick,
       sphere: _box.getBoundingSphere(new THREE.Sphere()), anchor: spec.anchor || null, tag: spec.tag || null, hidden: false,
-      baseOpacity: mat.userData.baseOpacity, keep: !!spec.tweak,
+      baseOpacity: mat.userData.baseOpacity,
     };
     const solid = mat.userData.baseOpacity > 0.5;
     const mk = (m, group, stencil) => { const mesh = new THREE.Mesh(g, m); mesh.matrixAutoUpdate = false; mesh.matrix.copy(matrix); mesh.userData.part = part; mesh.castShadow = solid && !stencil; mesh.receiveShadow = solid && !stencil; group.add(mesh); return mesh; };
@@ -156,7 +155,6 @@ export class Stage {
       }
     }
     mat.userData.baseColor = mat.color.clone(); mat.clipShadows = true;
-    if (spec.order != null) for (const me of Object.values(part.meshes)) { me.renderOrder = spec.order; me.castShadow = false; }
     part.stencilsF = [];
     if (!spec.noCap && solid) {
       const cap = this._capGroup(layer, spec.capKind || spec.kind, 'F');
@@ -210,7 +208,7 @@ export class Stage {
     const op = L.opacity * p.baseOpacity;
     const sel = this.selParts.has(p), hov = this.hovParts.has(p), dim = !sel && this.selParts.size > 0;
     for (const m of p.mats) {
-      m.opacity = op; if (!p.keep) { m.transparent = op < 0.999; m.depthWrite = p.baseOpacity > 0.6; }
+      m.opacity = op; m.transparent = op < 0.999; m.depthWrite = p.baseOpacity > 0.6;
       const base = m.userData.baseColor || m.color;
       m.emissiveIntensity = 1;
       if (sel) { m.color.copy(base).lerp(FILL, 0.85); m.emissive.copy(FILL).multiplyScalar(0.1 + 0.2 * this.pulse); }
@@ -238,6 +236,7 @@ export class Stage {
     for (const o of [...this.outlines, ...this.hintObjs]) { const src = o.userData.src; if (!src) continue; o.visible = src.visible; const cp = src.material.clippingPlanes || null; if (o.material.clippingPlanes !== cp) { o.material.clippingPlanes = cp; o.material.needsUpdate = true; } }
     { const want = floorOn ? this.floorPlanes : this.splitT > 0 ? this.clipL : null;
       for (const o of [...this.patches.sel, ...this.patches.aux]) if ((o.material.clippingPlanes || null) !== want) { o.material.clippingPlanes = want; o.material.needsUpdate = true; } }
+    if (this.underlay) this.underlay.visible = floorOn && this.splitT === 0;
     if (this.shadow) this.shadow.visible = !this.noShadow && !floorOn && !(this.splitT > 0 && this.pose === 'tray');
     this.gL.visible = this.halves !== 'right' || this.splitT === 0;
     this.gR.visible = this.halves !== 'left' || this.splitT === 0;
@@ -284,7 +283,7 @@ export class Stage {
     this.refresh();
   }
   // ---- openings and fossae: the bone inside the term's own outline is shaded and its perimeter drawn.
-  // spec: { key, pos, normal, a, b, axis, side, target: 'bone' | 'study', inner? }
+  // spec: { key, pos, normal, a, b, axis, side }
   _patchData(spec) {
     let d = this.patchCache.get(spec.key); if (d) return d;
     const n = spec.normal.clone().normalize(), u = (spec.axis ? spec.axis.clone() : new THREE.Vector3(1, 0, 0)); u.addScaledVector(n, -u.dot(n));
@@ -294,7 +293,7 @@ export class Stage {
     const tris = [], edges = new Map(), pts = new Map();
     const key = w => Math.round(w.x * 2e4) + ',' + Math.round(w.y * 2e4) + ',' + Math.round(w.z * 2e4);
     for (const p of this.parts) {
-      if (spec.target === 'study' ? !(p.tag === 'studyfloor' && p.kind === 'floor') : p.tag !== 'skull') continue;
+      if (p.tag !== 'skull') continue;
       if (p.side === 'R' || !p.sphere.intersectsSphere(sphere)) continue;
       const g = p.geometry, P = g.attributes.position, N = g.attributes.normal, ix = g.index;
       g.boundsTree.shapecast({
@@ -303,7 +302,6 @@ export class Stage {
           c.copy(tri.a).add(tri.b).add(tri.c).multiplyScalar(1 / 3).sub(spec.pos);
           const x = c.dot(u), y = c.dot(v), z = c.dot(n);
           if ((x / spec.a) ** 2 + (y / spec.b) ** 2 > 1 || Math.abs(z) > win) return false;
-          if (spec.inner && Math.hypot(x, y) < spec.inner * 0.85) return false;
           tri.getNormal(fn); if (fn.dot(n) < -0.3) return false;                     // the far side of thin bone
           const id = [ix.getX(ti * 3), ix.getX(ti * 3 + 1), ix.getX(ti * 3 + 2)], ks = [];
           for (const i of id) { q.fromBufferAttribute(P, i); ks.push(key(q)); if (!pts.has(ks[ks.length - 1])) pts.set(ks[ks.length - 1], q.clone()); tris.push(q.x + N.getX(i) * 0.0004, q.y + N.getY(i) * 0.0004, q.z + N.getZ(i) * 0.0004); }
@@ -322,31 +320,28 @@ export class Stage {
       if (loop.length >= 4) loops.push(loop.map(k => pts.get(k).clone().addScaledVector(n, 0.0012)));
     }
     const len = l => l.reduce((s2, pnt, i) => s2 + pnt.distanceTo(l[(i + 1) % l.length]), 0), tan = pnt => { q.copy(pnt).sub(spec.pos); return Math.hypot(q.dot(u), q.dot(v)); };
-    let keep = loops;
-    if (spec.inner) keep = loops.filter(l => l.reduce((s2, pnt) => s2 + tan(pnt), 0) / l.length < spec.inner * 1.4);      // the hole's own edge
-    else { const mx = Math.max(0, ...loops.map(len)); keep = loops.filter(l => len(l) > mx * 0.18); }
+    const mx = Math.max(0, ...loops.map(len)), keep = loops.filter(l => len(l) > mx * 0.18);
     const chaikin = l => { const o = []; for (let i = 0; i < l.length; i++) { const a = l[i], b = l[(i + 1) % l.length]; o.push(a.clone().lerp(b, 0.25), a.clone().lerp(b, 0.75)); } return o; };
-    d = { tris: new Float32Array(tris), loops: spec.inner ? keep : keep.map(l => chaikin(chaikin(l))) };    // a study-floor rim is already an exact circle
+    d = { tris: new Float32Array(tris), loops: keep.map(l => chaikin(chaikin(l))) };
     this.patchCache.set(spec.key, d); return d;
   }
   setPatch(slot, spec, style = 'sel') {
     for (const o of this.patches[slot]) { o.parent && o.parent.remove(o); o.geometry.dispose(); o.material.dispose(); }
     this.patches[slot] = [];
     if (!spec) { this.dirty = true; return; }
-    const d = this._patchData(spec), group = spec.side === 'right' ? this.gR : this.gL, study = spec.target === 'study';
+    const d = this._patchData(spec), group = spec.side === 'right' ? this.gR : this.gL;
     const S = { sel: { fill: 0xff8214, a: 0.46, line: 0xffb347, w: 3.2, ghost: 0.3 }, hover: { fill: 0xff8214, a: 0.24, line: 0xffb347, w: 2.2, ghost: 0 }, hint: { fill: 0x9fc6ea, a: 0.24, line: 0x86b2dc, w: 1.6, ghost: 0 } }[style];
     if (d.tris.length) {
       const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(d.tris, 3));
       const m = new THREE.MeshBasicMaterial({ color: S.fill, transparent: true, opacity: S.a, depthWrite: false, toneMapped: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
-      if (study) m.onBeforeCompile = pull;
       const o = new THREE.Mesh(g, m); o.renderOrder = 940; group.add(o); this.patches[slot].push(o);
     }
     for (const loop of d.loops) {
       const flat = []; for (const pnt of [...loop, loop[0]]) flat.push(pnt.x, pnt.y, pnt.z);
       const lg = new LineGeometry(); lg.setPositions(flat);
       const mk = (opacity, depthTest, order) => { const m = new LineMaterial({ color: S.line, linewidth: S.w, transparent: true, opacity, depthTest, depthWrite: false, toneMapped: false }); m.resolution.set(this.width, this.height); const l = new Line2(lg, m); l.renderOrder = order; group.add(l); this.patches[slot].push(l); };
-      if (S.ghost && !study) mk(S.ghost, false, 950);
-      mk(1, !study, 951);
+      if (S.ghost) mk(S.ghost, false, 950);
+      mk(1, true, 951);
     }
     this.refresh();
   }
@@ -387,6 +382,7 @@ export class Stage {
   }
   setFloor(on, instant) {
     if (on) this.floor = true;
+    if (on) for (const p of this.parts) this._useAO(p);
     this._floorAnim = { from: this.floorT, to: on ? 1 : 0, t0: performance.now(), dur: instant || this.instant || reduceMotion() ? 1 : 1100 };
     this.dirty = true;
   }
@@ -463,7 +459,7 @@ export class Stage {
     if (fa) {
       const u = Math.min(1, Math.max(0, (now - fa.t0) / fa.dur));
       this.floorT = fa.from + (fa.to - fa.from) * u;
-      if (u >= 1) { this._floorAnim = null; if (fa.to === 0) this.floor = false; }
+      if (u >= 1) { this._floorAnim = null; if (fa.to === 0) { this.floor = false; this.floorT = 0; for (const p of this.parts) this._useAO(p); } }
       this._setFloorPlane(); this.refresh();
       if (u >= 1 && this.onSplitDone) this.onSplitDone();
     }
@@ -573,19 +569,20 @@ export class Stage {
     return out;
   }
 
-  // An unseen draw at a given point in the render order whose only job is to reset the stencil buffer.
-  addStencilClear(order) {
-    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 0, 0, 0, 0, 0, 0], 3));
-    const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false, depthTest: false, transparent: true }));
-    m.frustumCulled = false; m.renderOrder = order; m.onAfterRender = renderer => renderer.clearStencil(); this.scene.add(m);
-  }
   // Shadow catcher: an unseen bench under the head that only shows the key light's cast shadow.
   addShadow() {
     const sz = this.size || new THREE.Vector3(2.1, 1.1, 1.25);
     const m = new THREE.Mesh(new THREE.PlaneGeometry(14, 14), new THREE.ShadowMaterial({ opacity: 0.26, transparent: true, depthWrite: false }));
     m.rotation.x = -Math.PI / 2; m.position.set(this.center.x, this.center.y - sz.y / 2 - 0.1, 0); m.receiveShadow = true; m.renderOrder = -1;
     this.scene.add(m); this.shadow = m; this._aimKey();
+    // Floor view: a dark backing under the skull base, seen only from above, so the foramina that
+    // pass right through read as dark openings instead of showing the bright backdrop.
+    const u = new THREE.Mesh(new THREE.CircleGeometry(1, 48), new THREE.MeshBasicMaterial({ color: 0x140e0a, toneMapped: false }));
+    u.rotation.x = -Math.PI / 2; u.scale.set(0.36, 0.24, 1); u.position.set(-0.3, -0.215, 0); u.visible = false;
+    this.scene.add(u); this.underlay = u;
   }
+
+  _useAO(p) { const src = (this.floor || this.floorT > 0) ? p.aoOpen : p.aoWhole; if (!src) return; const c = p.geometry.attributes.color; c.array.set(src); c.needsUpdate = true; }
 
   // ------------------------------------------------------------------ bone finish
   // Smooth normals across the seams between bone regions, then bake soft ambient occlusion into
@@ -600,31 +597,36 @@ export class Stage {
       N.needsUpdate = true; }
     this.dirty = true;
 
-    const dirs = []; { let s = 3; const rnd = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
-      for (let i = 0; i < 10; i++) { const u = rnd(), v = rnd() * 6.2832, r = Math.sqrt(u); dirs.push([r * Math.cos(v), r * Math.sin(v), Math.sqrt(1 - u)]); } }
-    const MAXD = 0.22, ray = new THREE.Ray(), n = new THREE.Vector3(), t = new THREE.Vector3(), b = new THREE.Vector3(), pos = new THREE.Vector3();
-    const jobs = bones.map(p => ({ p, i: 0, col: p.geometry.attributes.color }));
+    const dirs = []; { let sd = 3; const rnd = () => ((sd = (sd * 1664525 + 1013904223) >>> 0) / 4294967296);
+      for (let i = 0; i < 14; i++) { const u = rnd(), v = rnd() * 6.2832, r = Math.sqrt(u); dirs.push([r * Math.cos(v), r * Math.sin(v), Math.sqrt(1 - u)]); } }
+    // Two bakes from the same rays: the closed skull, and the skull with the calvaria off (hits above
+    // the Floor cut are ignored), so the cranial floor is not left in the dark when the vault is opened.
+    const MAXD = 0.2, FAR = 1.4, ray = new THREE.Ray(), n = new THREE.Vector3(), t = new THREE.Vector3(), b = new THREE.Vector3(), pos = new THREE.Vector3();
+    const cut = this.floorPlane.clone();
+    const shade = (near, enclosed, out, i) => {
+      const k = Math.pow(Math.max(0, 1 - 0.97 * near), 1.7) * (1 - 0.62 * enclosed * enclosed);
+      out[i * 3] = 0.17 + 0.83 * k; out[i * 3 + 1] = 0.11 + 0.89 * k; out[i * 3 + 2] = 0.075 + 0.925 * k;          // deep places go warm and dark
+    };
+    const jobs = bones.map(p => ({ p, i: 0, whole: new Float32Array(p.geometry.attributes.position.count * 3), open: new Float32Array(p.geometry.attributes.position.count * 3) }));
     const step = () => {
       const t0 = performance.now();
       while (jobs.length && performance.now() - t0 < 12) {
         const j = jobs[0], P = j.p.geometry.attributes.position, N = j.p.geometry.attributes.normal;
-        const end = Math.min(P.count, j.i + 400);
+        const end = Math.min(P.count, j.i + 300);
         for (; j.i < end; j.i++) {
           pos.fromBufferAttribute(P, j.i); n.fromBufferAttribute(N, j.i);
           t.set(n.y, -n.x, 0); if (t.lengthSq() < 1e-4) t.set(0, n.z, -n.y); t.normalize(); b.crossVectors(n, t);
-          let occ = 0;
+          let occ = 0, enc = 0, occO = 0, encO = 0;
           for (const d of dirs) {
             ray.direction.set(0, 0, 0).addScaledVector(t, d[0]).addScaledVector(b, d[1]).addScaledVector(n, d[2]).normalize();
             ray.origin.copy(pos).addScaledVector(n, 0.004);
-            let near = MAXD;
-            for (const q of bones) { if (!ray.intersectsSphere(q.sphere)) continue; const h = q.geometry.boundsTree.raycastFirst(ray, THREE.DoubleSide); if (h) { const dd = h.point.distanceTo(ray.origin); if (dd < near) near = dd; } }
-            occ += 1 - near / MAXD;
+            let near = FAR, above = false;
+            for (const q of bones) { if (!ray.intersectsSphere(q.sphere)) continue; const h = q.geometry.boundsTree.raycastFirst(ray, THREE.DoubleSide); if (h) { const dd = h.point.distanceTo(ray.origin); if (dd < near) { near = dd; above = cut.distanceToPoint(h.point) < 0; } } }
+            if (near < FAR) { enc++; if (near < MAXD) occ += 1 - near / MAXD; if (!above) { encO++; if (near < MAXD) occO += 1 - near / MAXD; } }
           }
-          const ao = 1 - 0.95 * occ / dirs.length, k = Math.pow(Math.max(0, ao), 1.5);
-          // crevices go warm and dark, as on a cleaned skull
-          j.col.setXYZ(j.i, 0.30 + 0.70 * k, 0.22 + 0.78 * k, 0.15 + 0.85 * k);
+          shade(occ / dirs.length, enc / dirs.length, j.whole, j.i); shade(occO / dirs.length, encO / dirs.length, j.open, j.i);
         }
-        if (j.i >= P.count) { j.col.needsUpdate = true; jobs.shift(); this.dirty = true; }
+        if (j.i >= P.count) { j.p.aoWhole = j.whole; j.p.aoOpen = j.open; this._useAO(j.p); jobs.shift(); this.dirty = true; }
       }
       if (jobs.length) setTimeout(step, 0);
     };

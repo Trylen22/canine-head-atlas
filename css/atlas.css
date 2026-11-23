@@ -241,5 +241,3 @@ button { cursor: pointer; }
 .qfloat .answer, .qfloat .row { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
 .qfloat .fb { margin-top: 6px; }
 .qfloat .btn { padding: 6px 10px; box-shadow: none; }
-.floorh .sep { width: 1px; align-self: stretch; background: var(--line); margin: 0 2px; }
-.floorh input[type="checkbox"] { width: 16px; height: 16px; }
