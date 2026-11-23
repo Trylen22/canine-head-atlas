@@ -76,6 +76,8 @@ export const KINDS = {
   limbus:    { color: 0x6b5a4e, roughness: 0.4, cap: 0x6b5a4e, capRank: 5 },
   esophagus: { color: 0xb9695d, roughness: 0.5, fiber: true, cap: 0xa85a50, capTex: 'meat', capRank: 3 },
   fascia:    { color: 0xe4dccb, roughness: 0.5, opacity: 0.9, cap: 0xe4dccb, capRank: 2 },
+  floor:     { color: 0xd8cdb6, roughness: 0.9, cap: 0xf1e8d4, capRank: 9 },
+  floorhole: { color: 0xd8cdb6, roughness: 0.85, cap: 0x0b0b0c, capRank: 9 },
   lumen:     { color: 0x5a2f2f, roughness: 0.7, cap: 0x5a2f2f, capRank: 1 },
 };
 // tube / blob "kind" words used in the data files -> material kind
@@ -97,6 +99,14 @@ roughnessFactor = clamp(roughnessFactor * (.8 + .4 * bn), 0., 1.);
 diffuseColor.rgb *= .955 + .08 * bn;`);
 }
 
+// Draw a surface a little nearer than it is (along the view ray, so it does not move on screen).
+// The study floor uses it to cover the rough CT floor it lies on.
+export function pull(sh) {
+  sh.vertexShader = sh.vertexShader.replace('#include <project_vertex>', `#include <project_vertex>
+mvPosition.xyz *= 1.0 - 0.004 / max( length( mvPosition.xyz ), 0.05 );
+gl_Position = projectionMatrix * mvPosition;`);
+}
+
 export function makeMaterial(kind, o = {}) {
   const K = KINDS[kind] || KINDS.mucosa;
   const physical = K.clearcoat || K.sheen || K.sheenBone || K.satin;
@@ -108,6 +118,7 @@ export function makeMaterial(kind, o = {}) {
   if (K.sheenBone) { m.sheen = 0.3; m.sheenRoughness = 0.7; m.sheenColor.set(0xffd2a6); m.specularIntensity = 0.45; }
   if (K.satin) { m.sheen = 0.35; m.sheenRoughness = 0.5; m.sheenColor.set(0xfff6d8); }
   if (K.grain) m.onBeforeCompile = grain;
+  if (o.pull) m.onBeforeCompile = pull;
   if (K.emissive) m.emissive.set(K.emissive);
   if (K.fiber) { m.map = fiberTex(); m.bumpMap = fiberTex(); m.bumpScale = 0.6; }
   if (K.pebble) { m.bumpMap = pebbleTex(); m.bumpScale = 1.2; }

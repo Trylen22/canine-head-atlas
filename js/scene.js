@@ -3,7 +3,10 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 import { MeshBVH } from 'three-mesh-bvh';
-import { makeMaterial, makeCapMaterial, capRank } from './materials.js';
+import { Line2 } from 'three/addons/lines/Line2.js';
+import { LineMaterial } from 'three/addons/lines/LineMaterial.js';
+import { LineGeometry } from 'three/addons/lines/LineGeometry.js';
+import { makeMaterial, makeCapMaterial, capRank, pull } from './materials.js';
 
 export const LAYERS = ['bone', 'nv_sup', 'nv_deep', 'ms_sup', 'ms_deep'];
 const EPS_SIDE = 0.004;          // 0.4 mm over the median plane still counts as one-sided
@@ -78,7 +81,7 @@ export class Stage {
     this.floorN = new THREE.Vector3(-0.12, -1, 0).normalize(); this.floorP0 = new THREE.Vector3(-0.45, 0.20, 0); this.floorOff = 0;
     this.floorPlane = new THREE.Plane(); this.lidPlane = new THREE.Plane(); this.floorPlanes = [this.floorPlane];
     this.gF = new THREE.Group(); this.gLid = new THREE.Group(); this.scene.add(this.gF, this.gLid);
-    this.floor = false; this.floorT = 0; this.pulse = 1; this.outlines = []; this.marker = null; this.hintParts = new Set(); this.hintObjs = [];
+    this.floor = false; this.floorT = 0; this.pulse = 1; this.outlines = []; this.marker = null; this.hintParts = new Set(); this.hintObjs = []; this.patches = { sel: [], aux: [] }; this.patchCache = new Map(); this.clipL = [this.planeL];
     { const base = { colorWrite: false, depthWrite: false, depthTest: false, stencilWrite: true, stencilFunc: THREE.AlwaysStencilFunc, transparent: true, clippingPlanes: this.floorPlanes };
       this.stencil.F = {
         back: new THREE.MeshBasicMaterial({ ...base, side: THREE.BackSide, stencilFail: THREE.IncrementWrapStencilOp, stencilZFail: THREE.IncrementWrapStencilOp, stencilZPass: THREE.IncrementWrapStencilOp }),
@@ -112,6 +115,7 @@ export class Stage {
     this.renderer.setSize(w, h, false);
     this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
     this.width = w; this.height = h; this.dirty = this.moved = true;
+    if (this.patches) for (const o of [...this.patches.sel, ...this.patches.aux]) if (o.material.resolution) o.material.resolution.set(w, h);
     if (this._preset && this.parts && this.parts.length) this.preset(this._preset, 1);     // keep the framing until the viewer takes over
   }
   onFrame(cb) { this.frameCbs.push(cb); }
@@ -130,11 +134,12 @@ export class Stage {
     const layer = LAYERS.includes(spec.layer) ? spec.layer : 'ms_deep';
     const mat = makeMaterial(spec.kind, spec.opts);
     mat.vertexColors = !!g.attributes.color;
+    if (spec.tweak) spec.tweak(mat);
     const part = {
       id: this.parts.length, name: spec.name || spec.termId || spec.kind, termId: spec.termId || null, layer, kind: spec.kind,
       geometry: g, matrix, inv: matrix.clone().invert(), side, mats: [mat], meshes: {}, stencils: [], noPick: !!spec.noPick,
       sphere: _box.getBoundingSphere(new THREE.Sphere()), anchor: spec.anchor || null, tag: spec.tag || null, hidden: false,
-      baseOpacity: mat.userData.baseOpacity,
+      baseOpacity: mat.userData.baseOpacity, keep: !!spec.tweak,
     };
     const solid = mat.userData.baseOpacity > 0.5;
     const mk = (m, group, stencil) => { const mesh = new THREE.Mesh(g, m); mesh.matrixAutoUpdate = false; mesh.matrix.copy(matrix); mesh.userData.part = part; mesh.castShadow = solid && !stencil; mesh.receiveShadow = solid && !stencil; group.add(mesh); return mesh; };
@@ -151,6 +156,7 @@ export class Stage {
       }
     }
     mat.userData.baseColor = mat.color.clone(); mat.clipShadows = true;
+    if (spec.order != null) for (const me of Object.values(part.meshes)) { me.renderOrder = spec.order; me.castShadow = false; }
     part.stencilsF = [];
     if (!spec.noCap && solid) {
       const cap = this._capGroup(layer, spec.capKind || spec.kind, 'F');
@@ -204,7 +210,7 @@ export class Stage {
     const op = L.opacity * p.baseOpacity;
     const sel = this.selParts.has(p), hov = this.hovParts.has(p), dim = !sel && this.selParts.size > 0;
     for (const m of p.mats) {
-      m.opacity = op; m.transparent = op < 0.999; m.depthWrite = p.baseOpacity > 0.6;
+      m.opacity = op; if (!p.keep) { m.transparent = op < 0.999; m.depthWrite = p.baseOpacity > 0.6; }
       const base = m.userData.baseColor || m.color;
       m.emissiveIntensity = 1;
       if (sel) { m.color.copy(base).lerp(FILL, 0.85); m.emissive.copy(FILL).multiplyScalar(0.1 + 0.2 * this.pulse); }
@@ -230,6 +236,8 @@ export class Stage {
       c.mat.opacity = L.opacity; c.mat.color.copy(c.base).multiplyScalar(dim ? 0.6 : 1);
     }
     for (const o of [...this.outlines, ...this.hintObjs]) { const src = o.userData.src; if (!src) continue; o.visible = src.visible; const cp = src.material.clippingPlanes || null; if (o.material.clippingPlanes !== cp) { o.material.clippingPlanes = cp; o.material.needsUpdate = true; } }
+    { const want = floorOn ? this.floorPlanes : this.splitT > 0 ? this.clipL : null;
+      for (const o of [...this.patches.sel, ...this.patches.aux]) if ((o.material.clippingPlanes || null) !== want) { o.material.clippingPlanes = want; o.material.needsUpdate = true; } }
     if (this.shadow) this.shadow.visible = !this.noShadow && !floorOn && !(this.splitT > 0 && this.pose === 'tray');
     this.gL.visible = this.halves !== 'right' || this.splitT === 0;
     this.gR.visible = this.halves !== 'left' || this.splitT === 0;
@@ -275,18 +283,85 @@ export class Stage {
     }
     this.refresh();
   }
+  // ---- openings and fossae: the bone inside the term's own outline is shaded and its perimeter drawn.
+  // spec: { key, pos, normal, a, b, axis, side, target: 'bone' | 'study', inner? }
+  _patchData(spec) {
+    let d = this.patchCache.get(spec.key); if (d) return d;
+    const n = spec.normal.clone().normalize(), u = (spec.axis ? spec.axis.clone() : new THREE.Vector3(1, 0, 0)); u.addScaledVector(n, -u.dot(n));
+    if (u.lengthSq() < 1e-6) { u.set(0, 0, 1).addScaledVector(n, -n.z); if (u.lengthSq() < 1e-6) u.set(1, 0, 0); }
+    u.normalize(); const v = new THREE.Vector3().crossVectors(n, u), R = Math.max(spec.a, spec.b), win = R * 0.8 + 0.02;
+    const sphere = new THREE.Sphere(spec.pos.clone(), Math.hypot(R, win) * 1.05), c = new THREE.Vector3(), fn = new THREE.Vector3(), q = new THREE.Vector3();
+    const tris = [], edges = new Map(), pts = new Map();
+    const key = w => Math.round(w.x * 2e4) + ',' + Math.round(w.y * 2e4) + ',' + Math.round(w.z * 2e4);
+    for (const p of this.parts) {
+      if (spec.target === 'study' ? !(p.tag === 'studyfloor' && p.kind === 'floor') : p.tag !== 'skull') continue;
+      if (p.side === 'R' || !p.sphere.intersectsSphere(sphere)) continue;
+      const g = p.geometry, P = g.attributes.position, N = g.attributes.normal, ix = g.index;
+      g.boundsTree.shapecast({
+        intersectsBounds: box => box.intersectsSphere(sphere),
+        intersectsTriangle: (tri, ti) => {
+          c.copy(tri.a).add(tri.b).add(tri.c).multiplyScalar(1 / 3).sub(spec.pos);
+          const x = c.dot(u), y = c.dot(v), z = c.dot(n);
+          if ((x / spec.a) ** 2 + (y / spec.b) ** 2 > 1 || Math.abs(z) > win) return false;
+          if (spec.inner && Math.hypot(x, y) < spec.inner * 0.85) return false;
+          tri.getNormal(fn); if (fn.dot(n) < -0.3) return false;                     // the far side of thin bone
+          const id = [ix.getX(ti * 3), ix.getX(ti * 3 + 1), ix.getX(ti * 3 + 2)], ks = [];
+          for (const i of id) { q.fromBufferAttribute(P, i); ks.push(key(q)); if (!pts.has(ks[ks.length - 1])) pts.set(ks[ks.length - 1], q.clone()); tris.push(q.x + N.getX(i) * 0.0004, q.y + N.getY(i) * 0.0004, q.z + N.getZ(i) * 0.0004); }
+          for (let e = 0; e < 3; e++) { const a = ks[e], b = ks[(e + 1) % 3], k = a < b ? a + '|' + b : b + '|' + a; const o = edges.get(k); if (o) o.n++; else edges.set(k, { a, b, n: 1 }); }
+          return false;
+        },
+      });
+    }
+    // boundary edges -> closed loops
+    const adj = new Map(); for (const e of edges.values()) if (e.n === 1) { (adj.get(e.a) || adj.set(e.a, []).get(e.a)).push(e.b); (adj.get(e.b) || adj.set(e.b, []).get(e.b)).push(e.a); }
+    const used = new Set(), loops = [];
+    for (const start of adj.keys()) {
+      if (used.has(start)) continue;
+      const loop = [start]; used.add(start); let cur = start, prev = null;
+      for (let guard = 0; guard < 20000; guard++) { const nx = (adj.get(cur) || []).find(k => k !== prev && !used.has(k)); if (!nx) break; loop.push(nx); used.add(nx); prev = cur; cur = nx; }
+      if (loop.length >= 4) loops.push(loop.map(k => pts.get(k).clone().addScaledVector(n, 0.0012)));
+    }
+    const len = l => l.reduce((s2, pnt, i) => s2 + pnt.distanceTo(l[(i + 1) % l.length]), 0), tan = pnt => { q.copy(pnt).sub(spec.pos); return Math.hypot(q.dot(u), q.dot(v)); };
+    let keep = loops;
+    if (spec.inner) keep = loops.filter(l => l.reduce((s2, pnt) => s2 + tan(pnt), 0) / l.length < spec.inner * 1.4);      // the hole's own edge
+    else { const mx = Math.max(0, ...loops.map(len)); keep = loops.filter(l => len(l) > mx * 0.18); }
+    const chaikin = l => { const o = []; for (let i = 0; i < l.length; i++) { const a = l[i], b = l[(i + 1) % l.length]; o.push(a.clone().lerp(b, 0.25), a.clone().lerp(b, 0.75)); } return o; };
+    d = { tris: new Float32Array(tris), loops: spec.inner ? keep : keep.map(l => chaikin(chaikin(l))) };    // a study-floor rim is already an exact circle
+    this.patchCache.set(spec.key, d); return d;
+  }
+  setPatch(slot, spec, style = 'sel') {
+    for (const o of this.patches[slot]) { o.parent && o.parent.remove(o); o.geometry.dispose(); o.material.dispose(); }
+    this.patches[slot] = [];
+    if (!spec) { this.dirty = true; return; }
+    const d = this._patchData(spec), group = spec.side === 'right' ? this.gR : this.gL, study = spec.target === 'study';
+    const S = { sel: { fill: 0xff8214, a: 0.46, line: 0xffb347, w: 3.2, ghost: 0.3 }, hover: { fill: 0xff8214, a: 0.24, line: 0xffb347, w: 2.2, ghost: 0 }, hint: { fill: 0x9fc6ea, a: 0.24, line: 0x86b2dc, w: 1.6, ghost: 0 } }[style];
+    if (d.tris.length) {
+      const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.BufferAttribute(d.tris, 3));
+      const m = new THREE.MeshBasicMaterial({ color: S.fill, transparent: true, opacity: S.a, depthWrite: false, toneMapped: false, side: THREE.DoubleSide, polygonOffset: true, polygonOffsetFactor: -2, polygonOffsetUnits: -2 });
+      if (study) m.onBeforeCompile = pull;
+      const o = new THREE.Mesh(g, m); o.renderOrder = 940; group.add(o); this.patches[slot].push(o);
+    }
+    for (const loop of d.loops) {
+      const flat = []; for (const pnt of [...loop, loop[0]]) flat.push(pnt.x, pnt.y, pnt.z);
+      const lg = new LineGeometry(); lg.setPositions(flat);
+      const mk = (opacity, depthTest, order) => { const m = new LineMaterial({ color: S.line, linewidth: S.w, transparent: true, opacity, depthTest, depthWrite: false, toneMapped: false }); m.resolution.set(this.width, this.height); const l = new Line2(lg, m); l.renderOrder = order; group.add(l); this.patches[slot].push(l); };
+      if (S.ghost && !study) mk(S.ghost, false, 950);
+      mk(1, !study, 951);
+    }
+    this.refresh();
+  }
   // Ring marker for point terms (foramina, canals, fossae): seated on the opening, a cone pointing
   // in along -normal, a pulse, and a dim copy drawn through whatever is in front.
   setMarker(spec) {
     if (this.marker) { this.marker.parent && this.marker.parent.remove(this.marker); this.marker.traverse(o => { if (o.isMesh) { o.geometry.dispose(); o.material.dispose(); } }); this.marker = null; }
     if (!spec) { this.dirty = true; return; }
-    const r = spec.r || 0.02, n = spec.normal.clone().normalize(), g = new THREE.Group();
+    const r = spec.r || 0.02, n = spec.normal.clone().normalize(), g = new THREE.Group(), only = !!spec.ticksOnly;
     const solid = () => new THREE.MeshBasicMaterial({ color: 0xff9d2e, toneMapped: false });
     const ghost = () => new THREE.MeshBasicMaterial({ color: 0xffb964, toneMapped: false, transparent: true, opacity: 0.3, depthTest: false, depthWrite: false });
     const tube = Math.max(0.0022, r * 0.1), ring = new THREE.TorusGeometry(r, tube, 10, 48);
     const q = new THREE.Quaternion().setFromUnitVectors(ZAXIS, n);
     const add = (geo, mat, order) => { const m = new THREE.Mesh(geo, mat); m.quaternion.copy(q); m.renderOrder = order; g.add(m); return m; };
-    add(ring, ghost(), 1000); add(ring, solid(), 1001);
+    const rg = [add(ring, ghost(), 1000), add(ring, solid(), 1001)];
     g.userData.pulse = add(new THREE.TorusGeometry(r, tube * 0.7, 8, 48), new THREE.MeshBasicMaterial({ color: 0xffc27a, toneMapped: false, transparent: true, opacity: 0.8, depthWrite: false }), 1002);
     const len = Math.max(0.03, r * 1.9), cone = new THREE.ConeGeometry(Math.max(0.008, r * 0.42), len, 16); cone.rotateX(-Math.PI / 2); cone.translate(0, 0, len / 2 + Math.max(0.006, r * 0.35));
     g.userData.cones = [add(cone, ghost(), 1000), add(cone, solid(), 1001)];
@@ -294,6 +369,8 @@ export class Stage {
     const ticks = []; for (let k = 0; k < 4; k++) { const t = new THREE.BoxGeometry(r * 0.42, tube * 1.5, tube * 1.5); t.translate(r * 0.58, 0, 0); t.rotateZ(k * Math.PI / 2 + Math.PI / 4); ticks.push(t); }
     g.userData.ticks = ticks.flatMap(t => [add(t, ghost(), 1000), add(t, solid(), 1001)]);
     for (const t of g.userData.ticks) t.visible = false;
+    // openings with their own outline keep only the inward ticks, shown when looking down the hole
+    if (only) { for (const o of [...rg, g.userData.pulse, ...g.userData.cones]) o.visible = false; g.userData.only = true; }
     g.userData.n = n;
     g.position.copy(spec.pos).addScaledVector(n, 0.002);
     (spec.side === 'right' ? this.gR : this.gL).add(g); this.marker = g; this.dirty = true;
@@ -401,7 +478,7 @@ export class Stage {
         mk.updateWorldMatrix(true, false);
         const wn = _v.copy(mk.userData.n).transformDirection(mk.parent.matrixWorld), to = _v2.setFromMatrixPosition(mk.matrixWorld).sub(this.camera.position).normalize();
         const axial = Math.abs(wn.dot(to)) > 0.82;                                   // within about 35 degrees of the hole's axis
-        if (mk.userData.axial !== axial) { mk.userData.axial = axial; for (const c of mk.userData.cones) c.visible = !axial; for (const t of mk.userData.ticks) t.visible = axial; this.dirty = true; }
+        if (mk.userData.axial !== axial) { mk.userData.axial = axial; for (const c of mk.userData.cones) c.visible = !axial && !mk.userData.only; for (const t of mk.userData.ticks) t.visible = axial; this.dirty = true; }
       }
       if (!this.dirty && !this.instant) { pulseOnly = true; this.dirty = true; }
     }
@@ -496,6 +573,12 @@ export class Stage {
     return out;
   }
 
+  // An unseen draw at a given point in the render order whose only job is to reset the stencil buffer.
+  addStencilClear(order) {
+    const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute([0, 0, 0, 0, 0, 0, 0, 0, 0], 3));
+    const m = new THREE.Mesh(g, new THREE.MeshBasicMaterial({ colorWrite: false, depthWrite: false, depthTest: false, transparent: true }));
+    m.frustumCulled = false; m.renderOrder = order; m.onAfterRender = renderer => renderer.clearStencil(); this.scene.add(m);
+  }
   // Shadow catcher: an unseen bench under the head that only shows the key light's cast shadow.
   addShadow() {
     const sz = this.size || new THREE.Vector3(2.1, 1.1, 1.25);
