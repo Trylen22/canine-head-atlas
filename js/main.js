@@ -184,7 +184,7 @@ function loadAnchors(raw) {
     const side = (r && r.side) || 'left';
     if (r && r.mesh) app.meshOf.set(t.id, r.mesh);
     if (MA.has(t.id)) for (const a of MA.get(t.id)) list.push({ ...a, side: Math.abs(a.pos.z) < 0.004 ? 'median' : a.pos.z > 0 ? 'right' : 'left', views });
-    if (r && Array.isArray(r.pos)) { const pos = V(r.pos); list.push({ pos, normal: r.normal ? V(r.normal).normalize() : radial(pos), side, views, given: true }); }
+    if (r && Array.isArray(r.pos)) { const pos = V(r.pos); list.push({ pos, normal: r.normal ? V(r.normal).normalize() : radial(pos), hasNormal: !!r.normal, ring: typeof r.ring === 'number' ? r.ring : null, best: VIEW_NAME[r.best] ? r.best : null, side, views, given: true }); if (views.has('calvaria')) app.hasCalvaria = true; }
     if (!list.length) { const ps = (stage.byTerm.get(t.id) || []).filter(p => p.anchor); if (ps.length) list.push({ pos: ps[0].anchor.pos.clone(), normal: ps[0].anchor.normal.clone(), side: 'left', views }); }
     if (list.length) app.anchors.set(t.id, list);
   }
@@ -211,7 +211,15 @@ function ownParts(id) {
   }
   return s;
 }
-const mode = () => stage.split === 'whole' ? 'surface' : 'bisected';
+const mode = () => stage.floor ? 'calvaria' : stage.split === 'whole' ? 'surface' : 'bisected';
+// Is this pin meant for the current view? Until anchors carry "calvaria", the Floor view falls back
+// to the cranial cavity and cranial nerve sections.
+function viewOK(a, t, m) {
+  if (m !== 'calvaria') return a.views.has(m);
+  return a.views.has('calvaria') || (!app.hasCalvaria && (t.section === 'Cavities of the skull' || t.section.startsWith('Cranial nerves')));
+}
+const VIEW_NAME = { surface: 'Whole head, from the outside', bisected: 'Bisected, on the median section', calvaria: 'Floor, calvaria removed' };
+function goView(v) { if (v === 'bisected') setSplit('apart', { halves: 'left' }); else if (v === 'calvaria') setSplit('floor'); else setSplit('whole'); }
 // Importance of a term for the current layers: the top visible layer first, bigger structures first.
 const DEPTH = ['ms_sup', 'nv_sup', 'ms_deep', 'nv_deep', 'bone'];
 const sizeCache = new Map();
@@ -228,7 +236,7 @@ function candidates() {
     const isSel = t.id === app.selected;
     if (!isSel) { if (app.density === 'none') continue; if (app.density === 'group' && t.section !== app.group) continue; }
     if (!stage.layers[t.layer].visible) continue;
-    const a = anchorFor(t.id); if (!a || !a.views.has(m)) continue;
+    const a = anchorFor(t.id); if (!a || !viewOK(a, t, m)) continue;
     const key = t.term + '|' + a.pos.x.toFixed(3) + a.pos.y.toFixed(3);
     if (seen.has(key) && !isSel) continue; seen.add(key);
     const rank = visible.length - visible.indexOf(t.layer);
@@ -320,11 +328,22 @@ function setLayers(keys) { for (const k of LAYERS) stage.setLayer(k, { visible: 
 
 // ============================================================================ view state
 function setSplit(m, { instant, halves } = {}) {
-  stage.setSplit(m, instant);
-  if (halves) stage.setHalves(halves); else if (m === 'whole' || m === 'tray') stage.setHalves('both');
+  if (m === 'floor') {
+    if (stage.split !== 'whole') { stage.setSplit('whole', true); stage.setHalves('both'); }
+    if (!stage.floor) {
+      // the soft tissue over the vault only hides the cranial floor; the deep nerves stay
+      app.layersBefore = LAYERS.filter(k => stage.layers[k].visible);
+      setLayers([...new Set([...app.layersBefore.filter(k => k !== 'ms_sup' && k !== 'ms_deep'), 'bone', 'nv_deep'])]);
+    }
+    stage.setFloor(true, instant);
+  } else {
+    if (stage.floor) { stage.setFloor(false, instant || m !== 'whole'); if (app.layersBefore) { setLayers(app.layersBefore); app.layersBefore = null; } }
+    stage.setSplit(m, instant);
+    if (halves) stage.setHalves(halves); else if (m === 'whole' || m === 'tray') stage.setHalves('both');
+  }
   for (const b of $$('#seg-split button')) b.setAttribute('aria-pressed', b.dataset.split === m);
   for (const b of $$('#seg-halves button')) b.setAttribute('aria-pressed', b.dataset.halves === stage.halves);
-  $('#seg-halves').hidden = m !== 'apart';
+  $('#seg-halves').hidden = m !== 'apart'; $('#floor-h-wrap').hidden = m !== 'floor';
   if (labels) labels.invalidate();
 }
 function setEyecut(on) { app.eyecut = on; $('#eyecut').checked = on; stage.setTagHidden('eye:cut', !on); stage.setTagHidden('eye:whole', on); if (labels) labels.invalidate(); }
@@ -364,7 +383,7 @@ function select(id, { fly = false, reveal = false } = {}) {
   app.selected = id;
   for (const b of $$('#index .term.sel')) b.classList.remove('sel');
   const host = $('#selection'); host.textContent = '';
-  if (!id) { host.append(el('p', 'muted', 'Hover a structure to see its term. Click to select it.')); stage.setSelected([]); labels.invalidate(); return; }
+  if (!id) { host.append(el('p', 'muted', 'Hover a structure to see its term. Click to select it.')); stage.setSelected([]); stage.setMarker(null); labels.invalidate(); return; }
   const t = app.byId.get(id), btn = document.querySelector(`#index .term[data-id="${CSS.escape(id)}"]`);
   if (btn) { btn.classList.add('sel'); btn.closest('.sec').classList.remove('closed'); const ix = $('#index'), r = btn.getBoundingClientRect(), ir = ix.getBoundingClientRect();
     // scroll the list itself; scrollIntoView would also drag the page when the list sits in a closed sheet
@@ -375,17 +394,25 @@ function select(id, { fly = false, reveal = false } = {}) {
     const list = app.anchors.get(id) || [];
     if (list.length && list[0].tag && !tagOn(list[0].tag)) setEyecut(list[0].tag === 'eye:cut');
     const a = anchorFor(id);
-    if (a && !a.views.has(mode())) { if (a.views.has('bisected')) setSplit('apart', { halves: 'left' }); else setSplit('whole'); }
-    else if (a && t.view === 'bisected' && stage.split === 'whole' && a.views.has('bisected')) setSplit('apart', { halves: 'left' });
+    if (a) {
+      const cur = mode();
+      const target = a.best || (viewOK(a, t, cur) ? (t.view === 'bisected' && cur === 'surface' && a.views.has('bisected') ? 'bisected' : cur) : a.views.has('bisected') ? 'bisected' : a.views.has('calvaria') ? 'calvaria' : 'surface');
+      if (target !== cur) goView(target);
+    }
   }
   const parts = [...ownParts(id)]; stage.setSelected(parts);
   const a = anchorFor(id);
+  // openings and other point terms get a ring on the spot; regions get the fill and outline
+  stage.setMarker(a && (a.ring || !parts.length) ? { pos: a.pos, normal: a.normal, r: a.ring || 0.02, side: a.side } : null);
   host.append(el('p', 't', t.term));
   const dl = el('dl'); const add = (k, v) => { dl.append(el('dt', '', k), el('dd', '', v)); };
-  add('Section', t.section); add('Layer', LAYER_NAME[t.layer]); add('Found', t.view === 'bisected' ? 'On the median section' : 'On the outside');
+  add('Section', t.section); add('Layer', LAYER_NAME[t.layer]);
   host.append(dl);
+  if (a) { const best = a.best || (a.views.has('calvaria') && t.section === 'Cavities of the skull' ? 'calvaria' : t.view === 'bisected' ? 'bisected' : 'surface');
+    const f = el('p', 'find'); f.append('Find it from: ', el('b', '', VIEW_NAME[best])); host.append(f);
+    if (best !== mode()) { const go = el('button', 'btn plain', 'Switch to that view'); go.type = 'button'; go.addEventListener('click', () => { goView(best); flyTo(id, true); }); app._goBtn = go; } else app._goBtn = null; }
   if (!a && !parts.length) host.append(el('p', 'np', 'Not placed yet. This term has no pin or structure in the model so far.'));
-  else { const row = el('div', 'row'), b = el('button', 'btn plain', 'Fly to it'); b.type = 'button'; b.addEventListener('click', () => flyTo(id)); row.append(b); host.append(row); }
+  else { const row = el('div', 'row'), b = el('button', 'btn plain', 'Fly to it'); b.type = 'button'; b.addEventListener('click', () => flyTo(id)); row.append(b); if (app._goBtn) row.append(app._goBtn); host.append(row); }
   if (fly) flyTo(id, reveal);
   labels.invalidate();
 }
@@ -394,13 +421,15 @@ function flyTo(id, afterSplit) {
   const go = () => {
     const side = a.side === 'right' ? 'right' : 'left', w = a.pos.clone().applyMatrix4(stage.halfMatrix(side));
     const t = app.byId.get(id), medial = stage.split !== 'whole' && (a.side === 'median' || t.view === 'bisected') && !a.tag;
-    const n = medial ? new THREE.Vector3(0.05, 0.1, 1) : a.normal.clone();
+    const n = medial ? new THREE.Vector3(0.05, 0.1, 1) : stage.floor && !a.hasNormal ? new THREE.Vector3(-0.3, 1, 0) : a.normal.clone();
+    if (stage.floor && n.y < 0.25) { n.y = 0.6; n.normalize(); }          // into the open vault, never from under the cut
     n.transformDirection(stage.halfMatrix(side));
     let r = 0; for (const p of ownParts(id)) r = Math.max(r, p.sphere.radius * (p.matrix.elements[0] ? 1 : 1));
-    const dist = a.tag || a.model && r < 0.06 ? 0.62 : Math.min(2.2, Math.max(0.9, r ? r * 3.4 : 1.7));
+    // point terms keep at least about 0.9 units of view height (1.1 looking into the open vault)
+    const dist = a.tag || a.model && r < 0.06 ? 0.62 : Math.min(2.2, Math.max(0.9, r ? r * 3.4 : stage.floor ? 2.1 : 1.75));
     stage.focus(w, n, dist, medial ? 0 : 0.18);
   };
-  if (afterSplit && stage._splitAnim) { const prev = stage.onSplitDone; stage.onSplitDone = () => { stage.onSplitDone = prev; go(); }; } else go();
+  if (afterSplit && (stage._splitAnim || stage._floorAnim)) { const prev = stage.onSplitDone; stage.onSplitDone = () => { stage.onSplitDone = prev; go(); }; } else go();
 }
 
 // ============================================================================ quiz
@@ -417,38 +446,101 @@ function quizPool() {
 }
 function quizStart() {
   select(null);
-  app.quiz = { layer: 'all', section: 'all', num: new Map(), state: new Map(), cur: null, revealed: false };
+  app.quiz = { layer: 'all', section: 'all', num: new Map(), state: new Map(), cur: null, result: null, hint: store.get('quizHint') !== '0' };
   quizRebuild(); $('#card-quiz').hidden = false; $('#card-selection').hidden = true; $('#card-labels').hidden = true;
   $('#btn-quiz').setAttribute('aria-pressed', 'true'); $('#tip').classList.remove('on'); stage.setHover([]);
-  if (matchMedia('(max-width: 1100px)').matches) sheet('tools');
 }
-function quizStop() { app.quiz = null; $('#card-quiz').hidden = true; $('#card-selection').hidden = false; $('#card-labels').hidden = false; $('#btn-quiz').setAttribute('aria-pressed', 'false'); labels.invalidate(); }
+function quizStop() { app.quiz = null; stage.setHint(null); $('#quiz-float').hidden = true; $('#card-quiz').hidden = true; $('#card-selection').hidden = false; $('#card-labels').hidden = false; $('#btn-quiz').setAttribute('aria-pressed', 'false'); labels.invalidate(); }
 function quizRebuild(keep) {
   const q = app.quiz, pool = quizPool();
-  if (!keep) { q.state.clear(); q.cur = null; q.revealed = false; }
+  if (!keep) { q.state.clear(); q.cur = null; q.result = null; }
   const ids = pool.slice(); let s = 20261122; const rnd = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 4294967296);
   for (let i = ids.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [ids[i], ids[j]] = [ids[j], ids[i]]; }
   q.num = new Map(ids.map((id, i) => [id, i + 1])); q.pool = pool;
-  if (q.cur && !q.num.has(q.cur)) { q.cur = null; q.revealed = false; }
-  quizRender(); if (labels) labels.invalidate();
+  if (q.cur && !q.num.has(q.cur)) { q.cur = null; q.result = null; }
+  quizHint(); quizRender(); if (labels) labels.invalidate();
 }
 function quizPins() {
   const q = app.quiz, m = mode(), out = [];
-  for (const id of q.pool) { const t = app.byId.get(id); if (!stage.layers[t.layer].visible) continue; const a = anchorFor(id); if (!a || !a.views.has(m)) continue; out.push({ id, n: q.num.get(id), state: q.state.get(id) || '', cur: q.cur === id }); }
+  for (const id of q.pool) { const t = app.byId.get(id); if (!stage.layers[t.layer].visible) continue; const a = anchorFor(id); if (!a || !viewOK(a, t, m)) continue; out.push({ id, n: q.num.get(id), state: q.state.get(id) || '', cur: q.cur === id }); }
   return out;
 }
-function quizPick(id) { const q = app.quiz; if (!q) return; q.cur = id; q.revealed = false; quizRender(); labels.invalidate(); if (matchMedia('(max-width: 1100px)').matches) sheet('tools'); }
+// Shade the structure the current pin sits on (or the disc of an opening), without naming it.
+function quizHint() {
+  const q = app.quiz; if (!q || !q.hint || !q.cur) { stage.setHint(null); return; }
+  const a = anchorFor(q.cur), parts = [...ownParts(q.cur)];
+  stage.setHint({ parts, disc: a && a.ring ? { pos: a.pos, normal: a.normal, r: a.ring, side: a.side } : null });
+}
+function quizPick(id) { const q = app.quiz; if (!q) return; q.cur = id; q.result = q.state.has(id) ? { kind: q.state.get(id) === 'ok' ? 'ok' : 'no', typed: '' } : null; quizHint(); quizRender(true); labels.invalidate(); }
 function quizNext() {
-  const q = app.quiz, left = q.pool.filter(id => !q.state.has(id)); if (!left.length) { q.cur = null; quizRender(); labels.invalidate(); return; }
-  const m = mode(), here = left.filter(id => { const a = anchorFor(id), t = app.byId.get(id); return a && a.views.has(m) && stage.layers[t.layer].visible; });
+  const q = app.quiz, left = q.pool.filter(id => !q.state.has(id)); if (!left.length) { q.cur = null; q.result = null; quizHint(); quizRender(); labels.invalidate(); return; }
+  const m = mode(), here = left.filter(id => { const a = anchorFor(id), t = app.byId.get(id); return a && viewOK(a, t, m) && stage.layers[t.layer].visible; });
   const pick = (here.length ? here : left).sort((a, b) => q.num.get(a) - q.num.get(b))[0];
   const t = app.byId.get(pick); if (!stage.layers[t.layer].visible) { stage.setLayer(t.layer, { visible: true }); syncLayers(); }
   const list = app.anchors.get(pick) || []; if (list.length && list[0].tag && !tagOn(list[0].tag)) setEyecut(list[0].tag === 'eye:cut');
-  const a = anchorFor(pick); if (a && !a.views.has(mode())) setSplit(a.views.has('bisected') ? 'apart' : 'whole', a.views.has('bisected') ? { halves: 'left' } : {});
-  q.cur = pick; q.revealed = false; quizRender(); flyTo(pick, true); labels.invalidate();
+  const a = anchorFor(pick); if (a && !viewOK(a, t, mode())) goView(a.best || (a.views.has('bisected') ? 'bisected' : a.views.has('calvaria') ? 'calvaria' : 'surface'));
+  q.cur = pick; q.result = null; quizHint(); quizRender(true); flyTo(pick, true); labels.invalidate();
 }
-function quizRender() {
-  const q = app.quiz, host = $('#quiz'); host.textContent = '';
+
+// ---- grading: forgiving about case, punctuation, the list's notes in parentheses and the usual abbreviations
+const ABBR = { m: 'muscle', mm: 'muscles', muscle: 'muscle', muscles: 'muscles', n: 'nerve', nn: 'nerves', a: 'artery', aa: 'arteries', v: 'vein', vv: 'veins', ln: 'lymph node', lnn: 'lymph nodes' };
+function norm(s) {
+  return s.toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '').replace(/[‘’']/g, '').replace(/[^a-z0-9]+/g, ' ').trim().split(' ').filter(Boolean).map(w => ABBR[w] || w).join(' ');
+}
+function variants(term) {
+  const out = new Set(), raw = term.split(/\s[–—-]\s/)[0];           // drop "– not described in your book…"
+  out.add(norm(raw));                                                         // notes kept, brackets ignored
+  const core = raw.replace(/\([^)]*(\)|$)/g, ' '); out.add(norm(core));       // notes dropped
+  const m = /^(.*?)(\S+)\s*\(([^()\s]+)\)\s*(\S.*)$/.exec(raw);               // "Superior (upper) lip" -> "upper lip"
+  if (m) out.add(norm(m[1] + ' ' + m[3] + ' ' + m[4]));
+  out.delete(''); return out;
+}
+function lev(a, b) {
+  if (Math.abs(a.length - b.length) > 2) return 9;
+  let prev = Array.from({ length: b.length + 1 }, (_, i) => i);
+  for (let i = 1; i <= a.length; i++) { const cur = [i]; for (let j = 1; j <= b.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)); prev = cur; }
+  return prev[b.length];
+}
+let variantCache = null;
+function grade(id, typed) {
+  if (!variantCache) { variantCache = new Map(); for (const t of app.terms) variantCache.set(t.id, variants(t.term)); }
+  const t = app.byId.get(id), mine = new Set([id, ...(t.sameAs || [])]);
+  for (const o of app.terms) if (o.term === t.term) mine.add(o.id);
+  const ans = norm(typed); if (!ans) return 'no';
+  const accept = new Set(); for (const k of mine) for (const v of variantCache.get(k) || []) accept.add(v);
+  if (accept.has(ans)) return 'ok';
+  // a typo is only forgiven when the answer is not exactly some other term on the list
+  for (const [k, vs] of variantCache) if (!mine.has(k) && vs.has(ans)) return 'no';
+  for (const v of accept) { const tol = v.length >= 8 ? 2 : v.length >= 5 ? 1 : 0; if (tol && lev(ans, v) <= tol) return 'close'; }
+  return 'no';
+}
+function quizSubmit(typed) {
+  const q = app.quiz; if (!q || !q.cur || q.result) return;
+  const kind = typed == null ? 'shown' : grade(q.cur, typed);
+  q.result = { kind, typed: typed || '' }; q.state.set(q.cur, kind === 'ok' || kind === 'close' ? 'ok' : 'no');
+  quizRender(true); labels.invalidate();
+}
+function quizAnswerUI() {
+  const q = app.quiz, t = app.byId.get(q.cur), box = el('div');
+  box.append(el('div', 'pn', 'Pin ' + q.num.get(q.cur)));
+  if (!q.result) {
+    const form = el('form', 'answer'), inp = el('input'); inp.type = 'text'; inp.id = 'quiz-answer'; inp.placeholder = 'Type the structure…'; inp.autocomplete = 'off'; inp.autocapitalize = 'off'; inp.spellcheck = false; inp.setAttribute('aria-label', 'Your answer'); inp.enterKeyHint = 'done';
+    const go = el('button', 'btn primary', 'Check'); go.type = 'submit';
+    form.append(inp, go); form.addEventListener('submit', e => { e.preventDefault(); if (inp.value.trim()) quizSubmit(inp.value); });
+    const row = el('div', 'row'), show = el('button', 'btn plain', 'Show answer'), skip = el('button', 'btn plain', 'Skip'); show.type = skip.type = 'button';
+    show.addEventListener('click', () => quizSubmit(null)); skip.addEventListener('click', quizNext); row.append(show, skip);
+    box.append(form, row);
+  } else {
+    const k = q.result.kind, fb = el('div', 'fb ' + (k === 'ok' ? 'ok' : k === 'close' ? 'close' : 'no'));
+    fb.append(k === 'ok' ? 'Correct' : k === 'close' ? 'Close! Counted as correct. The exact spelling:' : k === 'shown' ? 'Counted as missed. Answer:' : 'Not quite. Answer:', el('b', '', t.term), el('small', '', t.section));
+    const row = el('div', 'row'), n = el('button', 'btn primary', 'Next pin'); n.type = 'button'; n.id = 'quiz-next'; n.addEventListener('click', quizNext); row.append(n);
+    box.append(fb, row);
+  }
+  return box;
+}
+function quizRender(focus) {
+  const q = app.quiz, host = $('#quiz'), fl = $('#quiz-float'); host.textContent = ''; fl.textContent = '';
+  const narrow = matchMedia('(max-width: 1100px)').matches;
   const ok = [...q.state.values()].filter(v => v === 'ok').length, done = q.state.size, total = q.pool.length;
   const sc = el('div', 'score'); sc.append(el('b', '', ok + ' / ' + done), el('span', '', `correct · ${total - done} of ${total} pins left`));
   const bar = el('div', 'bar'), g = el('i', 'g'), b = el('i', 'b'); g.style.width = (total ? ok / total * 100 : 0) + '%'; b.style.width = (total ? (done - ok) / total * 100 : 0) + '%'; bar.append(g, b);
@@ -456,33 +548,28 @@ function quizRender() {
   const sel = (label, id, opts, val, on) => { const l = el('label', 'f', label), s = el('select'); s.id = id; for (const [v, n] of opts) { const o = el('option', '', n); o.value = v; s.append(o); } s.value = val; s.addEventListener('change', () => on(s.value)); l.append(s); return l; };
   host.append(sel('Layer', 'quiz-layer', [['all', 'All layers'], ...LAYERS.map(k => [k, LAYER_NAME[k]])], q.layer, v => { q.layer = v; quizRebuild(); }));
   host.append(sel('Section', 'quiz-section', [['all', 'All sections'], ...[...new Set(app.terms.map(t => t.section))].map(s => [s, s])], q.section, v => { q.section = v; quizRebuild(); }));
-  const card = el('div', 'q');
+  const hr = el('label', 'hintrow'), hc = el('input'); hc.type = 'checkbox'; hc.id = 'quiz-hint'; hc.checked = q.hint; hr.append(hc, 'Hint: shade the structure the pin is on');
+  hc.addEventListener('change', () => { q.hint = hc.checked; store.set('quizHint', q.hint ? '1' : '0'); quizHint(); });
+  host.append(hr);
+  const card = el('div', 'q'); let floated = false;
   if (!total) card.append(el('div', 'sec2', 'No placed terms match this filter.'));
   else if (!q.cur) {
     card.append(el('div', 'sec2', done >= total ? 'All pins answered.' : 'Click a numbered pin, or let the atlas pick one.'));
     const row = el('div', 'row'), n = el('button', 'btn primary', done >= total ? 'Start again' : 'Next pin'); n.type = 'button'; n.addEventListener('click', () => done >= total ? quizRebuild() : quizNext()); row.append(n); card.append(row);
-  } else {
-    const t = app.byId.get(q.cur);
-    card.append(el('div', 'pn', 'Pin ' + q.num.get(q.cur)));
-    if (!q.revealed) {
-      card.append(el('div', 'sec2', 'Name it, then check.'));
-      const row = el('div', 'row'), r = el('button', 'btn primary', 'Reveal'); r.type = 'button'; r.addEventListener('click', () => { q.revealed = true; quizRender(); });
-      const s = el('button', 'btn plain', 'Skip'); s.type = 'button'; s.addEventListener('click', quizNext); row.append(r, s); card.append(row);
-    } else {
-      card.append(el('div', 'ans', t.term), el('div', 'sec2', t.section));
-      const row = el('div', 'row'), y = el('button', 'btn plain ok', 'I had it'), n = el('button', 'btn plain no', 'Missed it'); y.type = n.type = 'button';
-      const mark = v => { q.state.set(q.cur, v); quizNext(); if (!app.quiz.cur) quizRender(); };
-      y.addEventListener('click', () => mark('ok')); n.addEventListener('click', () => mark('no')); row.append(y, n); card.append(row);
-    }
-  }
+  } else if (narrow) { fl.append(quizAnswerUI()); floated = true; card.append(el('div', 'sec2', 'Answer in the box above the specimen.')); }
+  else card.append(quizAnswerUI());
+  fl.hidden = !floated;
+  if (narrow && !q.cur && total) { const row = el('div', 'row'), n = el('button', 'btn primary', done >= total ? 'Start again' : 'Next pin'); n.type = 'button'; n.addEventListener('click', () => done >= total ? quizRebuild() : quizNext()); row.append(el('div', 'pn', `${ok} / ${done} correct`), n); fl.append(row); fl.hidden = false; }
   host.append(card);
   const row = el('div', 'row'), rs = el('button', 'btn plain', 'Reset score'), ex = el('button', 'btn plain', 'Leave quiz'); rs.type = ex.type = 'button';
   rs.addEventListener('click', () => quizRebuild()); ex.addEventListener('click', quizStop); row.append(rs, ex); host.append(row);
+  if (focus) { const f = document.getElementById(q.result ? 'quiz-next' : 'quiz-answer'); if (f) f.focus({ preventScroll: true }); }
 }
 
 // ============================================================================ wiring
 function wire() {
-  for (const b of $$('#seg-split button')) b.addEventListener('click', () => { setSplit(b.dataset.split); stage.preset(b.dataset.split === 'tray' ? 'medial' : lastView); });
+  for (const b of $$('#seg-split button')) b.addEventListener('click', () => { setSplit(b.dataset.split); stage.preset(b.dataset.split === 'tray' ? 'medial' : b.dataset.split === 'floor' ? 'floor' : lastView === 'floor' ? 'reset' : lastView); if (b.dataset.split === 'floor') lastView = 'floor'; else if (lastView === 'floor') lastView = 'reset'; });
+  $('#floor-h').addEventListener('input', e => { stage.setFloorHeight(e.target.value / 100); labels.invalidate(); });
   for (const b of $$('#seg-halves button')) b.addEventListener('click', () => { stage.setHalves(b.dataset.halves); for (const x of $$('#seg-halves button')) x.setAttribute('aria-pressed', x === b); labels.invalidate(); });
   for (const b of $$('#seg-density button')) b.addEventListener('click', () => setDensity(b.dataset.density));
   for (const b of $$('#viewbar button')) b.addEventListener('click', () => view(b.dataset.view));
@@ -526,7 +613,7 @@ let lastView = 'reset';
 function view(name) {
   for (const b of $$('#viewbar button')) b.classList.toggle('on', b.dataset.view === name && name !== 'reset');
   if (name === 'medial') { if (stage.split !== 'apart' || stage.halves !== 'left') setSplit('apart', { halves: 'left' }); }
-  else if (name === 'reset') { if (stage.split !== 'whole') setSplit('whole'); }
+  else if (name === 'reset') { if (stage.split !== 'whole' || stage.floor) setSplit('whole'); }
   else if (stage.split === 'apart' && stage.halves === 'left' && lastView === 'medial') stage.setHalves('both'), setSplit('apart');
   lastView = name; stage.preset(name);
 }
@@ -535,11 +622,13 @@ function applyParams() {
   if (Q.get('theme')) document.documentElement.dataset.theme = Q.get('theme');
   if (Q.get('layers')) setLayers(Q.get('layers').split(','));
   if (Q.get('split')) setSplit(Q.get('split'), { instant: true, halves: Q.get('halves') || undefined });
+  if (Q.get('split') === 'floor' && !Q.get('v')) { lastView = 'floor'; stage.preset('floor', 1); }
+  if (Q.get('fh')) { $('#floor-h').value = Q.get('fh'); stage.setFloorHeight(Q.get('fh') / 100); }
   if (Q.get('v')) { lastView = Q.get('v'); if (Q.get('v') === 'medial' && !Q.get('split')) setSplit('apart', { instant: true, halves: 'left' }); stage.preset(Q.get('v'), 1); }
   if (Q.get('density')) setDensity(Q.get('density'));
   if (Q.get('eyecut')) setEyecut(Q.get('eyecut') === '1');
   if (Q.get('sel')) select(Q.get('sel'), { fly: Q.get('fly') !== '0', reveal: true });
-  if (Q.get('quiz')) { quizStart(); if (Q.get('quiz') === 'next') { quizNext(); if (Q.get('reveal')) { app.quiz.revealed = true; quizRender(); } } }
+  if (Q.get('quiz')) { quizStart(); if (Q.get('qpin')) { quizPick(Q.get('qpin')); flyTo(Q.get('qpin'), true); } else if (Q.get('quiz') === 'next') quizNext(); if (Q.get('ans') != null) quizSubmit(Q.get('ans')); }
   if (Q.get('sheet')) sheet(Q.get('sheet'));
   if (Q.get('full')) { $('#app').style.transition = 'none'; $('#app').classList.add('full'); $('#btn-full').setAttribute('aria-pressed', 'true'); }
   if (Q.get('q')) { $('#search').value = Q.get('q'); filterIndex(Q.get('q')); }

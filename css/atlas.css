@@ -221,3 +221,23 @@ button { cursor: pointer; }
   .app.full .viewbar { display: flex; }
   .app.full .side { transform: translateY(calc(100% + 60px)); visibility: hidden; }
 }
+.floorh { display: inline-flex; align-items: center; gap: 8px; padding: 4px 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 7px; box-shadow: var(--shadow); font-size: 13px; color: var(--fg-2); }
+.floorh input { width: 110px; accent-color: var(--accent); margin: 0; }
+.selection .find { margin-top: 10px; padding: 8px 10px; border-radius: 6px; background: var(--accent-soft); font-size: 13.5px; color: var(--fg); }
+.selection .find b { font-weight: 600; }
+.quiz .answer { display: flex; gap: 6px; margin-top: 10px; }
+.quiz .answer input, .qfloat input { flex: 1; min-width: 0; height: 36px; padding: 0 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--panel); font-size: 16px; }
+.quiz .fb, .qfloat .fb { margin-top: 10px; padding: 8px 10px; border-radius: 6px; font-size: 14px; line-height: 1.35; overflow-wrap: anywhere; border: 1px solid; }
+.fb.ok { color: var(--good); background: color-mix(in srgb, var(--good) 10%, transparent); }
+.fb.close { color: var(--good); background: color-mix(in srgb, var(--good) 8%, transparent); border-style: dashed; }
+.fb.no { color: var(--bad); background: color-mix(in srgb, var(--bad) 9%, transparent); }
+.fb b { font: 600 15px/1.3 var(--serif); color: var(--fg); display: block; }
+.fb small { display: block; color: var(--fg-3); font-size: 12.5px; margin-top: 2px; }
+.quiz .hintrow { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: 13.5px; color: var(--fg-2); }
+.quiz .hintrow input { width: 16px; height: 16px; margin: 0; accent-color: var(--accent); }
+/* phones: the answer strip sits at the top of the specimen, clear of the keyboard and of the pin */
+.qfloat { position: absolute; left: var(--gut-l); right: var(--gut-r); top: 56px; z-index: 6; padding: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow); }
+.qfloat .pn { font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-3); }
+.qfloat .answer, .qfloat .row { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.qfloat .fb { margin-top: 6px; }
+.qfloat .btn { padding: 6px 10px; box-shadow: none; }

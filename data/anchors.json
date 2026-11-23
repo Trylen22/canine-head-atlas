@@ -104,7 +104,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+0.0,
+-1.0
+],
+"ring": 0.09,
+"best": "surface",
+"kind": "opening"
 },
 "temporal-bone": {
 "pos": [
@@ -132,14 +140,23 @@
 },
 "petrosal-part-of-the-temporal-bone": {
 "pos": [
--0.573,
--0.076,
--0.125
+-0.555,
+-0.02,
+-0.18
 ],
 "side": "left",
 "views": [
+"calvaria",
 "bisected"
-]
+],
+"normal": [
+0.0,
+0.707,
+0.707
+],
+"ring": 0.05,
+"best": "calvaria",
+"kind": "opening"
 },
 "zygomatic-process-of-temporal-bone": {
 "pos": [
@@ -222,7 +239,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+1.0,
+0.0,
+0.0
+],
+"ring": 0.08,
+"best": "surface",
+"kind": "opening"
 },
 "orbit": {
 "pos": [
@@ -282,31 +307,55 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+0.0,
+-1.0
+],
+"ring": 0.05,
+"best": "surface",
+"kind": "opening"
 },
 "optic-canal": {
 "pos": [
--0.12,
-0.06,
--0.1
+-0.225,
+0.047,
+-0.075
 ],
 "side": "left",
 "views": [
-"surface",
+"calvaria",
 "bisected"
-]
+],
+"normal": [
+-0.497,
+0.845,
+0.199
+],
+"ring": 0.018,
+"best": "calvaria",
+"kind": "opening"
 },
 "orbital-fissure": {
 "pos": [
--0.17,
-0.0,
--0.12
+-0.262,
+0.05,
+-0.155
 ],
 "side": "left",
 "views": [
-"surface",
+"calvaria",
 "bisected"
-]
+],
+"normal": [
+-0.539,
+0.647,
+0.539
+],
+"ring": 0.028,
+"best": "calvaria",
+"kind": "opening"
 },
 "rostral-alar-foramen": {
 "pos": [
@@ -318,7 +367,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.707,
+0.0,
+-0.707
+],
+"ring": 0.018,
+"best": "surface",
+"kind": "opening"
 },
 "maxillary-foramen": {
 "pos": [
@@ -330,7 +387,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+-0.693,
+0.198,
+-0.693
+],
+"ring": 0.025,
+"best": "surface",
+"kind": "opening"
 },
 "fossa-for-lacrimal-sac": {
 "pos": [
@@ -342,7 +407,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+-0.505,
+0.303,
+-0.808
+],
+"ring": 0.018,
+"best": "surface",
+"kind": "opening"
 },
 "infraorbital-foramen": {
 "pos": [
@@ -354,7 +427,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.6,
+0.0,
+-0.8
+],
+"ring": 0.022,
+"best": "surface",
+"kind": "opening"
 },
 "paracondylar-process": {
 "pos": [
@@ -414,7 +495,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+0.0,
+-1.0
+],
+"ring": 0.04,
+"best": "surface",
+"kind": "opening"
 },
 "promontory-of-petrous-part-of-the-tempor": {
 "pos": [
@@ -449,7 +538,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+-1.0,
+0.0
+],
+"ring": 0.018,
+"best": "surface",
+"kind": "opening"
 },
 "caudal-alar-foramen": {
 "pos": [
@@ -461,31 +558,55 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+-0.6,
+-0.8,
+0.0
+],
+"ring": 0.014,
+"best": "surface",
+"kind": "opening"
 },
 "round-foramen": {
 "pos": [
--0.31,
--0.05,
--0.12
+-0.325,
+-0.027,
+-0.182
 ],
 "side": "left",
 "views": [
-"surface",
+"calvaria",
 "bisected"
-]
+],
+"normal": [
+-0.508,
+0.609,
+0.609
+],
+"ring": 0.016,
+"best": "calvaria",
+"kind": "opening"
 },
 "oval-foramen": {
 "pos": [
 -0.466,
 -0.154,
--0.158
+-0.16
 ],
 "side": "left",
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+-1.0,
+0.0
+],
+"ring": 0.024,
+"best": "surface",
+"kind": "opening"
 },
 "tympano-occipital-fissure": {
 "pos": [
@@ -497,7 +618,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+-1.0,
+0.0
+],
+"ring": 0.028,
+"best": "surface",
+"kind": "opening"
 },
 "hypoglossal-canal": {
 "pos": [
@@ -509,7 +638,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+-1.0,
+0.0
+],
+"ring": 0.012,
+"best": "surface",
+"kind": "opening"
 },
 "mandibular-fossa-of-zygomatic-process-of": {
 "pos": [
@@ -521,7 +658,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+-1.0,
+0.0
+],
+"ring": 0.03,
+"best": "surface",
+"kind": "opening"
 },
 "retroarticular-process": {
 "pos": [
@@ -545,7 +690,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+-0.707,
+-0.707
+],
+"ring": 0.012,
+"best": "surface",
+"kind": "opening"
 },
 "hard-palate": {
 "pos": [
@@ -568,7 +721,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+-1.0,
+0.0
+],
+"ring": 0.02,
+"best": "surface",
+"kind": "opening"
 },
 "choanae": {
 "pos": [
@@ -579,7 +740,15 @@
 "side": "left",
 "views": [
 "bisected"
-]
+],
+"normal": [
+-1.0,
+0.0,
+0.0
+],
+"ring": 0.05,
+"best": "bisected",
+"kind": "opening"
 },
 "foramen-magnum": {
 "pos": [
@@ -589,9 +758,18 @@
 ],
 "side": "median",
 "views": [
-"surface",
-"bisected"
-]
+"bisected",
+"calvaria",
+"surface"
+],
+"normal": [
+-1.0,
+0.0,
+0.0
+],
+"ring": 0.09,
+"best": "surface",
+"kind": "opening"
 },
 "mandible-group": {
 "pos": [
@@ -651,7 +829,15 @@
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+0.0,
+-1.0
+],
+"ring": 0.07,
+"best": "surface",
+"kind": "opening"
 },
 "coronoid-process": {
 "pos": [
@@ -674,7 +860,15 @@
 "side": "left",
 "views": [
 "bisected"
-]
+],
+"normal": [
+0.0,
+0.0,
+1.0
+],
+"ring": 0.018,
+"best": "bisected",
+"kind": "opening"
 },
 "mandibular-canal": {
 "pos": [
@@ -689,15 +883,23 @@
 },
 "mental-foramina": {
 "pos": [
-0.65,
--0.36,
--0.1
+0.525,
+-0.405,
+-0.045
 ],
 "side": "left",
 "views": [
 "surface",
 "bisected"
-]
+],
+"normal": [
+0.0,
+0.0,
+-1.0
+],
+"ring": 0.012,
+"best": "surface",
+"kind": "opening"
 },
 "condylar-process": {
 "pos": [
@@ -857,91 +1059,163 @@
 },
 "cribriform-plate": {
 "pos": [
-0.026,
-0.133,
--0.032
-],
-"side": "left",
-"views": [
-"bisected"
-]
-},
-"rostral-cranial-fossa": {
-"pos": [
--0.107,
+-0.063,
 0.02,
--0.047
-],
-"side": "left",
-"views": [
-"bisected"
-]
-},
-"middle-cranial-fossa": {
-"pos": [
--0.373,
--0.057,
--0.034
-],
-"side": "left",
-"views": [
-"bisected"
-]
-},
-"sella-turcica": {
-"pos": [
--0.3,
--0.04,
 -0.01
 ],
 "side": "median",
 "views": [
+"calvaria",
 "bisected"
-]
+],
+"normal": [
+-0.6,
+0.8,
+0.0
+],
+"ring": 0.05,
+"best": "calvaria",
+"kind": "opening"
+},
+"rostral-cranial-fossa": {
+"pos": [
+-0.15,
+0.03,
+-0.02
+],
+"side": "left",
+"views": [
+"calvaria",
+"bisected"
+],
+"normal": [
+0.0,
+1.0,
+0.0
+],
+"ring": 0.06,
+"best": "calvaria",
+"kind": "opening"
+},
+"middle-cranial-fossa": {
+"pos": [
+-0.362,
+-0.065,
+-0.15
+],
+"side": "left",
+"views": [
+"calvaria",
+"bisected"
+],
+"normal": [
+0.0,
+1.0,
+0.0
+],
+"ring": 0.07,
+"best": "calvaria",
+"kind": "opening"
+},
+"sella-turcica": {
+"pos": [
+-0.4,
+-0.062,
+0.0
+],
+"side": "median",
+"views": [
+"calvaria",
+"bisected"
+],
+"normal": [
+0.0,
+1.0,
+0.0
+],
+"ring": 0.035,
+"best": "calvaria",
+"kind": "opening"
 },
 "caudal-cranial-fossa": {
 "pos": [
--0.65,
--0.05,
--0.1
+-0.6,
+-0.134,
+-0.03
 ],
 "side": "left",
 "views": [
+"calvaria",
 "bisected"
-]
+],
+"normal": [
+0.0,
+1.0,
+0.0
+],
+"ring": 0.08,
+"best": "calvaria",
+"kind": "opening"
 },
 "canal-for-trigeminal-nerve": {
 "pos": [
--0.506,
--0.047,
--0.1
+-0.475,
+-0.055,
+-0.163
 ],
 "side": "left",
 "views": [
+"calvaria",
 "bisected"
-]
+],
+"normal": [
+0.6,
+0.8,
+0.0
+],
+"ring": 0.02,
+"best": "calvaria",
+"kind": "opening"
 },
 "internal-acoustic-meatus": {
 "pos": [
--0.601,
-0.0,
--0.18
+-0.55,
+-0.01,
+-0.158
 ],
 "side": "left",
 "views": [
+"calvaria",
 "bisected"
-]
+],
+"normal": [
+0.0,
+0.6,
+0.8
+],
+"ring": 0.018,
+"best": "calvaria",
+"kind": "opening"
 },
 "jugular-foramen": {
 "pos": [
--0.715,
--0.086,
--0.145
+-0.64,
+-0.105,
+-0.13
 ],
 "side": "left",
 "views": [
+"calvaria",
 "bisected"
-]
+],
+"normal": [
+0.0,
+1.0,
+0.0
+],
+"ring": 0.02,
+"best": "calvaria",
+"kind": "opening"
 },
 "nasal-cavity-group": {
 "pos": [

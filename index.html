@@ -40,12 +40,14 @@
         <button data-split="whole" aria-pressed="true">Whole</button>
         <button data-split="apart" aria-pressed="false">Bisected</button>
         <button data-split="tray" aria-pressed="false" title="Both halves laid flat, cut faces up">Tray</button>
+        <button data-split="floor" aria-pressed="false" title="Calvaria removed">Floor</button>
       </div>
       <div class="seg seg-halves" role="group" aria-label="Halves shown" id="seg-halves" hidden>
         <button data-halves="both" aria-pressed="true">Both</button>
         <button data-halves="left" aria-pressed="false">Left</button>
         <button data-halves="right" aria-pressed="false">Right</button>
       </div>
+      <label class="floorh" id="floor-h-wrap" hidden><span>Cut height</span><input type="range" id="floor-h" min="-30" max="20" value="0" aria-label="Cut height"></label>
       <div class="seg seg-layers" role="group" aria-label="Layers" id="full-layers">
         <button data-layer="bone" aria-pressed="true" title="1. Bone">1</button>
         <button data-layer="nv_sup" aria-pressed="true" title="2a. Nerves &amp; blood vessels, superficial">2a</button>
@@ -74,6 +76,7 @@
       <button data-view="reset" class="reset" title="Reset view">Reset</button>
     </div>
 
+    <div class="qfloat" id="quiz-float" hidden></div>
     <div class="status" id="status" role="status">Loading skull&hellip;</div>
     <div class="compass" id="compass" aria-hidden="true"></div>
   </main>

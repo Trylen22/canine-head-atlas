@@ -7,7 +7,7 @@ import { makeMaterial, makeCapMaterial, capRank } from './materials.js';
 
 export const LAYERS = ['bone', 'nv_sup', 'nv_deep', 'ms_sup', 'ms_deep'];
 const EPS_SIDE = 0.004;          // 0.4 mm over the median plane still counts as one-sided
-const HILITE = new THREE.Color(0x2f7fc0);
+const HINT = new THREE.Color(0x9fc6ea), AMBER = new THREE.Color(0xff9d2e), FILL = new THREE.Color(0xff7a00), _grey = new THREE.Color(), _v3 = new THREE.Vector3(), ZAXIS = new THREE.Vector3(0, 0, 1), YAXIS = new THREE.Vector3(0, 1, 0);
 const reduceMotion = () => window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const _m = new THREE.Matrix4(), _v = new THREE.Vector3(), _v2 = new THREE.Vector3(), _box = new THREE.Box3();
@@ -38,12 +38,12 @@ export class Stage {
     r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 0.98;
     r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
     this.scene.add(new THREE.HemisphereLight(0xfff8ee, 0x8f8272, 0.5));
-    const key = this.key = new THREE.DirectionalLight(0xfff3e2, 3.1); this.keyDir = new THREE.Vector3(0.42, 1, -0.62).normalize();
+    const key = this.key = new THREE.DirectionalLight(0xfff3e2, 2.75); this.keyDir = new THREE.Vector3(0.42, 1, -0.62).normalize();
     key.castShadow = true; key.shadow.mapSize.set(2048, 2048); key.shadow.bias = -0.0004; key.shadow.normalBias = 0.014; key.shadow.radius = 5;
     const sc = key.shadow.camera; sc.left = -2.3; sc.right = 2.0; sc.top = 1.5; sc.bottom = -1.5; sc.near = 1; sc.far = 12; sc.updateProjectionMatrix();
     const key2 = this.key2 = new THREE.DirectionalLight(0xfff3e2, 1.15);
     this.scene.add(key, key.target, key2, key2.target);
-    const fill = new THREE.DirectionalLight(0xdbe6ff, 0.6); fill.position.set(0.8, 0.2, 2);
+    const fill = new THREE.DirectionalLight(0xe6edff, 1.35); fill.position.set(0.8, 0.2, 2);   // strong enough that the ventral and medial views are never murky
     const rim = new THREE.DirectionalLight(0xffdcb8, 1.5); rim.position.set(-1.4, 2.4, -7);
     for (const l of [fill, rim]) { this.camera.add(l); this.camera.add(l.target); l.target.position.set(0, 0, -4); }
     this._aimKey();
@@ -72,6 +72,19 @@ export class Stage {
     this.parts = []; this.byTerm = new Map(); this.caps = new Map();
     this.layers = {}; for (const k of LAYERS) this.layers[k] = { visible: true, opacity: 1 };
     this.split = 'whole'; this.splitT = 0; this.pose = 'apart'; this.halves = 'both';
+    // (normal as validated against the anchors: three Plane((-0.12, -1, 0), 0.146) before normalising)
+    // Floor view: a near-horizontal cut that takes the calvaria off. Everything is clipped by
+    // floorPlane; the bone above it is drawn once more as a lid that lifts away and fades.
+    this.floorN = new THREE.Vector3(-0.12, -1, 0).normalize(); this.floorP0 = new THREE.Vector3(-0.45, 0.20, 0); this.floorOff = 0;
+    this.floorPlane = new THREE.Plane(); this.lidPlane = new THREE.Plane(); this.floorPlanes = [this.floorPlane];
+    this.gF = new THREE.Group(); this.gLid = new THREE.Group(); this.scene.add(this.gF, this.gLid);
+    this.floor = false; this.floorT = 0; this.pulse = 1; this.outlines = []; this.marker = null; this.hintParts = new Set(); this.hintObjs = [];
+    { const base = { colorWrite: false, depthWrite: false, depthTest: false, stencilWrite: true, stencilFunc: THREE.AlwaysStencilFunc, transparent: true, clippingPlanes: this.floorPlanes };
+      this.stencil.F = {
+        back: new THREE.MeshBasicMaterial({ ...base, side: THREE.BackSide, stencilFail: THREE.IncrementWrapStencilOp, stencilZFail: THREE.IncrementWrapStencilOp, stencilZPass: THREE.IncrementWrapStencilOp }),
+        front: new THREE.MeshBasicMaterial({ ...base, side: THREE.FrontSide, stencilFail: THREE.DecrementWrapStencilOp, stencilZFail: THREE.DecrementWrapStencilOp, stencilZPass: THREE.DecrementWrapStencilOp }),
+      }; }
+    this._setFloorPlane();
     this.selParts = new Set(); this.hovParts = new Set();
     this.center = new THREE.Vector3(0.14, 0, 0); this.radius = 1.25;
     this.frameCbs = []; this.dirty = true; this.moved = true;
@@ -137,6 +150,16 @@ export class Stage {
         }
       }
     }
+    mat.userData.baseColor = mat.color.clone(); mat.clipShadows = true;
+    part.stencilsF = [];
+    if (!spec.noCap && solid) {
+      const cap = this._capGroup(layer, spec.capKind || spec.kind, 'F');
+      for (const st of ['back', 'front']) { const sm = mk(this.stencil.F[st], cap.group, true); sm.renderOrder = cap.order; part.stencilsF.push(sm); }
+    }
+    if (spec.tag === 'skull') {
+      const lm = mat.clone(); lm.userData = mat.userData; lm.onBeforeCompile = mat.onBeforeCompile; lm.clippingPlanes = [this.lidPlane]; lm.transparent = true;
+      part.lidMat = lm; part.lid = mk(lm, this.gLid); part.lid.castShadow = false; part.lid.visible = false;
+    }
     this.parts.push(part);
     if (part.termId) { if (!this.byTerm.has(part.termId)) this.byTerm.set(part.termId, []); this.byTerm.get(part.termId).push(part); }
     this._applyPart(part); this.dirty = true;
@@ -148,17 +171,18 @@ export class Stage {
     let c = this.caps.get(key);
     if (c) return c;
     const order = 100 + this.caps.size * 2;
-    const group = new THREE.Group(); (h === 'L' ? this.gL : this.gR).add(group);
+    const group = new THREE.Group(); (h === 'L' ? this.gL : h === 'R' ? this.gR : this.gF).add(group);
     const mat = makeCapMaterial(kind);
     Object.assign(mat, { transparent: true, stencilWrite: true, stencilRef: 0, stencilFunc: THREE.NotEqualStencilFunc, stencilFail: THREE.ReplaceStencilOp, stencilZFail: THREE.ReplaceStencilOp, stencilZPass: THREE.ReplaceStencilOp });
     const quad = new THREE.Mesh(this.capGeo, mat);
     // higher rank sits a hair proud of the plane, so bone wins over muscle where solids overlap
-    quad.position.z = (h === 'L' ? 1 : -1) * 0.0004 * capRank(kind);
+    if (h !== 'F') quad.position.z = (h === 'L' ? 1 : -1) * 0.0004 * capRank(kind);
     quad.renderOrder = order + 1; quad.receiveShadow = true;
     quad.onAfterRender = renderer => renderer.clearStencil();
     group.add(quad);
-    c = { key, layer, kind, h, group, quad, mat, order };
+    c = { key, layer, kind, h, group, quad, mat, order, base: mat.color.clone() };
     this.caps.set(key, c);
+    if (h === 'F') this._setFloorPlane();
     return c;
   }
 
@@ -176,33 +200,120 @@ export class Stage {
 
   _visible(p) { return this.layers[p.layer].visible && !p.hidden; }
   _applyPart(p) {
-    const L = this.layers[p.layer], vis = this._visible(p), split = this.splitT > 0;
+    const L = this.layers[p.layer], vis = this._visible(p), split = this.splitT > 0, floorOn = this.floor || this.floorT > 0;
     const op = L.opacity * p.baseOpacity;
-    const sel = this.selParts.has(p), hov = this.hovParts.has(p);
+    const sel = this.selParts.has(p), hov = this.hovParts.has(p), dim = !sel && this.selParts.size > 0;
     for (const m of p.mats) {
       m.opacity = op; m.transparent = op < 0.999; m.depthWrite = p.baseOpacity > 0.6;
-      m.emissive.copy(m.userData.baseEmissive);
-      if (sel) m.emissive.lerp(HILITE, 0.42); else if (hov) m.emissive.lerp(HILITE, 0.2);
+      const base = m.userData.baseColor || m.color;
       m.emissiveIntensity = 1;
+      if (sel) { m.color.copy(base).lerp(FILL, 0.85); m.emissive.copy(FILL).multiplyScalar(0.1 + 0.2 * this.pulse); }
+      else if (dim) { const l = base.r * 0.3 + base.g * 0.59 + base.b * 0.11; m.color.copy(base).lerp(_grey.setRGB(l, l, l), 0.25).multiplyScalar(0.55); m.emissive.copy(m.userData.baseEmissive).multiplyScalar(0.55); if (hov) m.emissive.lerp(AMBER, 0.2); }
+      else if (this.hintParts.has(p)) { m.color.copy(base).lerp(HINT, 0.3); m.emissive.copy(HINT).multiplyScalar(0.07); }
+      else { m.color.copy(base); m.emissive.copy(m.userData.baseEmissive); if (hov) m.emissive.lerp(AMBER, 0.24); }
     }
+    // the unsplit mesh is the one the floor plane cuts
+    const m0 = p.mats[0], want = floorOn ? this.floorPlanes : null;
+    if (m0.clippingPlanes !== want) { m0.clippingPlanes = want; m0.needsUpdate = true; }
     if (p.side !== 'X') p.meshes[p.side].visible = vis;
     else { p.meshes.W.visible = vis && !split; p.meshes.L.visible = p.meshes.R.visible = vis && split; }
-    for (const s of p.stencils) s.visible = vis && split;
+    for (const st of p.stencils) st.visible = vis && split;
+    for (const st of p.stencilsF) st.visible = vis && floorOn && !split;
+    if (p.lid) { const k = 1 - ease(this.floorT); p.lid.visible = vis && floorOn && k > 0.004; p.lidMat.opacity = L.opacity * k; p.lidMat.depthWrite = k > 0.6; p.lidMat.color.copy(m0.color); p.lidMat.emissive.copy(m0.emissive); }
   }
   refresh() {
     for (const p of this.parts) this._applyPart(p);
+    const floorOn = this.floor || this.floorT > 0, dim = this.selParts.size > 0;
     for (const c of this.caps.values()) {
       const L = this.layers[c.layer];
-      c.group.visible = this.splitT > 0 && L.visible;
-      c.mat.opacity = L.opacity;
+      c.group.visible = L.visible && (c.h === 'F' ? floorOn && this.splitT === 0 : this.splitT > 0);
+      c.mat.opacity = L.opacity; c.mat.color.copy(c.base).multiplyScalar(dim ? 0.6 : 1);
     }
-    if (this.shadow) this.shadow.visible = !this.noShadow && !(this.splitT > 0 && this.pose === 'tray');
+    for (const o of [...this.outlines, ...this.hintObjs]) { const src = o.userData.src; if (!src) continue; o.visible = src.visible; const cp = src.material.clippingPlanes || null; if (o.material.clippingPlanes !== cp) { o.material.clippingPlanes = cp; o.material.needsUpdate = true; } }
+    if (this.shadow) this.shadow.visible = !this.noShadow && !floorOn && !(this.splitT > 0 && this.pose === 'tray');
     this.gL.visible = this.halves !== 'right' || this.splitT === 0;
     this.gR.visible = this.halves !== 'left' || this.splitT === 0;
     this.dirty = this.moved = true;
   }
   setLayer(key, st) { Object.assign(this.layers[key], st); this.refresh(); }
-  setSelected(parts) { this.selParts = new Set(parts || []); this.refresh(); }
+  setSelected(parts) {
+    this.selParts = new Set(parts || []);
+    for (const o of this.outlines) { o.parent && o.parent.remove(o); o.material.dispose(); }
+    this.outlines = [];
+    // inverted hull: the same mesh pushed out along its normals, back faces only, in flat amber
+    for (const p of this.selParts) {
+      if (p.baseOpacity < 0.5) continue;
+      const sc = Math.cbrt(Math.abs(p.matrix.determinant())) || 1, th = 0.006 / sc;
+      for (const src of Object.values(p.meshes)) {
+        const m = new THREE.MeshBasicMaterial({ color: 0xff8f1f, side: THREE.BackSide, toneMapped: false });
+        m.onBeforeCompile = sh => { sh.vertexShader = sh.vertexShader.replace('#include <begin_vertex>', `vec3 transformed = position + normalize( normal ) * ${th.toFixed(6)};`); };
+        m.customProgramCacheKey = () => 'hull' + th.toFixed(6);
+        const o = new THREE.Mesh(p.geometry, m); o.matrixAutoUpdate = false; o.matrix.copy(p.matrix); o.userData.src = src; src.parent.add(o); this.outlines.push(o);
+      }
+    }
+    this.refresh();
+  }
+  // Quiz hint: a faint cool tint and a thin outline on the structure a pin belongs to, or a soft
+  // disc over an opening. Deliberately much quieter than the selection highlight.
+  setHint(spec) {
+    for (const o of this.hintObjs) { o.parent && o.parent.remove(o); o.material.dispose(); if (o.userData.own) o.geometry.dispose(); }
+    this.hintObjs = []; this.hintParts = new Set((spec && spec.parts) || []);
+    for (const p of this.hintParts) {
+      if (p.baseOpacity < 0.5) continue;
+      const sc = Math.cbrt(Math.abs(p.matrix.determinant())) || 1, th = 0.0028 / sc;
+      for (const src of Object.values(p.meshes)) {
+        const m = new THREE.MeshBasicMaterial({ color: 0x8fb8de, side: THREE.BackSide, toneMapped: false, transparent: true, opacity: 0.55 });
+        m.onBeforeCompile = sh => { sh.vertexShader = sh.vertexShader.replace('#include <begin_vertex>', `vec3 transformed = position + normalize( normal ) * ${th.toFixed(6)};`); };
+        m.customProgramCacheKey = () => 'hint' + th.toFixed(6);
+        const o = new THREE.Mesh(p.geometry, m); o.matrixAutoUpdate = false; o.matrix.copy(p.matrix); o.userData.src = src; src.parent.add(o); this.hintObjs.push(o);
+      }
+    }
+    if (spec && spec.disc) {
+      const d = spec.disc, n = d.normal.clone().normalize(), q = new THREE.Quaternion().setFromUnitVectors(ZAXIS, n), R = d.r * 1.7;
+      const mk = (geo, opacity) => { const o = new THREE.Mesh(geo, new THREE.MeshBasicMaterial({ color: 0x9fc6ea, toneMapped: false, transparent: true, opacity, depthWrite: false, side: THREE.DoubleSide })); o.quaternion.copy(q); o.position.copy(d.pos).addScaledVector(n, 0.004); o.userData.own = true; o.renderOrder = 900; (d.side === 'right' ? this.gR : this.gL).add(o); this.hintObjs.push(o); };
+      mk(new THREE.CircleGeometry(R, 40), 0.28); mk(new THREE.RingGeometry(R * 0.96, R, 48), 0.6);
+    }
+    this.refresh();
+  }
+  // Ring marker for point terms (foramina, canals, fossae): seated on the opening, a cone pointing
+  // in along -normal, a pulse, and a dim copy drawn through whatever is in front.
+  setMarker(spec) {
+    if (this.marker) { this.marker.parent && this.marker.parent.remove(this.marker); this.marker.traverse(o => { if (o.isMesh) { o.geometry.dispose(); o.material.dispose(); } }); this.marker = null; }
+    if (!spec) { this.dirty = true; return; }
+    const r = spec.r || 0.02, n = spec.normal.clone().normalize(), g = new THREE.Group();
+    const solid = () => new THREE.MeshBasicMaterial({ color: 0xff9d2e, toneMapped: false });
+    const ghost = () => new THREE.MeshBasicMaterial({ color: 0xffb964, toneMapped: false, transparent: true, opacity: 0.3, depthTest: false, depthWrite: false });
+    const tube = Math.max(0.0022, r * 0.1), ring = new THREE.TorusGeometry(r, tube, 10, 48);
+    const q = new THREE.Quaternion().setFromUnitVectors(ZAXIS, n);
+    const add = (geo, mat, order) => { const m = new THREE.Mesh(geo, mat); m.quaternion.copy(q); m.renderOrder = order; g.add(m); return m; };
+    add(ring, ghost(), 1000); add(ring, solid(), 1001);
+    g.userData.pulse = add(new THREE.TorusGeometry(r, tube * 0.7, 8, 48), new THREE.MeshBasicMaterial({ color: 0xffc27a, toneMapped: false, transparent: true, opacity: 0.8, depthWrite: false }), 1002);
+    const len = Math.max(0.03, r * 1.9), cone = new THREE.ConeGeometry(Math.max(0.008, r * 0.42), len, 16); cone.rotateX(-Math.PI / 2); cone.translate(0, 0, len / 2 + Math.max(0.006, r * 0.35));
+    g.userData.cones = [add(cone, ghost(), 1000), add(cone, solid(), 1001)];
+    // seen down the axis the cone is only a blob, so four inward ticks stand in for it
+    const ticks = []; for (let k = 0; k < 4; k++) { const t = new THREE.BoxGeometry(r * 0.42, tube * 1.5, tube * 1.5); t.translate(r * 0.58, 0, 0); t.rotateZ(k * Math.PI / 2 + Math.PI / 4); ticks.push(t); }
+    g.userData.ticks = ticks.flatMap(t => [add(t, ghost(), 1000), add(t, solid(), 1001)]);
+    for (const t of g.userData.ticks) t.visible = false;
+    g.userData.n = n;
+    g.position.copy(spec.pos).addScaledVector(n, 0.002);
+    (spec.side === 'right' ? this.gR : this.gL).add(g); this.marker = g; this.dirty = true;
+  }
+  // ------------------------------------------------------------------ floor (calvaria removed)
+  _setFloorPlane() {
+    const p = _v3.copy(this.floorP0); p.y += this.floorOff;
+    this.floorPlane.setFromNormalAndCoplanarPoint(this.floorN, p);
+    const lift = 0.55 * ease(this.floorT);
+    this.gLid.position.set(0, lift, 0);
+    this.lidPlane.setFromNormalAndCoplanarPoint(_v2.copy(this.floorN).negate(), _v.copy(p).add(new THREE.Vector3(0, lift, 0)));
+    if (this.caps) for (const c of this.caps.values()) if (c.h === 'F') { c.quad.quaternion.setFromUnitVectors(ZAXIS, _v2.copy(this.floorN).negate()); c.quad.position.copy(p).addScaledVector(this.floorN, -0.0004 * capRank(c.kind)); }
+    this.dirty = true;
+  }
+  setFloor(on, instant) {
+    if (on) this.floor = true;
+    this._floorAnim = { from: this.floorT, to: on ? 1 : 0, t0: performance.now(), dur: instant || this.instant || reduceMotion() ? 1 : 1100 };
+    this.dirty = true;
+  }
+  setFloorHeight(dy) { this.floorOff = dy; this._setFloorPlane(); this.moved = true; }
   setHover(parts) { parts = parts || []; if (parts.length === this.hovParts.size && parts.every(p => this.hovParts.has(p))) return; this.hovParts = new Set(parts); for (const p of this.parts) this._applyPart(p); this.dirty = true; }
   setTagHidden(tag, hidden) { for (const p of this.parts) if (p.tag === tag) p.hidden = hidden; this.refresh(); }
 
@@ -237,14 +348,15 @@ export class Stage {
     const c = this.center.clone(), tan = Math.tan(this.camera.fov * Math.PI / 360), sz = this.size || new THREE.Vector3(2.1, 1.1, 1.25);
     // half extents on screen (horizontal, vertical) for each view
     const L = sz.x / 2, Hh = sz.y / 2, Wd = sz.z / 2;
-    let [hw, hh] = { left: [L, Hh], right: [L, Hh], medial: [L, Hh], dorsal: [Wd, L], ventral: [Wd, L], rostral: [Wd, Hh], caudal: [Wd, Hh], reset: [L * 0.95, Hh * 1.15] }[name] || [L, Hh];
+    let [hw, hh] = { left: [L, Hh], right: [L, Hh], medial: [L, Hh], dorsal: [Wd, L], ventral: [Wd, L], rostral: [Wd, Hh], caudal: [Wd, Hh], reset: [L * 0.95, Hh * 1.15], floor: [Wd * 1.05, L * 0.92] }[name] || [L, Hh];
     const split = this.split !== 'whole';
     if (split && this.pose === 'tray') { hh = Hh * 2 + 0.2; hw = L; }
     else if (split && this.halves === 'both') { if (hw === Wd) hw += 0.42; if (name === 'dorsal' || name === 'ventral') hw = Wd + 0.42; if (name === 'reset') hw += 0.3; }
     const side = this.width > 700 ? 0.66 : 0.8;
-    if (hw === L) { hw += 0.1; c.x += 0.1; }                      // room for the nose in front of the skull                   // leave the margins to the label columns
+    if (hw === L) { hw += 0.1; c.x += 0.1; }
+    if (name === 'floor') { c.x -= 0.12; c.y -= 0.1; }                      // room for the nose in front of the skull                   // leave the margins to the label columns
     const fit = Math.max(hh / tan / 0.8, hw / (tan * this.camera.aspect * side));
-    const D = { left: [0.02, 0.12, -1], right: [-0.02, 0.12, 1], dorsal: [-0.015, 1, 0], ventral: [-0.015, -1, 0], rostral: [1, 0.1, 0.0], caudal: [-1, 0.1, 0.0], medial: [0.02, 0.08, 1], reset: [0.45, 0.3, -1] }[name] || [0, 0, -1];
+    const D = { left: [0.02, 0.12, -1], right: [-0.02, 0.12, 1], dorsal: [-0.015, 1, 0], ventral: [-0.015, -1, 0], rostral: [1, 0.1, 0.0], caudal: [-1, 0.1, 0.0], medial: [0.02, 0.08, 1], reset: [0.45, 0.3, -1], floor: [-0.36, 0.93, 0] }[name] || [0, 0, -1];
     const d = new THREE.Vector3(...D).normalize();
     if (split && this.pose === 'tray') d.set(0.01, 0.05, 1).normalize();
     this.flyTo(c.clone().addScaledVector(d, fit), c, dur);
@@ -270,6 +382,29 @@ export class Stage {
       this._poseHalves(); this.refresh();
       if (u >= 1) { this._splitAnim = null; if (this.onSplitDone) this.onSplitDone(); }
     }
+    const fa = this._floorAnim;
+    if (fa) {
+      const u = Math.min(1, Math.max(0, (now - fa.t0) / fa.dur));
+      this.floorT = fa.from + (fa.to - fa.from) * u;
+      if (u >= 1) { this._floorAnim = null; if (fa.to === 0) this.floor = false; }
+      this._setFloorPlane(); this.refresh();
+      if (u >= 1 && this.onSplitDone) this.onSplitDone();
+    }
+    // breathing highlight: 1.5 s cycle, redrawn without re-laying labels or re-rendering shadows
+    let pulseOnly = false;
+    if (this.selParts.size || this.marker) {
+      const ph = this.instant ? 0.35 : (now % 1500) / 1500;
+      this.pulse = this.instant ? 1 : 0.5 + 0.5 * Math.sin(ph * Math.PI * 2);
+      for (const p of this.selParts) for (const m of p.mats) m.emissive.copy(FILL).multiplyScalar(0.1 + 0.2 * this.pulse);
+      if (this.marker) {
+        const mk = this.marker, pr = mk.userData.pulse; pr.scale.setScalar(1 + 0.25 * ph); pr.material.opacity = 0.85 * (1 - ph);
+        mk.updateWorldMatrix(true, false);
+        const wn = _v.copy(mk.userData.n).transformDirection(mk.parent.matrixWorld), to = _v2.setFromMatrixPosition(mk.matrixWorld).sub(this.camera.position).normalize();
+        const axial = Math.abs(wn.dot(to)) > 0.82;                                   // within about 35 degrees of the hole's axis
+        if (mk.userData.axial !== axial) { mk.userData.axial = axial; for (const c of mk.userData.cones) c.visible = !axial; for (const t of mk.userData.ticks) t.visible = axial; this.dirty = true; }
+      }
+      if (!this.dirty && !this.instant) { pulseOnly = true; this.dirty = true; }
+    }
     const tw = this._tween;
     if (tw) {
       const u = Math.min(1, Math.max(0, (now - tw.start) / tw.dur)), e = ease(u);
@@ -286,19 +421,23 @@ export class Stage {
     }
     this.controls.update();
     if (!this.dirty) { this._lastT = 0; return; }
+    if (tw || fa || a) pulseOnly = false;
     if (this._lastT && !this.instant) { const dt = now - this._lastT; if (dt < 250) { this._slow = (this._slow || 0) * 0.9 + (dt > 26 ? 1 : 0); if (this._slow > 7 && !this.noShadow) { this._slow = 0; this._shadowStep(); } } }
     this._lastT = now;
     this.dirty = false;
     this.scene.updateMatrixWorld();
+    this.key.shadow.autoUpdate = false; this.key.shadow.needsUpdate = !pulseOnly || this.moved;
     this.renderer.render(this.scene, this.camera);
+    if (pulseOnly && !this.moved) return;
     const moved = this.moved; this.moved = false;
     for (const cb of this.frameCbs) cb(moved);
   }
 
   // ------------------------------------------------------------------ picking
   _entries(p) {
+    if (this.floor || this.floorT > 0) return [[p.side === 'X' ? 'W' : p.side, 'F']];
     if (p.side !== 'X') return [[p.side, false]];
-    return this.splitT > 0 ? [['L', true], ['R', true]] : [['W', false]];
+    return this.splitT > 0 ? [['L', 'H'], ['R', 'H']] : [['W', false]];
   }
   // Nearest visible surface (or cut face) along a world ray.
   cast(ray, skip) {
@@ -320,12 +459,13 @@ export class Stage {
           let bd = Infinity, bh = null;
           for (const h of bvh.raycast(_ray, THREE.DoubleSide)) {
             const q = _v2.copy(h.point).applyMatrix4(p.matrix);                 // half-local
-            if (k === 'L' ? q.z > 0 : q.z < 0) continue;
+            if (clipped === 'F' ? this.floorPlane.distanceToPoint(q) < 0 : (k === 'L' ? q.z > 0 : q.z < 0)) continue;
             const d = q.distanceToSquared(gr.origin);
             if (d < bd) { bd = d; bh = h; pt = _v.copy(q); }
           }
           if (bh && bh.face.normal.dot(_ray.direction) > 0) {                   // came in through the cut face
-            if (Math.abs(gr.direction.z) < 1e-6) pt = null;
+            if (clipped === 'F') pt = gr.intersectPlane(this.floorPlane, _v) ? _v : null;
+            else if (Math.abs(gr.direction.z) < 1e-6) pt = null;
             else { const t = -gr.origin.z / gr.direction.z; pt = t > 0 ? _v.copy(gr.direction).multiplyScalar(t).add(gr.origin) : null; }
           }
         }
